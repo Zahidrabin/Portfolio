@@ -51,285 +51,418 @@
        THE DATA ENGINE: Contains full mock metrics and case notes for 18 items.
        To update text metrics for a project, edit its properties below.
        ======================================================================== */
-    const projectDataStore = {
-      // EXCEL WORK CATEGORIES
-      "excel-01": {
-        tag: "Excel / Data Prep",
-        title: "E-Commerce Data Standardization Engine",
-        desc: "Designed and engineered an automated transformation template handling ingestion layout shifts across half a million unstructured vendor matrix nodes.",
-        tools: ["Power Query", "M Language", "Data Normalization"],
-        challenge: "Inconsistent regional formats, localized pricing syntax rules, and corrupted date logs created 22% failure metrics in quarterly reporting routines.",
-        metrics: [
-          { value: "50,000+", label: "Records Parsed" },
-          { value: "0.0%", label: "Pipeline Failure Rate" },
-          { value: "40 Hours", label: "Monthly Processing Saved" }
-        ],
-        approach: "Utilized Advanced M parameters to convert custom JSON arrays directly inside Excel columns, standardizing string capitalization, handling spaces, and running structural deduplication layers.",
-        insights: "Discovered 4% billing leakages due to localized currency syntax rounding anomalies during ETL validation loops.",
-        chartVal: 94
-      },
-      "excel-02": {
-        tag: "Excel / Business Intelligence",
-        title: "Dynamic Executive Sales Dashboard",
-        desc: "An interactive, low-latency performance cockpit engineered for commercial leadership without requiring premium cloud database architectures.",
-        tools: ["Pivot Tables", "Dynamic Slicers", "Advanced Charting"],
-        challenge: "Executive boards spend hours filtering raw records rather than evaluating product category lifecycle drops.",
-        metrics: [
-          { value: "<1s", label: "Interaction Latency" },
-          { value: "12 Tiers", label: "Segment Filters Included" },
-          { value: "14%", label: "Underperforming Margin Flagged" }
-        ],
-        approach: "Mapped data utilizing advanced dynamic named ranges with INDEX/MATCH parameters and linked Slicer caches across 6 decoupled pivot matrices for instantaneous state updates.",
-        insights: "Identified a sharp 14% drop in western territory cross-sell activity during the second month of promotional cycles.",
-        chartVal: 86
-      },
-      "excel-03": {
-        tag: "Excel / Financial Strategy",
-        title: "Integrated 3-Statement SaaS Financial Model",
-        desc: "A fully integrated operational model containing complete valuation mechanics, dynamic funding thresholds, and multi-scenario forecast maps.",
-        tools: ["3-Statement Core", "DCF Valuation", "Scenario Analysis"],
-        challenge: "Static forecast calculations fail to map working capital pressures under variable customer retention conditions.",
-        metrics: [
-          { value: "3 Cases", label: "Base / Bull / Bear Toggles" },
-          { value: "WACC 9.4%", label: "Calculated Discount Anchor" },
-          { value: "18 Mo.", label: "Runway Under Stress-Test" }
-        ],
-        approach: "Built fully linked modules where revenue calculations explicitly dictate debtor collections, instantly passing variances down into the cash statement.",
-        insights: "Proved that protecting customer retention metrics by 2.5% saves more capital runway than raising external pricing frameworks by 10%.",
-        chartVal: 98
-      },
-      "excel-04": {
-        tag: "Excel / Core Finance",
-        title: "Commercial Variance & Trend Infrastructure",
-        desc: "A robust framework engineered to ingest corporate ledger exports and immediately isolate cash variances away from projections.",
-        tools: ["Variance Tracking", "Bridge Charting", "EBITDA Anchors"],
-        challenge: "Operational management struggled to track the precise source of variable cost adjustments on a weekly basis.",
-        metrics: [
-          { value: "$45K", label: "Opex Overrun Discovered" },
-          { value: "100%", label: "Automated Bridge Logic" },
-          { value: "YoY/QoQ", label: "Comparison Engines" }
-        ],
-        approach: "Designed conditional formatting logic checking variance standard deviations and outputting automated waterfall visualizations for board review.",
-        insights: "Isolated a $45,000 ledger classification error where operational technology renewals were misallocated under raw materials logistics.",
-        chartVal: 78
-      },
+    # Realistic Project Content Upgrade for `projects.html`
 
-      // SQL WORK CATEGORIES
-      "sql-01": {
-        tag: "SQL / Architecture",
-        title: "Enterprise Data Deduplication & Schema Polish",
-        desc: "Production-grade data pipeline optimization script written to process, sanitize, and partition records inside corporate customer hubs.",
-        tools: ["ROW_NUMBER()", "COALESCE Functions", "Schema Typing"],
-        challenge: "Duplicate customer data inputs created inflated retention calculations and corrupted targeted outreach systems.",
-        metrics: [
-          { value: "14.2%", label: "Duplicate Nodes Purged" },
-          { value: "0ms", label: "Null Pointer Errors Remaining" },
-          { value: "Optimized", label: "Execution Map Performance" }
-        ],
-        approach: "Leveraged CTE structures alongside explicit column window fields to target and filter oldest duplicate data values while remapping primary identifiers.",
-        insights: "Found that system integration lag during mobile registration procedures accounted for 80% of unique record double-entries.",
-        chartVal: 92
-      },
-      "sql-02": {
-        tag: "SQL / Customer Analytics",
-        title: "Behavioral Retention Cohort Matrix Calculations",
-        desc: "Advanced relational metrics mapping to query transaction ledgers and track user engagement degradation metrics across a 12-month lifecycle.",
-        tools: ["Date Spines", "CTE Tables", "DATEDIFF Logics"],
-        challenge: "Raw transactional sales tracking fields offer zero clarity on whether acquired user sets return regularly after initial transactions.",
-        metrics: [
-          { value: "12 Months", label: "Granular Lifecycle Map" },
-          { value: "500K+", label: "User Vectors Checked" },
-          { value: "Heatmap", label: "Compatible Visual Data" }
-        ],
-        approach: "Engineered robust date-spine CTE architectures that compute month-zero baselines and measure recurring orders through rolling aggregate logic blocks.",
-        insights: "Discovered that customer cohorts acquired via winter campaigns exhibit a 22% higher structural retention metric than summer discount cohorts.",
-        chartVal: 85
-      },
-      "sql-03": {
-        tag: "SQL / Optimization",
-        title: "Analytical Window Architecture Mastery",
-        desc: "A deep execution review maximizing processing speeds across recursive tables and optimizing data architecture plans.",
-        tools: ["NTILE Tiers", "LAG / LEAD Offsets", "Query Profiling"],
-        challenge: "Nested loops and unindexed subqueries caused warehouse systems to time out during heavy reporting hours.",
-        metrics: [
-          { value: "65%", label: "Query Execution Time Saved" },
-          { value: "Zero", label: "Subquery Dependancy Blocks" },
-          { value: "100%", label: "Sargable Filter Optimization" }
-        ],
-        approach: "Replaced heavy aggregate join frameworks with precise window frames (partitioned by customer groupings) to analyze historical order patterns smoothly.",
-        insights: "Refactoring analytical indexing architecture reduced system runtime from 42 minutes to a lean 14.5 seconds.",
-        chartVal: 96
-      },
-      "sql-04": {
-        tag: "SQL / Data Strategy",
-        title: "Customer Lifetime Value Optimization Framework",
-        desc: "Automated database logic evaluating transaction records using advanced statistical distributions to output RFM segments.",
-        tools: ["RFM Logic Layers", "NTILE Quantiles", "CLV Forecasting"],
-        challenge: "Marketing entities lacked standard query targets to identify valuable high-margin users before executing campaigns.",
-        metrics: [
-          { value: "5 Tiers", label: "Customer Segments Formed" },
-          { value: "15%", label: "Campaign Yield Increase" },
-          { value: "Automated", label: "Stored Procedure Routines" }
-        ],
-        approach: "Constructed NTILE query blocks calculating scores across Recency, Frequency, and Monetary attributes to produce an automated customer matrix.",
-        insights: "Identified that the top 5% of your customer segment produces roughly 48% of total gross commercial platform earnings.",
-        chartVal: 89
-      },
-      "sql-05": {
-        tag: "SQL / Operations",
-        title: "Supply Chain Inventory Optimization Models",
-        desc: "Relational calculation systems computing inventory metrics, safety stock safety rules, and economic ordering levels directly inside database environments.",
-        tools: ["EOQ Logic Equations", "Safety Stock Pins", "Reorder Triggers"],
-        challenge: "Inbound supply processing blocks created localized product stockouts while running up massive storage fees.",
-        metrics: [
-          { value: "18.8%", label: "Holding Cost Reductions" },
-          { value: "Zero", label: "Peak Stockout Events" },
-          { value: "Dynamic", label: "Reorder Points Set" }
-        ],
-        approach: "Programmed mathematical logic frameworks evaluating running demand variances and standard vendor lead timelines to continuously scale warehouse order markers.",
-        insights: "Discovered that single-source overseas nodes caused safety stock parameters to drift significantly under volatile freight environments.",
-        chartVal: 81
-      },
+Replace the existing `projectDataStore` object in your `projects.html` file with the upgraded version below.
 
-      // POWER BI WORK CATEGORIES
-      "pbi-01": {
-        tag: "Power BI / HR Analytics",
-        title: "Dynamic Corporate HR Executive Cockpit",
-        desc: "A responsive executive tracking panel mapping employee metrics, tracking hiring speeds, and alerting leadership to group attrition vulnerabilities.",
-        tools: ["DAX Measure Models", "Drill-Through Pages", "Conditional Indicators"],
-        challenge: "Human resource metrics were isolated in static monthly summaries, hiding mid-quarter departmental turnover spikes.",
-        metrics: [
-          { value: "18%", label: "Attrition Reduction" },
-          { value: "6 Layers", label: "Organizational Breakdown" },
-          { value: "Real-time", label: "Flagging System Implemented" }
-        ],
-        approach: "Authored advanced time-intelligence DAX formulas tracking running metrics and integrated cross-filtering dashboards for departmental drill-downs.",
-        insights: "Discovered a 90-day retention failure spike in customer support teams that pointed to onboarding bottlenecks.",
-        chartVal: 91
-      },
-      "pbi-02": {
-        tag: "Power BI / Live Monitoring",
-        title: "Live Operations Service Level Tracker",
-        desc: "A live business intelligence panel built to query real-time data pipelines and immediately visualize operational compliance anomalies.",
-        tools: ["Streaming Data Hubs", "Auto-Refresh Configurations", "SLA Target Bars"],
-        challenge: "Lagging operational feedback infrastructure meant team leads only found out about contract violations after client tickets escalated.",
-        metrics: [
-          { value: "98.4%", label: "SLA Metric Compliance" },
-          { value: "<2 Min", label: "Visual Refresh Interval" },
-          { value: "Automated", label: "Escalation Triggers" }
-        ],
-        approach: "Connected real-time streaming matrices directly to monitoring dashboards, leveraging conditional color alerts to draw attention to failing queue lengths.",
-        insights: "Proved that processing backlogs peak reliably between 2 PM and 4 PM, allowing managers to optimize staff scheduling parameters.",
-        chartVal: 87
-      },
-      "pbi-03": {
-        tag: "Power BI / Corporate BI",
-        title: "Global Enterprise Sales Visualization System",
-        desc: "A high-fidelity commercial reporting suite tracking international metrics, utilizing map interfaces, and managing bookmark states for presentations.",
-        tools: ["Geographic Layers", "Bookmark Matrix Panels", "Cross-Filtering"],
-        challenge: "Corporate management lacked a single unified reporting environment capable of transitioning smoothly from macro metrics down to inventory nodes.",
-        metrics: [
-          { value: "Global", label: "Multi-Currency Tracking" },
-          { value: "3 Click", label: "Granular Depth Limit" },
-          { value: "100%", label: "Presentation Ready Bookmarks" }
-        ],
-        approach: "Built clean geospatial models with hierarchical mapping configurations, configuring strict filtering behavior to prevent cross-filter errors during deep data investigations.",
-        insights: "Surfaced an international logistics conflict where high-volume units were stalling at custom check-points for up to 9 days.",
-        chartVal: 95
-      },
-      "pbi-04": {
-        tag: "Power BI / Security & DAX",
-        title: "Advanced DAX Framework & Row-Level Security",
-        desc: "An optimization environment implementing analytical models alongside strict user role access matrices.",
-        tools: ["CALCULATE Engines", "Time Intelligence Matrix", "Dynamic Security (RLS)"],
-        challenge: "Managing separate portfolio reporting layouts for regional sales units created massive administrative code redundancy.",
-        metrics: [
-          { value: "1 Layout", label: "Global Application Template" },
-          { value: "48 Roles", label: "Secured Regions Mapped" },
-          { value: "-50%", label: "Data Architecture Bloat" }
-        ],
-        approach: "Programmed robust DAX calculations utilizing USERELATIONSHIP overrides and configured localized security lookup tables mapped to network login accounts.",
-        insights: "Consolidating regional file arrays into a unified schema boosted security auditing capabilities by 100%.",
-        chartVal: 93
-      },
+This updated version:
 
-      // PYTHON WORK CATEGORIES
-      "python-01": {
-        tag: "Python / Data Engineering",
-        title: "Automated Enterprise Data Sanitization Engine",
-        desc: "A modular object-oriented processing system constructed using Pandas to clean corrupted reporting exports automatically.",
-        tools: ["Pandas Framework", "NumPy Arrays", "Pipeline Architecture"],
-        challenge: "Unannounced schema alterations and localized character updates caused standard database uploads to fail regularly.",
-        metrics: [
-          { value: "0 Manual", label: "Intervention Intercepts" },
-          { value: "100%", label: "Automated Error Logging" },
-          { value: "<4.5s", label: "Processing Duration Run" }
-        ],
-        approach: "Developed an object-oriented validation library that detects structural field shifts, infers intended variable types, and isolates broken records into holding directories.",
-        insights: "Isolated system configuration mismatches where tracking components randomly dropped trailing zeros from stock keeping units.",
-        chartVal: 94
-      },
-      "python-02": {
-        tag: "Python / Statistics",
-        title: "Descriptive Statistical Exploratory Workspace",
-        desc: "A statistical exploratory workspace leveraging Jupyter environments to isolate dataset anomalies, run correlation checks, and map variances.",
-        tools: ["SciPy Stats Library", "Seaborn Visuals", "Jupyter Workspace"],
-        challenge: "Launching complex analytics without profiling underlying distribution behaviors risks misapplying linear predictive tools.",
-        metrics: [
-          { value: "99.9%", label: "Outlier Isolation Accuracy" },
-          { value: "12 Tests", label: "Hypothesis Matrices Run" },
-          { value: "A/B Test", label: "Ready Sample Generation" }
-        ],
-        approach: "Executed distribution shape tests, isolated extreme tracking parameters utilizing standard deviation filters, and built robust correlation maps.",
-        insights: "Discovered an implicit pricing elasticity pattern where minor price tier alterations boosted conversion outcomes by up to 30%.",
-        chartVal: 83
-      },
-      "python-03": {
-        tag: "Python / Predictive Modeling",
-        title: "Ad-Hoc Churn Optimization & Risk Profile Engine",
-        desc: "A predictive analysis environment engineered to detect customer account degradation risks and identify predictive operational features.",
-        tools: ["Scikit-Learn Tools", "Matplotlib Charts", "Churn Analytics Models"],
-        challenge: "Subscription models suffer margin decay when accounts drop services without clear preceding indicators.",
-        metrics: [
-          { value: "84%", label: "Churn Detection Accuracy" },
-          { value: "Top 5", label: "Risk Drivers Isolated" },
-          { value: "Dynamic", label: "Account Hazard Grading" }
-        ],
-        approach: "Trained logistic regression frameworks on normalized user telemetry logs, producing custom visual representations to guide account representative check-ins.",
-        insights: "Proven that a sudden 40% reduction in reporting interaction metrics acts as the primary indicator for contract non-renewal.",
-        chartVal: 88
-      },
-      "python-04": {
-        tag: "Python / Unsupervised ML",
-        title: "E-Commerce Market Basket Association Rules",
-        desc: "An deployment of market analysis algorithms mining historical transactions to map product purchasing relationships.",
-        tools: ["Mlxtend Library", "Apriori Algorithms", "Association Rule Mining"],
-        challenge: "Digital checkout flows displayed arbitrary product recommendations, missing high-probability cross-selling opportunities.",
-        metrics: [
-          { value: "6.5%", label: "Average Order Value Growth" },
-          { value: "82%", label: "Maximum Rule Confidence" },
-          { value: "500K+", label: "Transaction Invoices Mapped" }
-        ],
-        approach: "Built one-hot encoded purchase arrays and deployed transaction rules using support, confidence, and statistical lift markers to isolate genuine product pairings.",
-        insights: "Uncovered that premium hardware purchases create an immediate 82% statistical likelihood for specialized cleaning kit cross-sales.",
-        chartVal: 90
-      },
-      "python-05": {
-        tag: "Python / Advanced Quant",
-        title: "Markowitz Investment Frontier & Risk Analyzer",
-        desc: "A simulation environment modeling asset allocations, maximizing Sharpe ratio returns, and building modern frontier tracking charts.",
-        tools: ["Markowitz Frontier", "Monte Carlo Tracking", "Sharpe Optimizations"],
-        challenge: "Allocating digital portfolio structures relying on static returns fails to account for asset covariance shifts during market movements.",
-        metrics: [
-          { value: "10,000", label: "Portfolios Simulated" },
-          { value: "Max SR", label: "Target Optimization Vector" },
-          { value: "Dynamic", label: "Covariance Matrix Scaling" }
-        ],
-        approach: "Programmed simulation scripts running asset weightings against historical variance frameworks, plotting the modern efficient investment frontier line.",
-        insights: "Proven that adjusting cash-equivalent weight structures by less than 4% cuts overall system volatility risk indicators by up to 15%.",
-        chartVal: 82
-      }
-    };
+* Makes every project feel realistic and portfolio-ready
+* Uses believable business problems and KPIs
+* Improves project descriptions for recruiters
+* Makes the projects align with real analyst responsibilities
+* Adds stronger storytelling and business impact
+* Removes confusing/generated wording
+* Keeps your existing website structure fully compatible
+
+---
+
+```javascript
+const projectDataStore = {
+
+  // =========================
+  // EXCEL PROJECTS
+  // =========================
+
+  "excel-01": {
+    tag: "Excel / Data Cleaning",
+    title: "E-Commerce Sales Data Cleaning & Automation",
+    desc: "Built an automated Excel-based data cleaning workflow for a retail e-commerce business to standardize sales records, remove duplicates, and prepare reporting-ready datasets.",
+    tools: ["Excel", "Power Query", "Data Validation", "Pivot Tables"],
+    challenge: "The company received sales data from multiple marketplaces in inconsistent formats, causing reporting delays and inaccurate sales summaries.",
+    metrics: [
+      { value: "50K+", label: "Rows Processed" },
+      { value: "85%", label: "Manual Work Reduced" },
+      { value: "4 Hours", label: "Weekly Time Saved" }
+    ],
+    approach: "Used Power Query to automate data transformation, cleaned invalid records, standardized date and currency formats, and created reusable reporting templates.",
+    insights: "Identified duplicate transactions and pricing inconsistencies that improved reporting accuracy significantly.",
+    chartVal: 92
+  },
+
+  "excel-02": {
+    tag: "Excel / Dashboarding",
+    title: "Interactive Regional Sales Dashboard",
+    desc: "Designed an interactive Excel dashboard for tracking regional sales performance, monthly growth, and product-level profitability.",
+    tools: ["Pivot Charts", "Slicers", "Conditional Formatting", "Excel Dashboards"],
+    challenge: "Management lacked a centralized dashboard to monitor sales trends across regions and product categories.",
+    metrics: [
+      { value: "12", label: "Regions Tracked" },
+      { value: "30%", label: "Faster Reporting" },
+      { value: "Real-Time", label: "Interactive Filters" }
+    ],
+    approach: "Created dynamic Pivot Tables and connected slicers for drill-down analysis across sales teams, product lines, and monthly performance.",
+    insights: "The dashboard revealed that the western region consistently underperformed during seasonal campaigns.",
+    chartVal: 88
+  },
+
+  "excel-03": {
+    tag: "Excel / Financial Modeling",
+    title: "SaaS Startup Financial Forecast Model",
+    desc: "Developed a 3-statement financial model for a SaaS startup including revenue forecasting, cash flow projections, and scenario analysis.",
+    tools: ["Financial Modeling", "DCF", "Scenario Analysis", "Forecasting"],
+    challenge: "The startup needed investor-ready financial projections to evaluate funding requirements and profitability timelines.",
+    metrics: [
+      { value: "3", label: "Forecast Scenarios" },
+      { value: "24 Months", label: "Projection Horizon" },
+      { value: "9.4%", label: "WACC Used" }
+    ],
+    approach: "Built linked income statement, balance sheet, and cash flow models with assumptions for customer growth, churn, and operating costs.",
+    insights: "The model showed that improving customer retention by just 5% significantly extended cash runway.",
+    chartVal: 96
+  },
+
+  "excel-04": {
+    tag: "Excel / Finance Analytics",
+    title: "Budget Variance Analysis System",
+    desc: "Created a variance analysis tool to compare budgeted vs actual expenses and identify operational overspending.",
+    tools: ["Variance Analysis", "Waterfall Charts", "Lookup Functions", "Financial Reporting"],
+    challenge: "Finance teams struggled to identify departments responsible for unexpected operational cost increases.",
+    metrics: [
+      { value: "$45K", label: "Variance Found" },
+      { value: "100%", label: "Automated Reports" },
+      { value: "Weekly", label: "Report Frequency" }
+    ],
+    approach: "Used lookup formulas and dynamic reporting logic to automate monthly budget comparisons and visualize cost drivers.",
+    insights: "Detected recurring overspending in logistics and vendor service contracts.",
+    chartVal: 84
+  },
+
+
+  // =========================
+  // SQL PROJECTS
+  // =========================
+
+  "sql-01": {
+    tag: "SQL / Data Cleaning",
+    title: "Customer Database Deduplication Project",
+    desc: "Optimized customer databases by identifying duplicate records and improving data quality for CRM reporting.",
+    tools: ["SQL", "CTEs", "ROW_NUMBER()", "Joins"],
+    challenge: "Duplicate customer records caused inaccurate retention metrics and duplicate marketing campaigns.",
+    metrics: [
+      { value: "14%", label: "Duplicates Removed" },
+      { value: "500K+", label: "Records Processed" },
+      { value: "40%", label: "Cleaner CRM Data" }
+    ],
+    approach: "Used window functions and Common Table Expressions to detect duplicate records and retain the latest valid entries.",
+    insights: "Most duplicate records originated from mobile registration forms and inconsistent user IDs.",
+    chartVal: 90
+  },
+
+  "sql-02": {
+    tag: "SQL / Customer Analytics",
+    title: "Customer Retention Cohort Analysis",
+    desc: "Performed cohort analysis to track customer retention and purchasing behavior over a 12-month lifecycle.",
+    tools: ["SQL", "Date Functions", "CTEs", "Aggregation"],
+    challenge: "The company lacked visibility into long-term customer engagement and repeat purchase behavior.",
+    metrics: [
+      { value: "12 Months", label: "Retention Tracking" },
+      { value: "500K", label: "Customers Analyzed" },
+      { value: "22%", label: "Retention Difference" }
+    ],
+    approach: "Built cohort tables using transaction dates and grouped users based on their first purchase month.",
+    insights: "Customers acquired during holiday campaigns showed higher repeat purchase rates.",
+    chartVal: 87
+  },
+
+  "sql-03": {
+    tag: "SQL / Query Optimization",
+    title: "SQL Performance Optimization & Query Tuning",
+    desc: "Improved reporting system performance by optimizing complex SQL queries and indexing strategies.",
+    tools: ["Indexes", "Execution Plans", "Window Functions", "Optimization"],
+    challenge: "Large reporting queries were taking too long to execute during peak business hours.",
+    metrics: [
+      { value: "65%", label: "Performance Improved" },
+      { value: "14 Sec", label: "Final Runtime" },
+      { value: "Millions", label: "Rows Queried" }
+    ],
+    approach: "Replaced nested subqueries with optimized joins and window functions while improving index usage.",
+    insights: "Poor indexing on transaction tables was the major cause of reporting delays.",
+    chartVal: 95
+  },
+
+  "sql-04": {
+    tag: "SQL / Marketing Analytics",
+    title: "Customer Lifetime Value Segmentation",
+    desc: "Developed a customer segmentation framework using RFM analysis to identify high-value customers.",
+    tools: ["SQL", "NTILE", "RFM Analysis", "Stored Procedures"],
+    challenge: "Marketing campaigns were not targeted effectively due to a lack of customer segmentation.",
+    metrics: [
+      { value: "5", label: "Customer Segments" },
+      { value: "15%", label: "Campaign Improvement" },
+      { value: "48%", label: "Revenue from Top Users" }
+    ],
+    approach: "Calculated Recency, Frequency, and Monetary scores and assigned customers into performance-based groups.",
+    insights: "A small percentage of premium customers generated nearly half of total revenue.",
+    chartVal: 91
+  },
+
+  "sql-05": {
+    tag: "SQL / Supply Chain",
+    title: "Inventory & Reorder Point Optimization",
+    desc: "Built a supply chain analytics system to optimize reorder points and reduce inventory holding costs.",
+    tools: ["SQL", "Inventory Analytics", "Safety Stock", "Forecasting"],
+    challenge: "The business faced stock shortages and overstocking due to inefficient inventory planning.",
+    metrics: [
+      { value: "18%", label: "Holding Cost Reduced" },
+      { value: "0", label: "Critical Stockouts" },
+      { value: "Dynamic", label: "Reorder Alerts" }
+    ],
+    approach: "Used demand trends and supplier lead times to automate reorder recommendations and inventory monitoring.",
+    insights: "Products sourced internationally required significantly higher safety stock levels.",
+    chartVal: 86
+  },
+
+
+  // =========================
+  // POWER BI PROJECTS
+  // =========================
+
+  "pbi-01": {
+    tag: "Power BI / HR Analytics",
+    title: "HR Attrition & Workforce Dashboard",
+    desc: "Designed a Power BI dashboard to monitor employee attrition, hiring trends, and departmental workforce performance.",
+    tools: ["Power BI", "DAX", "Power Query", "Drill Through"],
+    challenge: "HR teams struggled to monitor employee turnover trends across departments.",
+    metrics: [
+      { value: "18%", label: "Attrition Reduction" },
+      { value: "6", label: "Department Layers" },
+      { value: "Real-Time", label: "Dashboard Updates" }
+    ],
+    approach: "Built KPI cards, trend analysis visuals, and drill-through pages for detailed workforce insights.",
+    insights: "Customer support teams showed the highest turnover within the first 90 days.",
+    chartVal: 92
+  },
+
+  "pbi-02": {
+    tag: "Power BI / Operations",
+    title: "Real-Time Service Operations Tracker",
+    desc: "Created a live monitoring dashboard to track operational performance and SLA compliance.",
+    tools: ["Streaming Data", "DAX", "Power BI Service", "KPI Monitoring"],
+    challenge: "Operations managers lacked visibility into real-time service delays and escalations.",
+    metrics: [
+      { value: "98%", label: "SLA Compliance" },
+      { value: "2 Min", label: "Refresh Rate" },
+      { value: "Automated", label: "Alerts Enabled" }
+    ],
+    approach: "Integrated streaming datasets and built automated KPI alerts for operational monitoring.",
+    insights: "Service queues peaked consistently between 2 PM and 4 PM.",
+    chartVal: 89
+  },
+
+  "pbi-03": {
+    tag: "Power BI / Sales Analytics",
+    title: "Global Sales Performance Dashboard",
+    desc: "Built an enterprise sales dashboard to monitor revenue, regional performance, and product profitability globally.",
+    tools: ["Power BI", "Maps", "Bookmarks", "Cross-Filtering"],
+    challenge: "Leadership lacked a centralized platform for monitoring international sales operations.",
+    metrics: [
+      { value: "Global", label: "Regional Tracking" },
+      { value: "3 Clicks", label: "Drill Depth" },
+      { value: "100%", label: "Presentation Ready" }
+    ],
+    approach: "Created geospatial dashboards with advanced filtering and presentation-ready navigation bookmarks.",
+    insights: "Certain high-volume shipments experienced repeated customs delays affecting delivery performance.",
+    chartVal: 94
+  },
+
+  "pbi-04": {
+    tag: "Power BI / Security",
+    title: "Advanced DAX & Row-Level Security Implementation",
+    desc: "Implemented secure reporting environments using advanced DAX calculations and row-level security rules.",
+    tools: ["DAX", "RLS", "Power BI Service", "Data Modeling"],
+    challenge: "Regional teams required separate access controls for sensitive sales and financial data.",
+    metrics: [
+      { value: "48", label: "Security Roles" },
+      { value: "50%", label: "Model Simplified" },
+      { value: "1", label: "Unified Dashboard" }
+    ],
+    approach: "Configured role-based access and optimized DAX measures for secure global reporting.",
+    insights: "Consolidating reports into a single secured model improved governance and maintenance.",
+    chartVal: 93
+  },
+
+
+  // =========================
+  // PYTHON PROJECTS
+  // =========================
+
+  "python-01": {
+    tag: "Python / Data Engineering",
+    title: "Automated Data Cleaning Pipeline",
+    desc: "Developed a Python automation pipeline to clean, validate, and process raw business datasets.",
+    tools: ["Python", "Pandas", "NumPy", "Logging"],
+    challenge: "Manual preprocessing of large CSV exports caused delays and data inconsistencies.",
+    metrics: [
+      { value: "100%", label: "Automated Workflow" },
+      { value: "4 Sec", label: "Average Runtime" },
+      { value: "0", label: "Manual Corrections" }
+    ],
+    approach: "Built reusable Python scripts for validation, missing value handling, and automated reporting.",
+    insights: "Detected recurring formatting issues caused by regional export settings.",
+    chartVal: 94
+  },
+
+  "python-02": {
+    tag: "Python / Statistics",
+    title: "Exploratory Data Analysis & Statistical Testing",
+    desc: "Conducted exploratory data analysis and statistical testing to identify patterns and anomalies in customer datasets.",
+    tools: ["Python", "Pandas", "Matplotlib", "SciPy"],
+    challenge: "The analytics team needed reliable statistical insights before building predictive models.",
+    metrics: [
+      { value: "12", label: "Statistical Tests" },
+      { value: "99%", label: "Outlier Accuracy" },
+      { value: "A/B", label: "Experiment Ready" }
+    ],
+    approach: "Performed distribution analysis, correlation testing, and hypothesis validation using Python notebooks.",
+    insights: "Price adjustments had a measurable impact on conversion behavior.",
+    chartVal: 85
+  },
+
+  "python-03": {
+    tag: "Python / Machine Learning",
+    title: "Customer Churn Prediction Model",
+    desc: "Built a machine learning model to predict customer churn and identify high-risk customer segments.",
+    tools: ["Scikit-learn", "Logistic Regression", "Matplotlib", "Feature Engineering"],
+    challenge: "The business lacked an early warning system for identifying customers likely to cancel subscriptions.",
+    metrics: [
+      { value: "84%", label: "Prediction Accuracy" },
+      { value: "Top 5", label: "Risk Factors" },
+      { value: "Dynamic", label: "Risk Scoring" }
+    ],
+    approach: "Trained predictive models using behavioral usage data and customer engagement metrics.",
+    insights: "Low platform engagement was the strongest predictor of churn.",
+    chartVal: 90
+  },
+
+  "python-04": {
+    tag: "Python / Recommendation Systems",
+    title: "Market Basket Analysis for Product Recommendations",
+    desc: "Implemented association rule mining to identify product purchase patterns and improve recommendation strategies.",
+    tools: ["Python", "Apriori", "Mlxtend", "Association Rules"],
+    challenge: "The e-commerce platform lacked intelligent product recommendation logic.",
+    metrics: [
+      { value: "6.5%", label: "Order Value Growth" },
+      { value: "82%", label: "Rule Confidence" },
+      { value: "500K", label: "Transactions Used" }
+    ],
+    approach: "Generated association rules using support, confidence, and lift metrics from transaction histories.",
+    insights: "Customers buying premium electronics frequently purchased maintenance accessories.",
+    chartVal: 91
+  },
+
+  "python-05": {
+    tag: "Python / Financial Analytics",
+    title: "Portfolio Risk & Investment Optimization",
+    desc: "Created a portfolio optimization model using Modern Portfolio Theory and Monte Carlo simulations.",
+    tools: ["Python", "NumPy", "Monte Carlo", "Portfolio Optimization"],
+    challenge: "Investors required better portfolio allocation strategies balancing return and risk.",
+    metrics: [
+      { value: "10K", label: "Portfolios Simulated" },
+      { value: "15%", label: "Risk Reduced" },
+      { value: "Sharpe", label: "Optimization Used" }
+    ],
+    approach: "Simulated thousands of portfolio combinations and visualized the efficient frontier.",
+    insights: "Small adjustments in cash-equivalent assets significantly reduced overall volatility.",
+    chartVal: 87
+  }
+};
+```
+
+---
+
+# Additional Improvements You Should Make
+
+## 1. Add Project Images or Thumbnails
+
+You can add:
+
+* Dashboard screenshots
+* Excel sheets
+* SQL schema images
+* Python charts
+* Power BI reports
+
+This will make the portfolio look much more realistic.
+
+---
+
+## 2. Add GitHub Demo Buttons
+
+Inside each project section, add:
+
+* Live Demo
+* GitHub Repository
+* Case Study PDF
+
+---
+
+## 3. Add Business Impact Section
+
+Under the “Key Data Insight” section, add:
+
+```html
+<div>
+  <h3 class="font-serif text-xl text-cream mb-2">Business Impact</h3>
+  <p class="text-muted text-sm leading-relaxed">
+    Improved reporting accuracy, reduced manual effort, and helped management make faster data-driven decisions.
+  </p>
+</div>
+```
+
+---
+
+## 4. Add Project Duration
+
+Inside metrics add examples like:
+
+```javascript
+{ value: "3 Weeks", label: "Project Timeline" }
+```
+
+This makes projects feel more professional.
+
+---
+
+## 5. Add Realistic Dataset Sources
+
+Mention sources such as:
+
+* Kaggle
+* AdventureWorks
+* Northwind
+* Superstore Dataset
+* Public HR Analytics datasets
+* Simulated business transaction datasets
+
+Recruiters like seeing recognizable datasets.
+
+---
+
+# Final Result
+
+After replacing the object:
+
+* Your project pages will feel like real analyst portfolio projects
+* Recruiters will understand the business problem immediately
+* Your website will look significantly more professional
+* The projects will align with:
+
+  * Data Analyst
+  * Business Analyst
+  * Financial Analyst
+  * BI Analyst
+  * Junior Data Scientist roles
 
     /* ========================================================================
        THE INTERPOLATION ROUTER: Parses target links and updates layout fields.
