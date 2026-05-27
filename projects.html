@@ -144,7 +144,7 @@ let
     PromoteHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
     CleanTextSpace = Table.TransformColumns(PromoteHeaders,{{"SKU", Text.Trim, type text}, {"Category", Text.Upper, type text}}),
     ParseDateFields = Table.TransformColumns(CleanTextSpace, {{"OrderDate", each try Date.FromText(_, "en-GB") otherwise Date.FromText(_, "en-US"), type date}}),
-    ExtractCurrency = Table.AddColumn(ParseDateFields, "USD_Revenue", each if Text.Contains([RawRev], "£") then Value.FromText(Text.Select([RawRev],{"0".."9" Merry "."})) * 1.28 else Value.FromText(Text.Select([RawRev],{"0".."9"..","})), type number),
+    ExtractCurrency = Table.AddColumn(ParseDateFields, "USD_Revenue", each if Text.Contains([RawRev], "£") then Value.FromText(Text.Select([RawRev],{"0".."9","."})) * 1.28 else Value.FromText(Text.Select([RawRev],{"0".."9"..","})), type number),
     RemoveSystemDuplicates = Table.Distinct(ExtractCurrency, {"TransactionID"})
 in
     RemoveSystemDuplicates`,
