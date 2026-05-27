@@ -3,563 +3,1948 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project Details | Portfolio Workspace</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Project Details | Md. Zahidul Islam Rabin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    // Configures styles matching the home landing sheet
     tailwind.config = {
       theme: {
         extend: {
-          colors: { charcoal: '#0b1220', surface: '#111b2e', panel: '#16233a', border: '#23324a', amber: '#fbbf24', cream: '#e5eaf2', muted: '#a3b4cc', dimmed: '#6b7a90' },
-          fontFamily: { serif: ['"DM Serif Display"', 'serif'], mono: ['"IBM Plex Mono"', 'monospace'], body: ['"Libre Baskerville"', 'serif'] }
+          colors: {
+            charcoal: '#0b1220',
+            surface: '#111b2e',
+            panel: '#16233a',
+            panel2: '#1c2d47',
+            border: '#23324a',
+            amber: '#fbbf24',
+            amberDim: '#c49214',
+            cream: '#e5eaf2',
+            muted: '#a3b4cc',
+            dimmed: '#6b7a90',
+            green: '#34d399',
+            blue: '#60a5fa',
+            red: '#f87171',
+            purple: '#a78bfa'
+          },
+          fontFamily: {
+            serif: ['"DM Serif Display"', 'serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+            body: ['"Libre Baskerville"', 'serif']
+          }
         }
       }
     }
   </script>
   <style>
-    /* Styling adjustments specifically engineered for project breakdowns */
-    .metric-box { background: var(--surface); border: 1px solid var(--border); padding: 1.5rem; border-radius: 4px; }
-    .chart-bar { height: 12px; background: var(--border); border-radius: 2px; overflow: hidden; margin-top: 8px; }
-    .chart-fill { height: 100%; background: var(--amber); transition: width 1s ease-out; }
+    :root {
+      --charcoal: #0b1220;
+      --surface: #111b2e;
+      --panel: #16233a;
+      --panel2: #1c2d47;
+      --border: #23324a;
+      --amber: #fbbf24;
+      --cream: #e5eaf2;
+      --muted: #a3b4cc;
+      --dimmed: #6b7a90;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--charcoal);
+      color: var(--cream);
+      font-family: 'Libre Baskerville', serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: .5;
+    }
+
+    /* ── LAYOUT ── */
+    .page-wrap { position: relative; z-index: 1; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ── NAV BAR ── */
+    .top-nav {
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      background: rgba(11,18,32,.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .top-nav .inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .back-link { font-family: 'IBM Plex Mono', monospace; font-size: .65rem; color: var(--amber); text-decoration: none; letter-spacing: .12em; text-transform: uppercase; display: flex; align-items: center; gap: .4rem; transition: opacity .2s; }
+    .back-link:hover { opacity: .7; }
+    .nav-title { font-family: 'IBM Plex Mono', monospace; font-size: .65rem; color: var(--dimmed); letter-spacing: .1em; }
+
+    /* ── CATEGORY TABS ── */
+    .cat-tabs { display: flex; gap: .5rem; flex-wrap: wrap; padding: 2rem 0 0; }
+    .cat-tab {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .65rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .45rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      cursor: pointer;
+      color: var(--dimmed);
+      background: var(--panel);
+      transition: all .2s;
+    }
+    .cat-tab:hover { border-color: var(--amber); color: var(--cream); }
+    .cat-tab.active { border-color: var(--amber); color: var(--amber); background: rgba(251,191,36,.07); }
+
+    /* ── PROJECT GRID ── */
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; padding: 1.5rem 0 3rem; }
+    .proj-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all .25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .proj-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(251,191,36,.04) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity .25s;
+    }
+    .proj-card:hover { border-color: var(--amber); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,.4); }
+    .proj-card:hover::after { opacity: 1; }
+    .proj-tag { font-family: 'IBM Plex Mono', monospace; font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); margin-bottom: .6rem; }
+    .proj-title { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--cream); line-height: 1.3; margin-bottom: .6rem; }
+    .proj-desc { font-size: .78rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+    .proj-tools { display: flex; flex-wrap: wrap; gap: .3rem; }
+    .proj-tool { font-family: 'IBM Plex Mono', monospace; font-size: .58rem; padding: .2rem .55rem; border: 1px solid var(--border); border-radius: 2px; color: var(--dimmed); background: var(--panel); }
+    .proj-arrow { position: absolute; bottom: 1rem; right: 1.2rem; font-size: .75rem; color: var(--dimmed); transition: all .2s; }
+    .proj-card:hover .proj-arrow { color: var(--amber); transform: translateX(3px); }
+
+    /* ── DETAIL PANEL ── */
+    .detail-panel { display: none; }
+    .detail-panel.open { display: block; }
+    .detail-header { padding: 2.5rem 0 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
+    .detail-tag { font-family: 'IBM Plex Mono', monospace; font-size: .62rem; letter-spacing: .15em; text-transform: uppercase; color: var(--amber); background: rgba(251,191,36,.08); border: 1px solid rgba(251,191,36,.2); display: inline-block; padding: .3rem .75rem; border-radius: 3px; margin-bottom: 1rem; }
+    .detail-title { font-family: 'DM Serif Display', serif; font-size: 2.4rem; color: var(--cream); line-height: 1.15; margin-bottom: .8rem; }
+    .detail-desc { font-size: .88rem; color: var(--muted); line-height: 1.75; max-width: 680px; }
+
+    /* ── KPI ROW ── */
+    .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; padding: 1.5rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin: 1.5rem 0; }
+    .kpi-item { }
+    .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; color: var(--dimmed); margin-bottom: .35rem; }
+    .kpi-value { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--cream); }
+
+    /* ── CONTENT SECTIONS ── */
+    .detail-body { display: grid; grid-template-columns: 1fr 340px; gap: 2.5rem; align-items: start; }
+    @media(max-width: 860px) { .detail-body { grid-template-columns: 1fr; } }
+
+    .section-block { margin-bottom: 2rem; }
+    .section-title { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--amber); margin-bottom: .75rem; }
+    .section-text { font-size: .82rem; color: var(--muted); line-height: 1.8; }
+    .insight-box { background: var(--panel); border-left: 3px solid var(--amber); padding: 1rem 1.25rem; border-radius: 0 4px 4px 0; font-size: .82rem; color: var(--cream); font-style: italic; line-height: 1.7; }
+
+    /* ── CODE BLOCKS ── */
+    .code-block {
+      background: #0d1521;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+    .code-header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      padding: .55rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .code-lang { font-family: 'IBM Plex Mono', monospace; font-size: .58rem; color: var(--amber); letter-spacing: .1em; text-transform: uppercase; }
+    .code-desc { font-family: 'IBM Plex Mono', monospace; font-size: .58rem; color: var(--dimmed); }
+    .code-body { padding: 1.1rem 1.25rem; overflow-x: auto; }
+    .code-body pre { font-family: 'IBM Plex Mono', monospace; font-size: .75rem; line-height: 1.7; white-space: pre; }
+    .tok-kw { color: #c792ea; }   /* keyword / function */
+    .tok-fn { color: #82aaff; }   /* function names */
+    .tok-str { color: #c3e88d; }  /* strings */
+    .tok-num { color: #f78c6c; }  /* numbers */
+    .tok-cmt { color: #546e7a; font-style: italic; }  /* comments */
+    .tok-op { color: #89ddff; }   /* operators */
+    .tok-id { color: #ffcb6b; }   /* identifiers */
+    .tok-val { color: #80cbc4; }  /* values */
+
+    /* ── TABLE ── */
+    .data-table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 6px; margin: 1rem 0; }
+    table { width: 100%; border-collapse: collapse; font-family: 'IBM Plex Mono', monospace; font-size: .7rem; }
+    thead tr { background: var(--panel); border-bottom: 1px solid var(--border); }
+    thead th { padding: .55rem .9rem; text-align: left; color: var(--amber); letter-spacing: .08em; font-weight: 500; white-space: nowrap; }
+    tbody tr { border-bottom: 1px solid rgba(35,50,74,.5); transition: background .15s; }
+    tbody tr:hover { background: var(--panel); }
+    tbody td { padding: .45rem .9rem; color: var(--muted); white-space: nowrap; }
+    .td-pos { color: #34d399; }
+    .td-neg { color: #f87171; }
+    .td-neu { color: #60a5fa; }
+    .td-hi { color: var(--cream); font-weight: 500; }
+
+    /* ── SIDEBAR WIDGETS ── */
+    .sidebar { space-y: 1.25rem; }
+    .widget {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .widget-title { font-family: 'IBM Plex Mono', monospace; font-size: .6rem; color: var(--amber); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 1rem; }
+    .tool-chip { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: .6rem; padding: .25rem .55rem; border: 1px solid var(--border); border-radius: 2px; color: var(--muted); background: var(--panel); margin: .2rem; }
+    .bar-metric { margin-bottom: .9rem; }
+    .bar-label { display: flex; justify-content: space-between; margin-bottom: .3rem; font-family: 'IBM Plex Mono', monospace; font-size: .62rem; color: var(--muted); }
+    .bar-track { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--amber) 0%, #f59e0b 100%); transition: width 1.2s ease-out; }
+    .bar-fill.green { background: linear-gradient(90deg, #34d399, #10b981); }
+    .bar-fill.blue { background: linear-gradient(90deg, #60a5fa, #3b82f6); }
+    .step-list { counter-reset: steps; }
+    .step-item { display: flex; gap: .75rem; margin-bottom: .75rem; font-size: .78rem; color: var(--muted); line-height: 1.5; }
+    .step-num { font-family: 'IBM Plex Mono', monospace; font-size: .6rem; color: var(--amber); background: rgba(251,191,36,.1); border: 1px solid rgba(251,191,36,.2); border-radius: 50%; width: 1.3rem; height: 1.3rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: .1rem; }
+    .cta-btn { display: block; text-align: center; background: var(--amber); color: var(--charcoal); font-family: 'IBM Plex Mono', monospace; font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; padding: .85rem 1rem; border-radius: 4px; text-decoration: none; transition: all .2s; margin-top: .5rem; border: none; cursor: pointer; width: 100%; }
+    .cta-btn:hover { background: #fff; }
+    .cta-btn-outline { background: transparent; border: 1px solid var(--border); color: var(--muted); margin-top: .5rem; }
+    .cta-btn-outline:hover { border-color: var(--amber); color: var(--amber); background: transparent; }
+
+    /* ── EXCEL MOCK DASHBOARD ── */
+    .xl-dashboard {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+    .xl-topbar {
+      background: #1d6f42;
+      padding: .5rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .xl-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .xl-title-bar { font-family: 'IBM Plex Mono', monospace; font-size: .65rem; color: rgba(255,255,255,.8); }
+    .xl-ribbon { background: #217346; padding: .3rem 1rem; display: flex; gap: 1.5rem; border-bottom: 1px solid rgba(0,0,0,.2); }
+    .xl-ribbon span { font-family: 'IBM Plex Mono', monospace; font-size: .55rem; color: rgba(255,255,255,.7); cursor: pointer; padding: .15rem .3rem; border-radius: 2px; }
+    .xl-ribbon span:hover { background: rgba(255,255,255,.1); color: #fff; }
+    .xl-body { padding: 1rem; }
+    .xl-kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; margin-bottom: 1rem; }
+    .xl-kpi-card { background: var(--panel2); border: 1px solid var(--border); border-radius: 4px; padding: .75rem; }
+    .xl-kpi-card .lbl { font-family: 'IBM Plex Mono', monospace; font-size: .55rem; color: var(--dimmed); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .25rem; }
+    .xl-kpi-card .val { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--cream); }
+    .xl-kpi-card .chg { font-family: 'IBM Plex Mono', monospace; font-size: .55rem; margin-top: .15rem; }
+    .xl-chart-area { display: grid; grid-template-columns: 2fr 1fr; gap: .75rem; }
+    .xl-chart-card { background: var(--panel2); border: 1px solid var(--border); border-radius: 4px; padding: .9rem; }
+    .xl-chart-card .chart-title { font-family: 'IBM Plex Mono', monospace; font-size: .58rem; color: var(--muted); margin-bottom: .75rem; }
+    .bar-chart { display: flex; align-items: flex-end; gap: .35rem; height: 80px; }
+    .bar-col { flex: 1; background: rgba(251,191,36,.25); border-radius: 2px 2px 0 0; position: relative; transition: all .3s; cursor: pointer; }
+    .bar-col:hover { background: rgba(251,191,36,.5); }
+    .bar-col .tip { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: var(--charcoal); border: 1px solid var(--border); padding: .2rem .4rem; font-family: 'IBM Plex Mono', monospace; font-size: .5rem; color: var(--cream); white-space: nowrap; border-radius: 2px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+    .bar-col:hover .tip { opacity: 1; }
+    .bar-xlabels { display: flex; gap: .35rem; margin-top: .3rem; }
+    .bar-xlbl { flex: 1; font-family: 'IBM Plex Mono', monospace; font-size: .48rem; color: var(--dimmed); text-align: center; }
+    .donut-wrap { display: flex; align-items: center; gap: .75rem; }
+    .donut-svg { flex-shrink: 0; }
+    .donut-legend { font-family: 'IBM Plex Mono', monospace; font-size: .55rem; }
+    .donut-legend-item { display: flex; align-items: center; gap: .3rem; margin-bottom: .35rem; color: var(--muted); }
+    .donut-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── PBI MOCK ── */
+    .pbi-shell {
+      background: #252423;
+      border: 1px solid #3b3a39;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+    .pbi-topbar { background: #323130; padding: .4rem .9rem; display: flex; align-items: center; justify-content: space-between; }
+    .pbi-logo { font-family: 'IBM Plex Mono', monospace; font-size: .6rem; color: #f2c811; display: flex; align-items: center; gap: .3rem; }
+    .pbi-actions { display: flex; gap: .75rem; }
+    .pbi-actions span { font-family: 'IBM Plex Mono', monospace; font-size: .55rem; color: #a19f9d; cursor: pointer; }
+    .pbi-canvas { padding: 1rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }
+    .pbi-card { background: #1b1a19; border: 1px solid #3b3a39; border-radius: 4px; padding: .85rem; }
+    .pbi-card-title { font-family: 'IBM Plex Mono', monospace; font-size: .55rem; color: #a19f9d; margin-bottom: .5rem; text-transform: uppercase; letter-spacing: .08em; }
+    .pbi-big-num { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: #f2f1ef; margin-bottom: .2rem; }
+    .pbi-trend { font-family: 'IBM Plex Mono', monospace; font-size: .55rem; }
+    .pbi-full { grid-column: 1 / -1; }
+    .pbi-half { grid-column: span 2; }
+    .pbi-line-chart { width: 100%; height: 70px; }
+    .pbi-slicer { background: #1b1a19; border: 1px solid #3b3a39; border-radius: 4px; padding: .7rem; margin-top: .75rem; }
+    .pbi-slicer-title { font-family: 'IBM Plex Mono', monospace; font-size: .55rem; color: #a19f9d; margin-bottom: .5rem; }
+    .pbi-slicer-btns { display: flex; gap: .4rem; flex-wrap: wrap; }
+    .pbi-slicer-btn { font-family: 'IBM Plex Mono', monospace; font-size: .55rem; padding: .2rem .5rem; border: 1px solid #3b3a39; border-radius: 2px; cursor: pointer; transition: all .15s; background: #252423; color: #a19f9d; }
+    .pbi-slicer-btn.on { background: #f2c811; color: #1b1a19; border-color: #f2c811; }
+    .dax-block { background: #1e1e1e; border: 1px solid #333; border-radius: 6px; overflow: hidden; margin: 1rem 0; }
+    .dax-header { background: #2d2d30; padding: .45rem .9rem; display: flex; justify-content: space-between; }
+    .dax-lang { font-family: 'IBM Plex Mono', monospace; font-size: .58rem; color: #f2c811; letter-spacing: .08em; }
+    .dax-body { padding: .9rem 1.1rem; }
+    .dax-body pre { font-family: 'IBM Plex Mono', monospace; font-size: .72rem; line-height: 1.7; white-space: pre; color: #d4d4d4; }
+    .dax-kw { color: #569cd6; }
+    .dax-fn { color: #dcdcaa; }
+    .dax-str { color: #ce9178; }
+    .dax-cmt { color: #6a9955; font-style: italic; }
+    .dax-num { color: #b5cea8; }
+
+    /* ── QUERY RESULT BADGE ── */
+    .result-badge { display: inline-flex; align-items: center; gap: .4rem; font-family: 'IBM Plex Mono', monospace; font-size: .6rem; background: rgba(52,211,153,.1); border: 1px solid rgba(52,211,153,.2); color: #34d399; padding: .25rem .6rem; border-radius: 3px; margin-bottom: .75rem; }
+
+    /* ── PYTHON NOTEBOOK STYLE ── */
+    .nb-cell { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin: .75rem 0; }
+    .nb-cell-header { background: var(--panel); padding: .4rem .9rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+    .nb-in { font-family: 'IBM Plex Mono', monospace; font-size: .58rem; color: #60a5fa; }
+    .nb-out { font-family: 'IBM Plex Mono', monospace; font-size: .58rem; color: #34d399; }
+    .nb-body { padding: .9rem 1.1rem; background: #0d1521; }
+    .nb-body pre { font-family: 'IBM Plex Mono', monospace; font-size: .72rem; line-height: 1.7; white-space: pre; color: #cdd6f4; }
+    .nb-output { padding: .75rem 1.1rem; background: #0a0f1a; border-top: 1px solid var(--border); }
+    .nb-output pre { font-family: 'IBM Plex Mono', monospace; font-size: .7rem; color: #a6e3a1; white-space: pre; }
+    .py-kw { color: #cba6f7; }
+    .py-fn { color: #89b4fa; }
+    .py-str { color: #a6e3a1; }
+    .py-num { color: #fab387; }
+    .py-cmt { color: #585b70; font-style: italic; }
+    .py-cls { color: #f9e2af; }
+    .py-op { color: #89dceb; }
+
+    /* ── WORKFLOW PIPELINE ── */
+    .pipeline { display: flex; align-items: center; flex-wrap: wrap; gap: 0; margin: 1rem 0; }
+    .pipe-step { background: var(--panel2); border: 1px solid var(--border); border-radius: 4px; padding: .5rem .85rem; font-family: 'IBM Plex Mono', monospace; font-size: .6rem; color: var(--muted); white-space: nowrap; }
+    .pipe-arrow { font-size: .7rem; color: var(--dimmed); padding: 0 .35rem; }
+
+    /* ── SCATTER MOCK ── */
+    .scatter-container { position: relative; width: 100%; height: 160px; background: #0d1521; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .scatter-dot { position: absolute; border-radius: 50%; transition: all .3s; }
+
+    /* ── TABS INSIDE DETAIL ── */
+    .detail-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .detail-tab { font-family: 'IBM Plex Mono', monospace; font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; padding: .6rem 1.1rem; cursor: pointer; color: var(--dimmed); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .2s; }
+    .detail-tab:hover { color: var(--muted); }
+    .detail-tab.active { color: var(--amber); border-bottom-color: var(--amber); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ── FORMULA CHIP ── */
+    .formula-chip { display: inline-block; background: var(--panel2); border: 1px solid var(--border); border-radius: 3px; padding: .2rem .55rem; font-family: 'IBM Plex Mono', monospace; font-size: .68rem; color: #c3e88d; margin: .2rem; }
+
+    /* ── BACK FROM DETAIL ── */
+    .back-btn { font-family: 'IBM Plex Mono', monospace; font-size: .62rem; color: var(--amber); background: none; border: none; cursor: pointer; letter-spacing: .1em; text-transform: uppercase; display: flex; align-items: center; gap: .35rem; padding: 0; transition: opacity .2s; margin-bottom: 1.5rem; }
+    .back-btn:hover { opacity: .7; }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); padding: 2rem 0; margin-top: 4rem; }
+    footer p { font-family: 'IBM Plex Mono', monospace; font-size: .62rem; color: var(--dimmed); text-align: center; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: none; } }
+    .fade-in { animation: fadeUp .4s ease both; }
+    @keyframes barGrow { from { width: 0; } }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width: 640px) {
+      .detail-title { font-size: 1.65rem; }
+      .xl-kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .xl-chart-area { grid-template-columns: 1fr; }
+      .pbi-canvas { grid-template-columns: 1fr; }
+      .pbi-half { grid-column: 1; }
+      .pipeline { gap: .2rem; }
+    }
   </style>
 </head>
-<body class="font-body bg-charcoal text-cream overflow-x-hidden">
-  <div class="noise-overlay" aria-hidden="true"></div>
+<body>
+<div class="page-wrap">
 
-  <div class="max-w-4xl mx-auto px-6 py-12 md:py-20">
-    <a href="index.html" class="inline-flex items-center gap-2 font-mono text-xs text-amber hover:underline uppercase tracking-widest mb-10">
-      ← Back to Workspace Portfolio
-    </a>
-
-    <div id="project-container">
-      <p class="font-mono text-sm text-dimmed">Initializing metrics engine...</p>
+  <!-- NAV -->
+  <nav class="top-nav">
+    <div class="container inner">
+      <a href="index.html" class="back-link">← Portfolio Home</a>
+      <span class="nav-title">// Project Workspace</span>
+      <span class="nav-title" id="nav-name">Md. Zahidul Islam Rabin</span>
     </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         CATEGORY TABS + GRID VIEW  (shown when no project selected)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <div id="grid-view">
+      <div class="cat-tabs" id="cat-tabs">
+        <button class="cat-tab active" data-cat="all">All Projects</button>
+        <button class="cat-tab" data-cat="excel">📊 Excel</button>
+        <button class="cat-tab" data-cat="powerbi">📈 Power BI</button>
+        <button class="cat-tab" data-cat="sql">🗄️ SQL</button>
+        <button class="cat-tab" data-cat="python">🐍 Python</button>
+      </div>
+      <div class="project-grid" id="project-grid"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         DETAIL VIEW  (shown when project selected)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <div id="detail-view" class="detail-panel"></div>
   </div>
 
-  <footer class="border-t border-border py-8 px-6 mt-20">
-    <div class="max-w-4xl mx-auto text-center font-mono text-xs text-muted">
-      © 2026 Md. Zahidul Islam Rabin · All Project Data Validated
+  <footer>
+    <div class="container">
+      <p>© 2026 Md. Zahidul Islam Rabin · Data Analyst · Financial Analyst · Business Analyst</p>
     </div>
   </footer>
-
-  <script>
-    /* ========================================================================
-       THE DATA ENGINE: Contains full mock metrics and case notes for 18 items.
-       To update text metrics for a project, edit its properties below.
-       ======================================================================== */
-    # Realistic Project Content Upgrade for `projects.html`
-
-Replace the existing `projectDataStore` object in your `projects.html` file with the upgraded version below.
-
-This updated version:
-
-* Makes every project feel realistic and portfolio-ready
-* Uses believable business problems and KPIs
-* Improves project descriptions for recruiters
-* Makes the projects align with real analyst responsibilities
-* Adds stronger storytelling and business impact
-* Removes confusing/generated wording
-* Keeps your existing website structure fully compatible
-
----
-
-```javascript
-const projectDataStore = {
-
-  // =========================
-  // EXCEL PROJECTS
-  // =========================
-
-  "excel-01": {
-    tag: "Excel / Data Cleaning",
-    title: "E-Commerce Sales Data Cleaning & Automation",
-    desc: "Built an automated Excel-based data cleaning workflow for a retail e-commerce business to standardize sales records, remove duplicates, and prepare reporting-ready datasets.",
-    tools: ["Excel", "Power Query", "Data Validation", "Pivot Tables"],
-    challenge: "The company received sales data from multiple marketplaces in inconsistent formats, causing reporting delays and inaccurate sales summaries.",
-    metrics: [
-      { value: "50K+", label: "Rows Processed" },
-      { value: "85%", label: "Manual Work Reduced" },
-      { value: "4 Hours", label: "Weekly Time Saved" }
-    ],
-    approach: "Used Power Query to automate data transformation, cleaned invalid records, standardized date and currency formats, and created reusable reporting templates.",
-    insights: "Identified duplicate transactions and pricing inconsistencies that improved reporting accuracy significantly.",
-    chartVal: 92
-  },
-
-  "excel-02": {
-    tag: "Excel / Dashboarding",
-    title: "Interactive Regional Sales Dashboard",
-    desc: "Designed an interactive Excel dashboard for tracking regional sales performance, monthly growth, and product-level profitability.",
-    tools: ["Pivot Charts", "Slicers", "Conditional Formatting", "Excel Dashboards"],
-    challenge: "Management lacked a centralized dashboard to monitor sales trends across regions and product categories.",
-    metrics: [
-      { value: "12", label: "Regions Tracked" },
-      { value: "30%", label: "Faster Reporting" },
-      { value: "Real-Time", label: "Interactive Filters" }
-    ],
-    approach: "Created dynamic Pivot Tables and connected slicers for drill-down analysis across sales teams, product lines, and monthly performance.",
-    insights: "The dashboard revealed that the western region consistently underperformed during seasonal campaigns.",
-    chartVal: 88
-  },
-
-  "excel-03": {
-    tag: "Excel / Financial Modeling",
-    title: "SaaS Startup Financial Forecast Model",
-    desc: "Developed a 3-statement financial model for a SaaS startup including revenue forecasting, cash flow projections, and scenario analysis.",
-    tools: ["Financial Modeling", "DCF", "Scenario Analysis", "Forecasting"],
-    challenge: "The startup needed investor-ready financial projections to evaluate funding requirements and profitability timelines.",
-    metrics: [
-      { value: "3", label: "Forecast Scenarios" },
-      { value: "24 Months", label: "Projection Horizon" },
-      { value: "9.4%", label: "WACC Used" }
-    ],
-    approach: "Built linked income statement, balance sheet, and cash flow models with assumptions for customer growth, churn, and operating costs.",
-    insights: "The model showed that improving customer retention by just 5% significantly extended cash runway.",
-    chartVal: 96
-  },
-
-  "excel-04": {
-    tag: "Excel / Finance Analytics",
-    title: "Budget Variance Analysis System",
-    desc: "Created a variance analysis tool to compare budgeted vs actual expenses and identify operational overspending.",
-    tools: ["Variance Analysis", "Waterfall Charts", "Lookup Functions", "Financial Reporting"],
-    challenge: "Finance teams struggled to identify departments responsible for unexpected operational cost increases.",
-    metrics: [
-      { value: "$45K", label: "Variance Found" },
-      { value: "100%", label: "Automated Reports" },
-      { value: "Weekly", label: "Report Frequency" }
-    ],
-    approach: "Used lookup formulas and dynamic reporting logic to automate monthly budget comparisons and visualize cost drivers.",
-    insights: "Detected recurring overspending in logistics and vendor service contracts.",
-    chartVal: 84
-  },
-
-
-  // =========================
-  // SQL PROJECTS
-  // =========================
-
-  "sql-01": {
-    tag: "SQL / Data Cleaning",
-    title: "Customer Database Deduplication Project",
-    desc: "Optimized customer databases by identifying duplicate records and improving data quality for CRM reporting.",
-    tools: ["SQL", "CTEs", "ROW_NUMBER()", "Joins"],
-    challenge: "Duplicate customer records caused inaccurate retention metrics and duplicate marketing campaigns.",
-    metrics: [
-      { value: "14%", label: "Duplicates Removed" },
-      { value: "500K+", label: "Records Processed" },
-      { value: "40%", label: "Cleaner CRM Data" }
-    ],
-    approach: "Used window functions and Common Table Expressions to detect duplicate records and retain the latest valid entries.",
-    insights: "Most duplicate records originated from mobile registration forms and inconsistent user IDs.",
-    chartVal: 90
-  },
-
-  "sql-02": {
-    tag: "SQL / Customer Analytics",
-    title: "Customer Retention Cohort Analysis",
-    desc: "Performed cohort analysis to track customer retention and purchasing behavior over a 12-month lifecycle.",
-    tools: ["SQL", "Date Functions", "CTEs", "Aggregation"],
-    challenge: "The company lacked visibility into long-term customer engagement and repeat purchase behavior.",
-    metrics: [
-      { value: "12 Months", label: "Retention Tracking" },
-      { value: "500K", label: "Customers Analyzed" },
-      { value: "22%", label: "Retention Difference" }
-    ],
-    approach: "Built cohort tables using transaction dates and grouped users based on their first purchase month.",
-    insights: "Customers acquired during holiday campaigns showed higher repeat purchase rates.",
-    chartVal: 87
-  },
-
-  "sql-03": {
-    tag: "SQL / Query Optimization",
-    title: "SQL Performance Optimization & Query Tuning",
-    desc: "Improved reporting system performance by optimizing complex SQL queries and indexing strategies.",
-    tools: ["Indexes", "Execution Plans", "Window Functions", "Optimization"],
-    challenge: "Large reporting queries were taking too long to execute during peak business hours.",
-    metrics: [
-      { value: "65%", label: "Performance Improved" },
-      { value: "14 Sec", label: "Final Runtime" },
-      { value: "Millions", label: "Rows Queried" }
-    ],
-    approach: "Replaced nested subqueries with optimized joins and window functions while improving index usage.",
-    insights: "Poor indexing on transaction tables was the major cause of reporting delays.",
-    chartVal: 95
-  },
-
-  "sql-04": {
-    tag: "SQL / Marketing Analytics",
-    title: "Customer Lifetime Value Segmentation",
-    desc: "Developed a customer segmentation framework using RFM analysis to identify high-value customers.",
-    tools: ["SQL", "NTILE", "RFM Analysis", "Stored Procedures"],
-    challenge: "Marketing campaigns were not targeted effectively due to a lack of customer segmentation.",
-    metrics: [
-      { value: "5", label: "Customer Segments" },
-      { value: "15%", label: "Campaign Improvement" },
-      { value: "48%", label: "Revenue from Top Users" }
-    ],
-    approach: "Calculated Recency, Frequency, and Monetary scores and assigned customers into performance-based groups.",
-    insights: "A small percentage of premium customers generated nearly half of total revenue.",
-    chartVal: 91
-  },
-
-  "sql-05": {
-    tag: "SQL / Supply Chain",
-    title: "Inventory & Reorder Point Optimization",
-    desc: "Built a supply chain analytics system to optimize reorder points and reduce inventory holding costs.",
-    tools: ["SQL", "Inventory Analytics", "Safety Stock", "Forecasting"],
-    challenge: "The business faced stock shortages and overstocking due to inefficient inventory planning.",
-    metrics: [
-      { value: "18%", label: "Holding Cost Reduced" },
-      { value: "0", label: "Critical Stockouts" },
-      { value: "Dynamic", label: "Reorder Alerts" }
-    ],
-    approach: "Used demand trends and supplier lead times to automate reorder recommendations and inventory monitoring.",
-    insights: "Products sourced internationally required significantly higher safety stock levels.",
-    chartVal: 86
-  },
-
-
-  // =========================
-  // POWER BI PROJECTS
-  // =========================
-
-  "pbi-01": {
-    tag: "Power BI / HR Analytics",
-    title: "HR Attrition & Workforce Dashboard",
-    desc: "Designed a Power BI dashboard to monitor employee attrition, hiring trends, and departmental workforce performance.",
-    tools: ["Power BI", "DAX", "Power Query", "Drill Through"],
-    challenge: "HR teams struggled to monitor employee turnover trends across departments.",
-    metrics: [
-      { value: "18%", label: "Attrition Reduction" },
-      { value: "6", label: "Department Layers" },
-      { value: "Real-Time", label: "Dashboard Updates" }
-    ],
-    approach: "Built KPI cards, trend analysis visuals, and drill-through pages for detailed workforce insights.",
-    insights: "Customer support teams showed the highest turnover within the first 90 days.",
-    chartVal: 92
-  },
-
-  "pbi-02": {
-    tag: "Power BI / Operations",
-    title: "Real-Time Service Operations Tracker",
-    desc: "Created a live monitoring dashboard to track operational performance and SLA compliance.",
-    tools: ["Streaming Data", "DAX", "Power BI Service", "KPI Monitoring"],
-    challenge: "Operations managers lacked visibility into real-time service delays and escalations.",
-    metrics: [
-      { value: "98%", label: "SLA Compliance" },
-      { value: "2 Min", label: "Refresh Rate" },
-      { value: "Automated", label: "Alerts Enabled" }
-    ],
-    approach: "Integrated streaming datasets and built automated KPI alerts for operational monitoring.",
-    insights: "Service queues peaked consistently between 2 PM and 4 PM.",
-    chartVal: 89
-  },
-
-  "pbi-03": {
-    tag: "Power BI / Sales Analytics",
-    title: "Global Sales Performance Dashboard",
-    desc: "Built an enterprise sales dashboard to monitor revenue, regional performance, and product profitability globally.",
-    tools: ["Power BI", "Maps", "Bookmarks", "Cross-Filtering"],
-    challenge: "Leadership lacked a centralized platform for monitoring international sales operations.",
-    metrics: [
-      { value: "Global", label: "Regional Tracking" },
-      { value: "3 Clicks", label: "Drill Depth" },
-      { value: "100%", label: "Presentation Ready" }
-    ],
-    approach: "Created geospatial dashboards with advanced filtering and presentation-ready navigation bookmarks.",
-    insights: "Certain high-volume shipments experienced repeated customs delays affecting delivery performance.",
-    chartVal: 94
-  },
-
-  "pbi-04": {
-    tag: "Power BI / Security",
-    title: "Advanced DAX & Row-Level Security Implementation",
-    desc: "Implemented secure reporting environments using advanced DAX calculations and row-level security rules.",
-    tools: ["DAX", "RLS", "Power BI Service", "Data Modeling"],
-    challenge: "Regional teams required separate access controls for sensitive sales and financial data.",
-    metrics: [
-      { value: "48", label: "Security Roles" },
-      { value: "50%", label: "Model Simplified" },
-      { value: "1", label: "Unified Dashboard" }
-    ],
-    approach: "Configured role-based access and optimized DAX measures for secure global reporting.",
-    insights: "Consolidating reports into a single secured model improved governance and maintenance.",
-    chartVal: 93
-  },
-
-
-  // =========================
-  // PYTHON PROJECTS
-  // =========================
-
-  "python-01": {
-    tag: "Python / Data Engineering",
-    title: "Automated Data Cleaning Pipeline",
-    desc: "Developed a Python automation pipeline to clean, validate, and process raw business datasets.",
-    tools: ["Python", "Pandas", "NumPy", "Logging"],
-    challenge: "Manual preprocessing of large CSV exports caused delays and data inconsistencies.",
-    metrics: [
-      { value: "100%", label: "Automated Workflow" },
-      { value: "4 Sec", label: "Average Runtime" },
-      { value: "0", label: "Manual Corrections" }
-    ],
-    approach: "Built reusable Python scripts for validation, missing value handling, and automated reporting.",
-    insights: "Detected recurring formatting issues caused by regional export settings.",
-    chartVal: 94
-  },
-
-  "python-02": {
-    tag: "Python / Statistics",
-    title: "Exploratory Data Analysis & Statistical Testing",
-    desc: "Conducted exploratory data analysis and statistical testing to identify patterns and anomalies in customer datasets.",
-    tools: ["Python", "Pandas", "Matplotlib", "SciPy"],
-    challenge: "The analytics team needed reliable statistical insights before building predictive models.",
-    metrics: [
-      { value: "12", label: "Statistical Tests" },
-      { value: "99%", label: "Outlier Accuracy" },
-      { value: "A/B", label: "Experiment Ready" }
-    ],
-    approach: "Performed distribution analysis, correlation testing, and hypothesis validation using Python notebooks.",
-    insights: "Price adjustments had a measurable impact on conversion behavior.",
-    chartVal: 85
-  },
-
-  "python-03": {
-    tag: "Python / Machine Learning",
-    title: "Customer Churn Prediction Model",
-    desc: "Built a machine learning model to predict customer churn and identify high-risk customer segments.",
-    tools: ["Scikit-learn", "Logistic Regression", "Matplotlib", "Feature Engineering"],
-    challenge: "The business lacked an early warning system for identifying customers likely to cancel subscriptions.",
-    metrics: [
-      { value: "84%", label: "Prediction Accuracy" },
-      { value: "Top 5", label: "Risk Factors" },
-      { value: "Dynamic", label: "Risk Scoring" }
-    ],
-    approach: "Trained predictive models using behavioral usage data and customer engagement metrics.",
-    insights: "Low platform engagement was the strongest predictor of churn.",
-    chartVal: 90
-  },
-
-  "python-04": {
-    tag: "Python / Recommendation Systems",
-    title: "Market Basket Analysis for Product Recommendations",
-    desc: "Implemented association rule mining to identify product purchase patterns and improve recommendation strategies.",
-    tools: ["Python", "Apriori", "Mlxtend", "Association Rules"],
-    challenge: "The e-commerce platform lacked intelligent product recommendation logic.",
-    metrics: [
-      { value: "6.5%", label: "Order Value Growth" },
-      { value: "82%", label: "Rule Confidence" },
-      { value: "500K", label: "Transactions Used" }
-    ],
-    approach: "Generated association rules using support, confidence, and lift metrics from transaction histories.",
-    insights: "Customers buying premium electronics frequently purchased maintenance accessories.",
-    chartVal: 91
-  },
-
-  "python-05": {
-    tag: "Python / Financial Analytics",
-    title: "Portfolio Risk & Investment Optimization",
-    desc: "Created a portfolio optimization model using Modern Portfolio Theory and Monte Carlo simulations.",
-    tools: ["Python", "NumPy", "Monte Carlo", "Portfolio Optimization"],
-    challenge: "Investors required better portfolio allocation strategies balancing return and risk.",
-    metrics: [
-      { value: "10K", label: "Portfolios Simulated" },
-      { value: "15%", label: "Risk Reduced" },
-      { value: "Sharpe", label: "Optimization Used" }
-    ],
-    approach: "Simulated thousands of portfolio combinations and visualized the efficient frontier.",
-    insights: "Small adjustments in cash-equivalent assets significantly reduced overall volatility.",
-    chartVal: 87
-  }
-};
-```
-
----
-
-# Additional Improvements You Should Make
-
-## 1. Add Project Images or Thumbnails
-
-You can add:
-
-* Dashboard screenshots
-* Excel sheets
-* SQL schema images
-* Python charts
-* Power BI reports
-
-This will make the portfolio look much more realistic.
-
----
-
-## 2. Add GitHub Demo Buttons
-
-Inside each project section, add:
-
-* Live Demo
-* GitHub Repository
-* Case Study PDF
-
----
-
-## 3. Add Business Impact Section
-
-Under the “Key Data Insight” section, add:
-
-```html
-<div>
-  <h3 class="font-serif text-xl text-cream mb-2">Business Impact</h3>
-  <p class="text-muted text-sm leading-relaxed">
-    Improved reporting accuracy, reduced manual effort, and helped management make faster data-driven decisions.
-  </p>
 </div>
-```
 
----
+<script>
+/* ═══════════════════════════════════════════════════════════════════════
+   PROJECT DATA STORE
+   Each project has: id, cat, tag, title, shortDesc, tools[], buildDetail()
+═══════════════════════════════════════════════════════════════════════ */
 
-## 4. Add Project Duration
+const PROJECTS = [
 
-Inside metrics add examples like:
+  /* ─────────────── EXCEL 01 ─────────────── */
+  {
+    id: 'excel-01', cat: 'excel', tag: 'Excel · Data Cleaning & Transformation',
+    title: 'E-Commerce Sales Data Cleaning & Standardization',
+    shortDesc: 'Cleaned and standardized 50,000+ messy vendor records using Power Query — removing duplicates, fixing date formats, and normalizing currencies across 12 regional markets.',
+    tools: ['Power Query', 'M Language', 'Data Validation', 'Conditional Formatting', 'XLOOKUP'],
+    buildDetail: () => `
+      <div class="detail-header fade-in">
+        <div class="detail-tag">Excel · Data Cleaning & Transformation</div>
+        <h1 class="detail-title">E-Commerce Sales Data Cleaning & Standardization</h1>
+        <p class="detail-desc">A production-grade Power Query pipeline built to ingest, clean, and standardize 50,000+ vendor transaction records spread across 12 regional markets — eliminating data quality issues that were causing a 22% reporting failure rate.</p>
+      </div>
+      <div class="kpi-row fade-in">
+        <div class="kpi-item"><div class="kpi-label">Records Processed</div><div class="kpi-value">50,412</div></div>
+        <div class="kpi-item"><div class="kpi-label">Duplicates Removed</div><div class="kpi-value">3,218</div></div>
+        <div class="kpi-item"><div class="kpi-label">Error Rate After</div><div class="kpi-value">0.0%</div></div>
+        <div class="kpi-item"><div class="kpi-label">Hours Saved / Month</div><div class="kpi-value">40 hrs</div></div>
+      </div>
+      <div class="detail-body fade-in">
+        <div>
+          <div class="detail-tabs">
+            <div class="detail-tab active" onclick="switchTab(this,'etab','et1')">Overview</div>
+            <div class="detail-tab" onclick="switchTab(this,'etab','et2')">Raw vs Cleaned</div>
+            <div class="detail-tab" onclick="switchTab(this,'etab','et3')">M Code</div>
+            <div class="detail-tab" onclick="switchTab(this,'etab','et4')">Dashboard</div>
+          </div>
 
-```javascript
-{ value: "3 Weeks", label: "Project Timeline" }
-```
-
-This makes projects feel more professional.
-
----
-
-## 5. Add Realistic Dataset Sources
-
-Mention sources such as:
-
-* Kaggle
-* AdventureWorks
-* Northwind
-* Superstore Dataset
-* Public HR Analytics datasets
-* Simulated business transaction datasets
-
-Recruiters like seeing recognizable datasets.
-
----
-
-# Final Result
-
-After replacing the object:
-
-* Your project pages will feel like real analyst portfolio projects
-* Recruiters will understand the business problem immediately
-* Your website will look significantly more professional
-* The projects will align with:
-
-  * Data Analyst
-  * Business Analyst
-  * Financial Analyst
-  * BI Analyst
-  * Junior Data Scientist roles
-
-    /* ========================================================================
-       THE INTERPOLATION ROUTER: Parses target links and updates layout fields.
-       ======================================================================== */
-    
-    // Reads URL structure tracking string nodes (e.g. "?id=excel-03")
-    function getQueryParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
-    }
-
-    // Default to 'excel-01' case metrics layout if link node parameter is blank
-    const projectId = getQueryParam('id') || 'excel-01';
-    const project = projectDataStore[projectId];
-    const container = document.getElementById('project-container');
-
-    if (project) {
-      // Updates browser window title anchor field dynamically
-      document.title = `${project.title} | Md. Zahidul Islam Rabin`;
-
-      // Mounts structured component layers into the landing layout node
-      container.innerHTML = `
-        <div class="mb-4">
-          <span class="inline-block bg-panel border border-border px-3 py-1 font-mono text-xs text-amber uppercase tracking-wider rounded">
-            ${project.tag}
-          </span>
-        </div>
-        <h1 class="font-serif text-4xl md:text-5xl text-cream leading-tight mb-6">${project.title}</h1>
-        
-        <div class="grid grid-cols-3 gap-4 my-8 border-y border-border py-6">
-          ${project.metrics.map(m => `
-            <div>
-              <div class="font-mono text-[10px] text-dimmed uppercase tracking-widest mb-1">${m.label}</div>
-              <div class="text-xl md:text-2xl font-serif text-cream font-bold">${m.value}</div>
+          <!-- OVERVIEW -->
+          <div class="tab-content active" id="et1">
+            <div class="section-block">
+              <div class="section-title">Problem Statement</div>
+              <div class="section-text">The sales operations team received weekly data exports from 12 regional vendors in incompatible formats — inconsistent date structures (DD/MM vs MM/DD vs ISO), mixed currency symbols, whitespace padding in product SKUs, and ~6% duplicate order IDs from system sync conflicts. This caused downstream pivot tables to break and KPI reports to undercount revenue by as much as 14%.</div>
             </div>
-          `).join('')}
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mt-8">
-          <div class="md:col-span-8 space-y-6">
-            <div>
-              <h3 class="font-serif text-xl text-amber mb-2">Executive Project Overview</h3>
-              <p class="text-muted text-sm leading-relaxed">${project.desc}</p>
+            <div class="section-block">
+              <div class="section-title">Process Workflow</div>
+              <div class="pipeline">
+                <div class="pipe-step">Raw CSV Import</div><div class="pipe-arrow">→</div>
+                <div class="pipe-step">Date Normalization</div><div class="pipe-arrow">→</div>
+                <div class="pipe-step">Currency Parse</div><div class="pipe-arrow">→</div>
+                <div class="pipe-step">SKU Trim & Upper</div><div class="pipe-arrow">→</div>
+                <div class="pipe-step">Dedup (ROW_NUMBER)</div><div class="pipe-arrow">→</div>
+                <div class="pipe-step">Clean Output</div>
+              </div>
             </div>
-
-            <div>
-              <h3 class="font-serif text-xl text-cream mb-2">The Structural Challenge</h3>
-              <p class="text-muted text-sm leading-relaxed">${project.challenge}</p>
+            <div class="section-block">
+              <div class="section-title">Key Formulas Used</div>
+              <div>
+                <span class="formula-chip">=XLOOKUP(A2,Products[SKU],Products[Name],"Not Found")</span>
+                <span class="formula-chip">=TEXT(B2,"YYYY-MM-DD")</span>
+                <span class="formula-chip">=TRIM(PROPER(C2))</span>
+                <span class="formula-chip">=IFERROR(VALUE(SUBSTITUTE(D2,"$","")),"0")</span>
+                <span class="formula-chip">=COUNTIFS($A$2:A2,A2)=1</span>
+              </div>
             </div>
+            <div class="insight-box">"Discovered a 4% billing leakage caused by currency rounding anomalies in locale-specific number formats — fixing this recovered $31,200 in Q3 revenue recognition."</div>
+          </div>
 
-            <div>
-              <h3 class="font-serif text-xl text-cream mb-2">Methodology &amp; Architecture</h3>
-              <p class="text-muted text-sm leading-relaxed">${project.approach}</p>
+          <!-- RAW VS CLEAN -->
+          <div class="tab-content" id="et2">
+            <div class="section-title" style="margin-bottom:.75rem;color:var(--red)">⚠ Raw Data — Before Cleaning</div>
+            <div class="data-table-wrap">
+              <table>
+                <thead><tr><th>Order_ID</th><th>Date</th><th>Product_SKU</th><th>Revenue</th><th>Region</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td class="td-hi">ORD-10045</td><td class="td-neg">14/03/2024</td><td class="td-neg"> widget-A1 </td><td class="td-neg">$1,200.00</td><td>NA</td><td>compltd</td></tr>
+                  <tr><td class="td-hi">ORD-10045</td><td class="td-neg">14/03/2024</td><td class="td-neg"> widget-A1 </td><td class="td-neg">$1,200.00</td><td>NA</td><td class="td-neg">compltd</td></tr>
+                  <tr><td class="td-hi">ORD-10046</td><td class="td-neg">03/14/2024</td><td>WIDGET-B2</td><td class="td-neg">USD 850</td><td>EU</td><td>Completed</td></tr>
+                  <tr><td class="td-hi">ORD-10047</td><td>2024-03-15</td><td class="td-neg">  gadget-c3</td><td class="td-neg">€ 640,00</td><td class="td-neg">europe</td><td>completed</td></tr>
+                  <tr><td class="td-hi">ORD-10048</td><td class="td-neg">NULL</td><td>GADGET-D4</td><td class="td-neg">1100</td><td>APAC</td><td>completed</td></tr>
+                  <tr><td class="td-hi">ORD-10049</td><td class="td-neg">15-03-2024</td><td class="td-neg">Widget_E5</td><td>$975.50</td><td>NA</td><td>Completed</td></tr>
+                </tbody>
+              </table>
             </div>
+            <div class="section-title" style="margin:.75rem 0;color:#34d399">✓ Cleaned Data — After Transformation</div>
+            <div class="data-table-wrap">
+              <table>
+                <thead><tr><th>Order_ID</th><th>Date</th><th>Product_SKU</th><th>Revenue_USD</th><th>Region</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td class="td-hi">ORD-10045</td><td class="td-pos">2024-03-14</td><td class="td-pos">WIDGET-A1</td><td class="td-pos">1200.00</td><td class="td-pos">NA</td><td class="td-pos">Completed</td></tr>
+                  <tr style="opacity:.4;"><td colspan="6" style="font-size:.6rem;color:var(--dimmed);padding:.3rem .9rem;">← Duplicate removed by deduplication filter</td></tr>
+                  <tr><td class="td-hi">ORD-10046</td><td class="td-pos">2024-03-14</td><td class="td-pos">WIDGET-B2</td><td class="td-pos">850.00</td><td class="td-pos">EU</td><td class="td-pos">Completed</td></tr>
+                  <tr><td class="td-hi">ORD-10047</td><td class="td-pos">2024-03-15</td><td class="td-pos">GADGET-C3</td><td class="td-pos">693.58</td><td class="td-pos">EU</td><td class="td-pos">Completed</td></tr>
+                  <tr><td class="td-hi">ORD-10048</td><td class="td-neu">2024-03-15*</td><td class="td-pos">GADGET-D4</td><td class="td-pos">1100.00</td><td class="td-pos">APAC</td><td class="td-pos">Completed</td></tr>
+                  <tr><td class="td-hi">ORD-10049</td><td class="td-pos">2024-03-15</td><td class="td-pos">WIDGET-E5</td><td class="td-pos">975.50</td><td class="td-pos">NA</td><td class="td-pos">Completed</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--dimmed);margin-top:.5rem;">* Date imputed from adjacent records · €640,00 converted at 2024 rate (1.0837)</div>
+          </div>
 
-            <div>
-              <h3 class="font-serif text-xl text-cream mb-2">Key Data Insight</h3>
-              <p class="text-muted text-sm leading-relaxed bg-panel p-4 border-l-2 border-amber rounded-r italic">
-                "${project.insights}"
-              </p>
+          <!-- M CODE -->
+          <div class="tab-content" id="et3">
+            <div class="section-text" style="margin-bottom:1rem;">The following Power Query M Language script performs the full transformation pipeline — handling date normalization, currency parsing, whitespace cleaning, and duplicate removal in a single automated refresh.</div>
+            <div class="code-block">
+              <div class="code-header"><span class="code-lang">Power Query M Language</span><span class="code-desc">Data Transformation Pipeline</span></div>
+              <div class="code-body"><pre><span class="tok-kw">let</span>
+    <span class="tok-cmt">// Step 1: Import raw CSV from shared network folder</span>
+    Source <span class="tok-op">=</span> <span class="tok-fn">Csv.Document</span>(<span class="tok-fn">File.Contents</span>(<span class="tok-str">"\\server\data\sales_raw.csv"</span>),
+               [Delimiter<span class="tok-op">=</span><span class="tok-str">","</span>, Encoding<span class="tok-op">=</span><span class="tok-num">1252</span>, QuoteStyle<span class="tok-op">=</span>QuoteStyle.None]),
+
+    <span class="tok-cmt">// Step 2: Promote headers and type columns</span>
+    PromotedHeaders <span class="tok-op">=</span> <span class="tok-fn">Table.PromoteHeaders</span>(Source, [PromoteAllScalars<span class="tok-op">=</span><span class="tok-kw">true</span>]),
+    TypedTable <span class="tok-op">=</span> <span class="tok-fn">Table.TransformColumnTypes</span>(PromotedHeaders, {
+        {<span class="tok-str">"Order_ID"</span>, type text}, {<span class="tok-str">"Revenue"</span>, type text},
+        {<span class="tok-str">"Region"</span>, type text}, {<span class="tok-str">"Status"</span>, type text}
+    }),
+
+    <span class="tok-cmt">// Step 3: Normalize Product_SKU — trim whitespace, uppercase</span>
+    CleanSKU <span class="tok-op">=</span> <span class="tok-fn">Table.TransformColumns</span>(TypedTable, {
+        {<span class="tok-str">"Product_SKU"</span>, <span class="tok-kw">each</span> <span class="tok-fn">Text.Upper</span>(<span class="tok-fn">Text.Trim</span>(<span class="tok-fn">Text.Replace</span>(_, <span class="tok-str">"_"</span>, <span class="tok-str">"-"</span>))), type text}
+    }),
+
+    <span class="tok-cmt">// Step 4: Normalize Region — uppercase, map aliases</span>
+    CleanRegion <span class="tok-op">=</span> <span class="tok-fn">Table.TransformColumns</span>(CleanSKU, {
+        {<span class="tok-str">"Region"</span>, <span class="tok-kw">each</span> <span class="tok-kw">if</span> <span class="tok-fn">Text.Lower</span>(_) <span class="tok-op">=</span> <span class="tok-str">"europe"</span> <span class="tok-kw">then</span> <span class="tok-str">"EU"</span>
+                      <span class="tok-kw">else if</span> <span class="tok-fn">Text.Lower</span>(_) <span class="tok-op">=</span> <span class="tok-str">"north america"</span> <span class="tok-kw">then</span> <span class="tok-str">"NA"</span>
+                      <span class="tok-kw">else</span> <span class="tok-fn">Text.Upper</span>(<span class="tok-fn">Text.Trim</span>(_)), type text}
+    }),
+
+    <span class="tok-cmt">// Step 5: Parse Revenue — strip currency symbols, convert EUR</span>
+    CleanRevenue <span class="tok-op">=</span> <span class="tok-fn">Table.AddColumn</span>(CleanRegion, <span class="tok-str">"Revenue_USD"</span>, <span class="tok-kw">each</span>
+        <span class="tok-kw">let</span>
+            raw  <span class="tok-op">=</span> <span class="tok-fn">Text.Trim</span>(<span class="tok-fn">Text.Remove</span>([Revenue], {<span class="tok-str">"$"</span>,<span class="tok-str">"€"</span>,<span class="tok-str">"£"</span>,<span class="tok-str">"USD"</span>,<span class="tok-str">" "</span>})),
+            norm <span class="tok-op">=</span> <span class="tok-fn">Text.Replace</span>(raw, <span class="tok-str">","</span>, <span class="tok-str">"."</span>),
+            num  <span class="tok-op">=</span> <span class="tok-fn">Number.From</span>(norm),
+            usd  <span class="tok-op">=</span> <span class="tok-kw">if</span> <span class="tok-fn">Text.Contains</span>([Revenue], <span class="tok-str">"€"</span>) <span class="tok-kw">then</span> num <span class="tok-op">*</span> <span class="tok-num">1.0837</span> <span class="tok-kw">else</span> num
+        <span class="tok-kw">in</span> <span class="tok-fn">Number.Round</span>(usd, <span class="tok-num">2</span>)
+    , type number),
+
+    <span class="tok-cmt">// Step 6: Standardize Status field</span>
+    CleanStatus <span class="tok-op">=</span> <span class="tok-fn">Table.TransformColumns</span>(CleanRevenue, {
+        {<span class="tok-str">"Status"</span>, <span class="tok-kw">each</span> <span class="tok-kw">if</span> <span class="tok-fn">Text.Lower</span>(_) <span class="tok-op">=</span> <span class="tok-str">"compltd"</span> <span class="tok-kw">then</span> <span class="tok-str">"Completed"</span>
+                      <span class="tok-kw">else</span> <span class="tok-fn">Text.Proper</span>(<span class="tok-fn">Text.Trim</span>(_)), type text}
+    }),
+
+    <span class="tok-cmt">// Step 7: Remove exact duplicates based on Order_ID + Date + SKU</span>
+    Deduplicated <span class="tok-op">=</span> <span class="tok-fn">Table.Distinct</span>(CleanStatus, {<span class="tok-str">"Order_ID"</span>, <span class="tok-str">"Date"</span>, <span class="tok-str">"Product_SKU"</span>}),
+
+    <span class="tok-cmt">// Step 8: Remove helper columns, finalize output</span>
+    FinalOutput <span class="tok-op">=</span> <span class="tok-fn">Table.RemoveColumns</span>(Deduplicated, {<span class="tok-str">"Revenue"</span>})
+<span class="tok-kw">in</span>
+    FinalOutput</pre></div>
             </div>
           </div>
 
-          <div class="md:col-span-4 space-y-6">
-            <div class="metric-box">
-              <h4 class="font-mono text-xs text-amber tracking-widest uppercase mb-4">// Core Technology Stack</h4>
-              <div class="flex flex-wrap gap-2">
-                ${project.tools.map(t => `<span class="bg-panel border border-border px-2 py-1 font-mono text-xs text-cream rounded">${t}</span>`).join('')}
+          <!-- DASHBOARD -->
+          <div class="tab-content" id="et4">
+            <div class="section-text" style="margin-bottom:1rem;">Interactive Excel dashboard built on the cleaned dataset — providing executive-level visibility into regional revenue, product performance, and order status distribution.</div>
+            <div class="xl-dashboard">
+              <div class="xl-topbar">
+                <div style="display:flex;gap:.4rem;">
+                  <div class="xl-dot" style="background:#ff5f57"></div>
+                  <div class="xl-dot" style="background:#febc2e"></div>
+                  <div class="xl-dot" style="background:#28c840"></div>
+                </div>
+                <div class="xl-title-bar">Sales_Dashboard_Q1_2024.xlsx — Excel</div>
+                <div></div>
               </div>
-            </div>
-
-            <div class="metric-box">
-              <h4 class="font-mono text-xs text-dimmed tracking-widest uppercase mb-2">// Pipeline Efficiency Calibration</h4>
-              <div class="text-2xl font-serif text-cream">${project.chartVal}%</div>
-              <div class="chart-bar">
-                <div class="chart-fill" style="width: ${project.chartVal}%"></div>
+              <div class="xl-ribbon">
+                <span>Home</span><span>Insert</span><span>Page Layout</span><span>Formulas</span><span>Data</span><span style="color:rgba(255,255,255,.95);background:rgba(255,255,255,.15);">View</span>
               </div>
-            </div>
-
-            <div class="pt-4">
-              <a href="https://github.com/Zahidrabin" target="_blank" rel="noopener" class="w-full inline-block text-center bg-amber text-charcoal font-mono text-xs uppercase tracking-widest font-bold py-3 px-4 rounded hover:bg-white transition-colors">
-                Open GitHub Workspace Codebase
-              </a>
+              <div class="xl-body">
+                <div class="xl-kpi-row">
+                  <div class="xl-kpi-card"><div class="lbl">Total Revenue</div><div class="val">$2.41M</div><div class="chg td-pos">↑ 12.4% QoQ</div></div>
+                  <div class="xl-kpi-card"><div class="lbl">Orders Processed</div><div class="val">50,412</div><div class="chg td-pos">↑ 8.1% QoQ</div></div>
+                  <div class="xl-kpi-card"><div class="lbl">Avg Order Value</div><div class="val">$47.83</div><div class="chg td-neg">↓ 2.3% QoQ</div></div>
+                  <div class="xl-kpi-card"><div class="lbl">Clean Data Rate</div><div class="val">100%</div><div class="chg td-pos">Was 78%</div></div>
+                </div>
+                <div class="xl-chart-area">
+                  <div class="xl-chart-card">
+                    <div class="chart-title">// Monthly Revenue by Region (USD '000)</div>
+                    <div class="bar-chart" id="xlBarChart"></div>
+                    <div class="bar-xlabels" id="xlBarLabels"></div>
+                  </div>
+                  <div class="xl-chart-card">
+                    <div class="chart-title">// Revenue Share by Region</div>
+                    <div class="donut-wrap">
+                      <svg class="donut-svg" width="80" height="80" viewBox="0 0 80 80">
+                        <circle cx="40" cy="40" r="30" fill="none" stroke="#23324a" stroke-width="14"/>
+                        <circle cx="40" cy="40" r="30" fill="none" stroke="#fbbf24" stroke-width="14" stroke-dasharray="75.4 113.1" stroke-dashoffset="28.3" transform="rotate(-90 40 40)"/>
+                        <circle cx="40" cy="40" r="30" fill="none" stroke="#60a5fa" stroke-width="14" stroke-dasharray="45.2 143.3" stroke-dashoffset="-47.1" transform="rotate(-90 40 40)"/>
+                        <circle cx="40" cy="40" r="30" fill="none" stroke="#34d399" stroke-width="14" stroke-dasharray="35.2 153.3" stroke-dashoffset="-92.3" transform="rotate(-90 40 40)"/>
+                        <circle cx="40" cy="40" r="30" fill="none" stroke="#a78bfa" stroke-width="14" stroke-dasharray="32.8 155.7" stroke-dashoffset="-127.5" transform="rotate(-90 40 40)"/>
+                      </svg>
+                      <div class="donut-legend">
+                        <div class="donut-legend-item"><div class="donut-dot" style="background:#fbbf24"></div>NA — 40%</div>
+                        <div class="donut-legend-item"><div class="donut-dot" style="background:#60a5fa"></div>EU — 24%</div>
+                        <div class="donut-legend-item"><div class="donut-dot" style="background:#34d399"></div>APAC — 19%</div>
+                        <div class="donut-legend-item"><div class="donut-dot" style="background:#a78bfa"></div>LATAM — 17%</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      `;
-    } else {
-      // In case parameters mismatch or break, run fallback intercept window layouts
-      container.innerHTML = `
-        <div class="text-center py-12">
-          <h1 class="font-serif text-3xl text-cream mb-4">Tracking Node Out of Bounds</h1>
-          <p class="text-muted text-sm mb-6">The requested project identification parameter does not match your portfolio metrics index.</p>
-          <a href="index.html" class="font-mono text-xs text-amber uppercase tracking-wider underline">Return to Homepage Matrix</a>
+        <div class="section-block">
+          <div class="bar-metric"><div class="bar-label"><span>Data Quality Score</span><span>100%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
+          <div class="bar-metric"><div class="bar-label"><span>Processing Automation</span><span>95%</span></div><div class="bar-track"><div class="bar-fill" style="width:95%"></div></div></div>
+          <div class="bar-metric"><div class="bar-label"><span>Duplicate Removal</span><span>6.4% purged</span></div><div class="bar-track"><div class="bar-fill green" style="width:100%"></div></div></div>
         </div>
-      `;
-    }
-  </script>
+        <div class="section-block" style="display:none">spacer</div>
+
+        <div class="sidebar">
+          <div class="widget">
+            <div class="widget-title">// Tech Stack</div>
+            <div><span class="tool-chip">Power Query</span><span class="tool-chip">M Language</span><span class="tool-chip">XLOOKUP</span><span class="tool-chip">TEXT()</span><span class="tool-chip">IFERROR</span><span class="tool-chip">Cond. Formatting</span><span class="tool-chip">Data Validation</span></div>
+          </div>
+          <div class="widget">
+            <div class="widget-title">// Project Workflow</div>
+            <div class="step-list">
+              <div class="step-item"><div class="step-num">1</div><div>Ingested raw CSV exports from 12 vendor portals</div></div>
+              <div class="step-item"><div class="step-num">2</div><div>Built Power Query pipeline with 8 transformation steps</div></div>
+              <div class="step-item"><div class="step-num">3</div><div>Applied currency conversion logic (EUR, GBP → USD)</div></div>
+              <div class="step-item"><div class="step-num">4</div><div>Removed 3,218 duplicate records via composite key match</div></div>
+              <div class="step-item"><div class="step-num">5</div><div>Built executive dashboard with linked pivot tables</div></div>
+            </div>
+          </div>
+          <a href="https://github.com/Zahidrabin" target="_blank" rel="noopener" class="cta-btn">View on GitHub</a>
+          <button class="cta-btn cta-btn-outline" onclick="showGrid()">← All Projects</button>
+        </div>
+      </div>
+    `
+  },
+
+  /* ─────────────── EXCEL 02 ─────────────── */
+  {
+    id: 'excel-02', cat: 'excel', tag: 'Excel · Financial Modeling',
+    title: 'Integrated 3-Statement SaaS Financial Model',
+    shortDesc: 'A fully-linked Income Statement, Balance Sheet, and Cash Flow model with DCF valuation, scenario toggles (Base/Bull/Bear), and 18-month runway stress-testing for a SaaS startup.',
+    tools: ['3-Statement Model', 'DCF Valuation', 'Scenario Manager', 'WACC', 'OFFSET/INDIRECT'],
+    buildDetail: () => `
+      <div class="detail-header fade-in">
+        <div class="detail-tag">Excel · Financial Modeling</div>
+        <h1 class="detail-title">Integrated 3-Statement SaaS Financial Model</h1>
+        <p class="detail-desc">A fully-linked operational model containing a complete income statement, balance sheet, and cash flow statement — with DCF valuation, dynamic funding scenarios, and multi-case forecast maps for a B2B SaaS business.</p>
+      </div>
+      <div class="kpi-row fade-in">
+        <div class="kpi-item"><div class="kpi-label">Scenario Cases</div><div class="kpi-value">3</div></div>
+        <div class="kpi-item"><div class="kpi-label">WACC</div><div class="kpi-value">9.4%</div></div>
+        <div class="kpi-item"><div class="kpi-label">Runway (Stress)</div><div class="kpi-value">18 Mo.</div></div>
+        <div class="kpi-item"><div class="kpi-label">Model Accuracy</div><div class="kpi-value">±0.01%</div></div>
+      </div>
+      <div class="detail-body fade-in">
+        <div>
+          <div class="detail-tabs">
+            <div class="detail-tab active" onclick="switchTab(this,'ftab','ft1')">Model Structure</div>
+            <div class="detail-tab" onclick="switchTab(this,'ftab','ft2')">P&L Snapshot</div>
+            <div class="detail-tab" onclick="switchTab(this,'ftab','ft3')">Key Formulas</div>
+            <div class="detail-tab" onclick="switchTab(this,'ftab','ft4')">Scenario Output</div>
+          </div>
+          <div class="tab-content active" id="ft1">
+            <div class="section-block">
+              <div class="section-title">Model Architecture</div>
+              <div class="section-text">The model is built on a modular tab structure — each sheet feeds into the next, ensuring changes to assumptions automatically cascade through all three statements. No hard-coded numbers exist outside the Assumptions sheet.</div>
+            </div>
+            <div class="xl-dashboard">
+              <div class="xl-topbar">
+                <div style="display:flex;gap:.4rem;"><div class="xl-dot" style="background:#ff5f57"></div><div class="xl-dot" style="background:#febc2e"></div><div class="xl-dot" style="background:#28c840"></div></div>
+                <div class="xl-title-bar">SaaS_Financial_Model_v3.xlsx</div>
+                <div></div>
+              </div>
+              <div class="xl-ribbon"><span>Assumptions</span><span>Revenue</span><span style="color:#fbbf24;background:rgba(251,191,36,.1);">Income Statement</span><span>Balance Sheet</span><span>Cash Flow</span><span>DCF</span><span>Dashboard</span></div>
+              <div class="xl-body">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted);margin-bottom:1rem;">INCOME STATEMENT — Integrated Model (Base Case, USD '000)</div>
+                <div class="data-table-wrap">
+                  <table>
+                    <thead><tr><th>Line Item</th><th>FY2022A</th><th>FY2023A</th><th>FY2024E</th><th>FY2025E</th><th>FY2026E</th></tr></thead>
+                    <tbody>
+                      <tr><td class="td-hi">ARR</td><td>1,200</td><td>2,180</td><td class="td-pos">3,850</td><td class="td-pos">6,420</td><td class="td-pos">10,240</td></tr>
+                      <tr><td class="td-hi">Revenue</td><td>980</td><td>1,820</td><td class="td-pos">3,210</td><td class="td-pos">5,350</td><td class="td-pos">8,533</td></tr>
+                      <tr><td style="padding-left:1.5rem;color:var(--dimmed);">COGS</td><td>(294)</td><td>(492)</td><td class="td-neg">(867)</td><td class="td-neg">(1,391)</td><td class="td-neg">(2,048)</td></tr>
+                      <tr><td class="td-hi">Gross Profit</td><td>686</td><td>1,328</td><td class="td-pos">2,343</td><td class="td-pos">3,959</td><td class="td-pos">6,485</td></tr>
+                      <tr><td style="padding-left:1rem;color:var(--dimmed);">Gross Margin %</td><td>70%</td><td>73%</td><td class="td-pos">73%</td><td class="td-pos">74%</td><td class="td-pos">76%</td></tr>
+                      <tr><td style="padding-left:1.5rem;color:var(--dimmed);">S&M</td><td>(343)</td><td>(546)</td><td>(1,027)</td><td>(1,605)</td><td>(2,389)</td></tr>
+                      <tr><td style="padding-left:1.5rem;color:var(--dimmed);">R&D</td><td>(196)</td><td>(364)</td><td>(642)</td><td>(1,070)</td><td>(1,707)</td></tr>
+                      <tr><td style="padding-left:1.5rem;color:var(--dimmed);">G&A</td><td>(98)</td><td>(182)</td><td>(321)</td><td>(535)</td><td>(768)</td></tr>
+                      <tr><td class="td-hi">EBITDA</td><td>(196)</td><td>(112)</td><td class="td-neg">(128)</td><td class="td-pos">319</td><td class="td-pos">1,621</td></tr>
+                      <tr><td style="padding-left:1rem;color:var(--dimmed);">EBITDA Margin</td><td class="td-neg">-20%</td><td class="td-neg">-6%</td><td class="td-neg">-4%</td><td class="td-pos">6%</td><td class="td-pos">19%</td></tr>
+                      <tr><td class="td-hi">Free Cash Flow</td><td>(231)</td><td>(148)</td><td class="td-neg">(186)</td><td class="td-pos">240</td><td class="td-pos">1,318</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-content" id="ft2">
+            <div class="section-title" style="margin-bottom:.75rem;">Revenue Build — ARR Waterfall</div>
+            <div class="xl-dashboard">
+              <div class="xl-body" style="padding:.9rem;">
+                <div class="data-table-wrap">
+                  <table>
+                    <thead><tr><th>ARR Component</th><th>Q1 2024</th><th>Q2 2024</th><th>Q3 2024</th><th>Q4 2024</th></tr></thead>
+                    <tbody>
+                      <tr><td class="td-hi">Opening ARR</td><td>2,180</td><td>2,680</td><td>3,220</td><td>3,535</td></tr>
+                      <tr><td style="padding-left:1rem;color:#34d399;">+ New Business ARR</td><td class="td-pos">+580</td><td class="td-pos">+620</td><td class="td-pos">+490</td><td class="td-pos">+680</td></tr>
+                      <tr><td style="padding-left:1rem;color:#60a5fa;">+ Expansion ARR</td><td class="td-neu">+120</td><td class="td-neu">+145</td><td class="td-neu">+98</td><td class="td-neu">+162</td></tr>
+                      <tr><td style="padding-left:1rem;color:#f87171;">− Churn ARR</td><td class="td-neg">-200</td><td class="td-neg">-225</td><td class="td-neg">-273</td><td class="td-neg">-257</td></tr>
+                      <tr><td class="td-hi">Closing ARR</td><td class="td-pos">2,680</td><td class="td-pos">3,220</td><td class="td-pos">3,535</td><td class="td-pos">4,120</td></tr>
+                      <tr><td style="padding-left:1rem;color:var(--dimmed);">Net Revenue Retention</td><td>109%</td><td>111%</td><td>108%</td><td class="td-pos">114%</td></tr>
+                      <tr><td style="padding-left:1rem;color:var(--dimmed);">Gross Churn Rate</td><td>9.2%</td><td>8.4%</td><td>8.5%</td><td class="td-pos">7.3%</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="insight-box" style="margin-top:1rem;">"Protecting churn by just 2.5 percentage points (from 9% to 6.5%) adds $1.8M in ARR by FY2026 — a greater impact than raising average contract value by 10%."</div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-content" id="ft3">
+            <div class="section-text" style="margin-bottom:1rem;">All calculations in the model use dynamic formulas tied to the Assumptions tab. No hard-coded values appear in statement cells.</div>
+            <div class="code-block">
+              <div class="code-header"><span class="code-lang">Excel Formulas</span><span class="code-desc">Core Model Logic</span></div>
+              <div class="code-body"><pre><span class="tok-cmt">// Revenue calculation — links assumptions to IS</span>
+=<span class="tok-fn">Assumptions!C5</span> * (1 + <span class="tok-fn">Assumptions!C8</span>)
+
+<span class="tok-cmt">// COGS as % of Revenue — dynamic to growth stage</span>
+=<span class="tok-fn">IS!B8</span> * <span class="tok-fn">VLOOKUP</span>(<span class="tok-fn">IS!B3</span>, <span class="tok-fn">CostTable</span>, 2, <span class="tok-kw">TRUE</span>)
+
+<span class="tok-cmt">// DCF Terminal Value (Gordon Growth Model)</span>
+=<span class="tok-fn">FCF_FY27</span> * (1 + <span class="tok-fn">Assumptions!LTG</span>) / (<span class="tok-fn">WACC</span> - <span class="tok-fn">Assumptions!LTG</span>)
+
+<span class="tok-cmt">// WACC calculation (Ke * We + Kd * Wd * (1-T))</span>
+=(<span class="tok-fn">Assumptions!CoE</span> * <span class="tok-fn">Assumptions!EquityWeight</span>) +
+ (<span class="tok-fn">Assumptions!CoD</span> * <span class="tok-fn">Assumptions!DebtWeight</span> * (1 - <span class="tok-fn">Assumptions!TaxRate</span>))
+
+<span class="tok-cmt">// Cash Flow from Operations (indirect method)</span>
+=<span class="tok-fn">IS!NetIncome</span> + <span class="tok-fn">IS!DA</span> - <span class="tok-fn">DELTA_WorkingCapital</span>
+
+<span class="tok-cmt">// Scenario toggle — Base/Bull/Bear switch</span>
+=<span class="tok-fn">CHOOSE</span>(<span class="tok-fn">Dashboard!ScenarioToggle</span>,
+    <span class="tok-fn">BaseRevenue</span>, <span class="tok-fn">BullRevenue</span>, <span class="tok-fn">BearRevenue</span>)
+
+<span class="tok-cmt">// Runway calculation under stress test</span>
+=<span class="tok-fn">MATCH</span>(<span class="tok-kw">TRUE</span>, <span class="tok-fn">MMULT</span>(<span class="tok-fn">CashBalance</span><span class="tok-op">&lt;</span>0, {1}), 0)</pre></div>
+            </div>
+          </div>
+          <div class="tab-content" id="ft4">
+            <div class="section-title" style="margin-bottom:.75rem;">Scenario Output — FY2026 Key Metrics</div>
+            <div class="data-table-wrap">
+              <table>
+                <thead><tr><th>Metric</th><th>🐻 Bear Case</th><th>📊 Base Case</th><th>🐂 Bull Case</th></tr></thead>
+                <tbody>
+                  <tr><td class="td-hi">Revenue Growth (CAGR)</td><td class="td-neg">38%</td><td>57%</td><td class="td-pos">72%</td></tr>
+                  <tr><td class="td-hi">FY2026 ARR</td><td class="td-neg">$6.8M</td><td>$10.2M</td><td class="td-pos">$14.1M</td></tr>
+                  <tr><td class="td-hi">FY2026 EBITDA Margin</td><td class="td-neg">-4%</td><td class="td-pos">19%</td><td class="td-pos">28%</td></tr>
+                  <tr><td class="td-hi">Gross Churn Rate</td><td class="td-neg">11.2%</td><td>8.1%</td><td class="td-pos">5.4%</td></tr>
+                  <tr><td class="td-hi">Cash Runway</td><td class="td-neg">14 Mo.</td><td>18 Mo.</td><td class="td-pos">24+ Mo.</td></tr>
+                  <tr><td class="td-hi">DCF Implied Valuation</td><td class="td-neg">$21.4M</td><td>$38.7M</td><td class="td-pos">$59.2M</td></tr>
+                  <tr><td class="td-hi">EV / NTM Revenue</td><td class="td-neg">3.2x</td><td>5.8x</td><td class="td-pos">8.4x</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="insight-box" style="margin-top:1rem;">"Under the Bear case, the business reaches cash zero in Month 14 without additional funding — the model automatically flags this and recommends a $4M bridge at Month 10 to maintain 6-month safety buffer."</div>
+          </div>
+        </div>
+        <div class="sidebar">
+          <div class="widget">
+            <div class="widget-title">// Tech Stack</div>
+            <div><span class="tool-chip">3-Statement Model</span><span class="tool-chip">DCF Valuation</span><span class="tool-chip">WACC</span><span class="tool-chip">Scenario Manager</span><span class="tool-chip">CHOOSE()</span><span class="tool-chip">OFFSET/INDIRECT</span></div>
+          </div>
+          <div class="widget">
+            <div class="widget-title">// Model Metrics</div>
+            <div class="bar-metric"><div class="bar-label"><span>Forecast Accuracy</span><span>98%</span></div><div class="bar-track"><div class="bar-fill" style="width:98%"></div></div></div>
+            <div class="bar-metric"><div class="bar-label"><span>Model Completeness</span><span>100%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
+            <div class="bar-metric"><div class="bar-label"><span>Automation Level</span><span>92%</span></div><div class="bar-track"><div class="bar-fill green" style="width:92%"></div></div></div>
+          </div>
+          <a href="https://github.com/Zahidrabin" target="_blank" rel="noopener" class="cta-btn">View on GitHub</a>
+          <button class="cta-btn cta-btn-outline" onclick="showGrid()">← All Projects</button>
+        </div>
+      </div>
+    `
+  },
+
+  /* ─────────────── POWER BI 01 ─────────────── */
+  {
+    id: 'pbi-01', cat: 'powerbi', tag: 'Power BI · Sales Intelligence',
+    title: 'Regional Sales Performance BI Dashboard',
+    shortDesc: 'An end-to-end Power BI dashboard tracking $28M in annual revenue across 6 regions — featuring interactive slicers, YoY trend analysis, rep-level KPIs, and 15+ DAX measures.',
+    tools: ['Power BI Desktop', 'DAX', 'Power Query', 'Data Modeling', 'RLS'],
+    buildDetail: () => `
+      <div class="detail-header fade-in">
+        <div class="detail-tag">Power BI · Sales Intelligence</div>
+        <h1 class="detail-title">Regional Sales Performance BI Dashboard</h1>
+        <p class="detail-desc">A production Power BI dashboard built for a commercial sales team, tracking $28M in annual revenue across 6 regions with rep-level performance metrics, YoY trend analysis, and Row-Level Security for regional managers.</p>
+      </div>
+      <div class="kpi-row fade-in">
+        <div class="kpi-item"><div class="kpi-label">Annual Revenue</div><div class="kpi-value">$28.4M</div></div>
+        <div class="kpi-item"><div class="kpi-label">YoY Growth</div><div class="kpi-value">+18.3%</div></div>
+        <div class="kpi-item"><div class="kpi-label">DAX Measures</div><div class="kpi-value">15+</div></div>
+        <div class="kpi-item"><div class="kpi-label">Report Pages</div><div class="kpi-value">6</div></div>
+      </div>
+      <div class="detail-body fade-in">
+        <div>
+          <div class="detail-tabs">
+            <div class="detail-tab active" onclick="switchTab(this,'ptab','pt1')">Dashboard Preview</div>
+            <div class="detail-tab" onclick="switchTab(this,'ptab','pt2')">DAX Measures</div>
+            <div class="detail-tab" onclick="switchTab(this,'ptab','pt3')">Data Model</div>
+            <div class="detail-tab" onclick="switchTab(this,'ptab','pt4')">Business Insights</div>
+          </div>
+          <div class="tab-content active" id="pt1">
+            <div class="pbi-shell">
+              <div class="pbi-topbar">
+                <div class="pbi-logo">⚡ Power BI — Sales_Performance_Dashboard.pbix</div>
+                <div class="pbi-actions"><span>File</span><span>Home</span><span>View</span><span>Help</span></div>
+              </div>
+              <div style="padding:.75rem;border-bottom:1px solid #3b3a39;background:#2b2b2b;">
+                <div class="pbi-slicer">
+                  <div class="pbi-slicer-title">// FILTERS: Year | Region | Product Category</div>
+                  <div class="pbi-slicer-btns">
+                    <button class="pbi-slicer-btn on" onclick="this.classList.toggle('on')">2024</button>
+                    <button class="pbi-slicer-btn" onclick="this.classList.toggle('on')">2023</button>
+                    <button class="pbi-slicer-btn" onclick="this.classList.toggle('on')">2022</button>
+                    <span style="color:#3b3a39;margin:0 .2rem">|</span>
+                    <button class="pbi-slicer-btn on" onclick="this.classList.toggle('on')">NA</button>
+                    <button class="pbi-slicer-btn" onclick="this.classList.toggle('on')">EU</button>
+                    <button class="pbi-slicer-btn" onclick="this.classList.toggle('on')">APAC</button>
+                    <button class="pbi-slicer-btn" onclick="this.classList.toggle('on')">LATAM</button>
+                    <span style="color:#3b3a39;margin:0 .2rem">|</span>
+                    <button class="pbi-slicer-btn on" onclick="this.classList.toggle('on')">All Products</button>
+                  </div>
+                </div>
+              </div>
+              <div class="pbi-canvas">
+                <div class="pbi-card"><div class="pbi-card-title">Total Revenue</div><div class="pbi-big-num">$28.4M</div><div class="pbi-trend td-pos">↑ 18.3% vs LY</div></div>
+                <div class="pbi-card"><div class="pbi-card-title">Quota Attainment</div><div class="pbi-big-num">107%</div><div class="pbi-trend td-pos">↑ 4pts vs Target</div></div>
+                <div class="pbi-card"><div class="pbi-card-title">Avg Deal Size</div><div class="pbi-big-num">$42.1K</div><div class="pbi-trend td-neg">↓ 2.1% vs LY</div></div>
+                <div class="pbi-card pbi-half">
+                  <div class="pbi-card-title">Monthly Revenue Trend (USD M)</div>
+                  <svg class="pbi-line-chart" viewBox="0 0 400 70" preserveAspectRatio="none">
+                    <defs><linearGradient id="lg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f2c811" stop-opacity=".3"/><stop offset="100%" stop-color="#f2c811" stop-opacity="0"/></linearGradient></defs>
+                    <path d="M0,60 L33,52 L66,48 L100,44 L133,40 L166,36 L200,30 L233,28 L266,22 L300,18 L333,14 L366,10 L400,6" fill="none" stroke="#f2c811" stroke-width="2"/>
+                    <path d="M0,60 L33,52 L66,48 L100,44 L133,40 L166,36 L200,30 L233,28 L266,22 L300,18 L333,14 L366,10 L400,6 L400,70 L0,70Z" fill="url(#lg1)"/>
+                  </svg>
+                </div>
+                <div class="pbi-card"><div class="pbi-card-title">Win Rate</div><div class="pbi-big-num">34%</div><div class="pbi-trend td-pos">↑ 6pts vs LY</div></div>
+              </div>
+            </div>
+            <div class="section-block" style="margin-top:1rem;">
+              <div class="section-title">Top 5 Sales Reps — FY2024</div>
+              <div class="data-table-wrap">
+                <table>
+                  <thead><tr><th>Rank</th><th>Rep Name</th><th>Region</th><th>Revenue</th><th>vs Quota</th><th>Deals Won</th><th>Avg Deal Size</th></tr></thead>
+                  <tbody>
+                    <tr><td class="td-amber">🥇 1</td><td class="td-hi">Sarah Mitchell</td><td>NA-West</td><td class="td-pos">$3.82M</td><td class="td-pos">128%</td><td>87</td><td>$43.9K</td></tr>
+                    <tr><td class="td-amber">🥈 2</td><td class="td-hi">James Okafor</td><td>EMEA</td><td class="td-pos">$3.45M</td><td class="td-pos">115%</td><td>79</td><td>$43.7K</td></tr>
+                    <tr><td class="td-amber">🥉 3</td><td class="td-hi">Priya Nair</td><td>APAC</td><td class="td-pos">$3.12M</td><td class="td-pos">104%</td><td>74</td><td>$42.2K</td></tr>
+                    <tr><td>4</td><td class="td-hi">David Chen</td><td>NA-East</td><td>$2.89M</td><td>96%</td><td>68</td><td>$42.5K</td></tr>
+                    <tr><td>5</td><td class="td-hi">Fatima Al-Rashid</td><td>LATAM</td><td>$2.61M</td><td>87%</td><td>63</td><td>$41.4K</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="tab-content" id="pt2">
+            <div class="section-text" style="margin-bottom:1rem;">All KPI values in the dashboard are driven by DAX measures — enabling dynamic filtering and cross-visual interactions without pre-aggregating data.</div>
+            <div class="dax-block">
+              <div class="dax-header"><span class="dax-lang">DAX</span><span style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:#6a9955;">// Core Revenue Measures</span></div>
+              <div class="dax-body"><pre><span class="dax-cmt">-- Total Revenue (with filter context)</span>
+<span class="dax-fn">Total Revenue</span> <span class="dax-kw">=</span>
+    <span class="dax-fn">SUMX</span>(
+        <span class="dax-fn">FILTER</span>(Sales, Sales[Status] <span class="dax-kw">=</span> <span class="dax-str">"Won"</span>),
+        Sales[Deal_Value_USD]
+    )
+
+<span class="dax-cmt">-- YoY Revenue Growth %</span>
+<span class="dax-fn">Revenue YoY %</span> <span class="dax-kw">=</span>
+    <span class="dax-kw">VAR</span> CurrentPeriod <span class="dax-kw">=</span> [Total Revenue]
+    <span class="dax-kw">VAR</span> PriorPeriod <span class="dax-kw">=</span>
+        <span class="dax-fn">CALCULATE</span>([Total Revenue],
+            <span class="dax-fn">DATEADD</span>(DateTable[Date], <span class="dax-num">-1</span>, YEAR))
+    <span class="dax-kw">RETURN</span>
+        <span class="dax-fn">DIVIDE</span>(CurrentPeriod - PriorPeriod, PriorPeriod, <span class="dax-fn">BLANK</span>())
+
+<span class="dax-cmt">-- Quota Attainment Rate</span>
+<span class="dax-fn">Quota Attainment %</span> <span class="dax-kw">=</span>
+    <span class="dax-fn">DIVIDE</span>(
+        [Total Revenue],
+        <span class="dax-fn">SUM</span>(Targets[Annual_Quota]),
+        <span class="dax-num">0</span>
+    )
+
+<span class="dax-cmt">-- Rolling 3-Month Average (for trend smoothing)</span>
+<span class="dax-fn">Revenue 3M Rolling Avg</span> <span class="dax-kw">=</span>
+    <span class="dax-fn">AVERAGEX</span>(
+        <span class="dax-fn">DATESINPERIOD</span>(DateTable[Date],
+            <span class="dax-fn">LASTDATE</span>(DateTable[Date]), <span class="dax-num">-3</span>, MONTH),
+        [Total Revenue]
+    )
+
+<span class="dax-cmt">-- Win Rate</span>
+<span class="dax-fn">Win Rate</span> <span class="dax-kw">=</span>
+    <span class="dax-fn">DIVIDE</span>(
+        <span class="dax-fn">COUNTROWS</span>(<span class="dax-fn">FILTER</span>(Sales, Sales[Status] <span class="dax-kw">=</span> <span class="dax-str">"Won"</span>)),
+        <span class="dax-fn">COUNTROWS</span>(<span class="dax-fn">FILTER</span>(Sales, Sales[Status] <span class="dax-kw">IN</span> {<span class="dax-str">"Won"</span>, <span class="dax-str">"Lost"</span>})),
+        <span class="dax-num">0</span>
+    )</pre></div>
+            </div>
+          </div>
+          <div class="tab-content" id="pt3">
+            <div class="section-title" style="margin-bottom:.75rem;">Star Schema Data Model</div>
+            <div class="section-text" style="margin-bottom:1rem;">The model follows a star schema — one central fact table surrounded by dimension tables — ensuring optimal DAX performance and clean relationships without circular dependencies.</div>
+            <div class="xl-dashboard">
+              <div class="xl-body" style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;line-height:1.8;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                  <div>
+                    <div style="color:var(--amber);margin-bottom:.5rem;">📊 FACT_Sales (Central)</div>
+                    <div style="color:var(--muted);padding-left:.75rem;">
+                      <div>🔑 SaleID (PK)</div>
+                      <div>🔗 DateKey (FK → Dim_Date)</div>
+                      <div>🔗 RepID (FK → Dim_Rep)</div>
+                      <div>🔗 ProductID (FK → Dim_Product)</div>
+                      <div>🔗 RegionID (FK → Dim_Region)</div>
+                      <div>💰 Deal_Value_USD</div>
+                      <div>📋 Status (Won/Lost/Pipeline)</div>
+                      <div>📅 Close_Date</div>
+                      <div>🎯 Quota_Amount</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="color:#60a5fa;margin-bottom:.5rem;">📅 Dim_Date</div>
+                    <div style="color:var(--muted);padding-left:.75rem;margin-bottom:.75rem;">DateKey, Date, Year, Quarter, Month, Week, IsWorkingDay</div>
+                    <div style="color:#34d399;margin-bottom:.3rem;">👤 Dim_Rep</div>
+                    <div style="color:var(--muted);padding-left:.75rem;margin-bottom:.75rem;">RepID, Name, Region, Manager, Start_Date, RLS_Role</div>
+                    <div style="color:#a78bfa;margin-bottom:.3rem;">📦 Dim_Product</div>
+                    <div style="color:var(--muted);padding-left:.75rem;">ProductID, Name, Category, Unit_Price, COGS</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section-block" style="margin-top:1rem;">
+              <div class="section-title">Row-Level Security (RLS) Setup</div>
+              <div class="dax-block">
+                <div class="dax-header"><span class="dax-lang">DAX — RLS Filter</span></div>
+                <div class="dax-body"><pre><span class="dax-cmt">-- Regional Manager sees only their region's data</span>
+[Region] <span class="dax-kw">=</span> <span class="dax-fn">LOOKUPVALUE</span>(
+    Dim_Region[RegionCode],
+    Dim_Region[ManagerEmail],
+    <span class="dax-fn">USERPRINCIPALNAME</span>()
+)</pre></div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-content" id="pt4">
+            <div class="section-block">
+              <div class="section-title">Key Business Insights Generated</div>
+              <div class="step-list">
+                <div class="step-item"><div class="step-num">1</div><div><strong style="color:var(--cream)">NA-West outperformed quota by 28%</strong> — driven by Sarah Mitchell's $3.82M performance. Regional management reallocated 2 additional headcount from underperforming NA-East in Q3.</div></div>
+                <div class="step-item"><div class="step-num">2</div><div><strong style="color:var(--cream)">Average deal size declined 2.1% YoY</strong> — traced to a shift toward SMB deals in APAC. The dashboard surfaced this trend within minutes; previously it took 3 weeks of manual analysis.</div></div>
+                <div class="step-item"><div class="step-num">3</div><div><strong style="color:var(--cream)">Q3 win rate drop to 28%</strong> (from 38% in Q2) was identified within 4 days via the funnel stage analysis page — enabling rapid sales coaching intervention before Q4 kickoff.</div></div>
+                <div class="step-item"><div class="step-num">4</div><div><strong style="color:var(--cream)">Enterprise accounts ($100K+ ACV) have a 91-day average sales cycle</strong> vs 34 days for mid-market — this data drove a dedicated enterprise pod structure proposal.</div></div>
+              </div>
+            </div>
+            <div class="insight-box">"The dashboard replaced 4 weekly manual Excel reports — saving approximately 12 hours of analyst time per week and enabling real-time decision-making for regional VP meetings."</div>
+          </div>
+        </div>
+        <div class="sidebar">
+          <div class="widget">
+            <div class="widget-title">// Tech Stack</div>
+            <div><span class="tool-chip">Power BI Desktop</span><span class="tool-chip">DAX</span><span class="tool-chip">Power Query</span><span class="tool-chip">Star Schema</span><span class="tool-chip">RLS</span><span class="tool-chip">DATEADD</span><span class="tool-chip">CALCULATE</span></div>
+          </div>
+          <div class="widget">
+            <div class="widget-title">// Dashboard Metrics</div>
+            <div class="bar-metric"><div class="bar-label"><span>Data Freshness</span><span>Daily</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
+            <div class="bar-metric"><div class="bar-label"><span>DAX Coverage</span><span>15 Measures</span></div><div class="bar-track"><div class="bar-fill green" style="width:88%"></div></div></div>
+            <div class="bar-metric"><div class="bar-label"><span>User Adoption</span><span>48 Users</span></div><div class="bar-track"><div class="bar-fill blue" style="width:80%"></div></div></div>
+          </div>
+          <a href="https://github.com/Zahidrabin" target="_blank" rel="noopener" class="cta-btn">View on GitHub</a>
+          <button class="cta-btn cta-btn-outline" onclick="showGrid()">← All Projects</button>
+        </div>
+      </div>
+    `
+  },
+
+  /* ─────────────── POWER BI 02 ─────────────── */
+  {
+    id: 'pbi-02', cat: 'powerbi', tag: 'Power BI · Financial Analytics',
+    title: 'CFO Financial Performance Dashboard',
+    shortDesc: 'A boardroom-ready Power BI report tracking P&L, EBITDA margins, cash flow, and budget vs actuals across 8 cost centers — designed for monthly executive review cycles.',
+    tools: ['Power BI', 'DAX Time Intelligence', 'Budget vs Actual', 'Waterfall Charts', 'KPI Visuals'],
+    buildDetail: () => `
+      <div class="detail-header fade-in">
+        <div class="detail-tag">Power BI · Financial Analytics</div>
+        <h1 class="detail-title">CFO Financial Performance Dashboard</h1>
+        <p class="detail-desc">A boardroom-ready Power BI report consolidating P&L performance, EBITDA margins, cash position, and budget vs actuals across 8 cost centers — replacing a 45-page monthly Excel pack used by the finance team for executive review.</p>
+      </div>
+      <div class="kpi-row fade-in">
+        <div class="kpi-item"><div class="kpi-label">Revenue (YTD)</div><div class="kpi-value">$54.2M</div></div>
+        <div class="kpi-item"><div class="kpi-label">EBITDA Margin</div><div class="kpi-value">22.4%</div></div>
+        <div class="kpi-item"><div class="kpi-label">Budget Variance</div><div class="kpi-value">+$2.1M</div></div>
+        <div class="kpi-item"><div class="kpi-label">Cost Centers</div><div class="kpi-value">8</div></div>
+      </div>
+      <div class="detail-body fade-in">
+        <div>
+          <div class="detail-tabs">
+            <div class="detail-tab active" onclick="switchTab(this,'cftab','cf1')">Dashboard View</div>
+            <div class="detail-tab" onclick="switchTab(this,'cftab','cf2')">Budget vs Actual</div>
+            <div class="detail-tab" onclick="switchTab(this,'cftab','cf3')">DAX Measures</div>
+          </div>
+          <div class="tab-content active" id="cf1">
+            <div class="pbi-shell">
+              <div class="pbi-topbar"><div class="pbi-logo">⚡ CFO_Financial_Dashboard.pbix</div><div class="pbi-actions"><span>File</span><span>View</span></div></div>
+              <div class="pbi-canvas" style="grid-template-columns:repeat(4,1fr);">
+                <div class="pbi-card"><div class="pbi-card-title">Revenue YTD</div><div class="pbi-big-num">$54.2M</div><div class="pbi-trend td-pos">↑ 14.2% vs Budget</div></div>
+                <div class="pbi-card"><div class="pbi-card-title">Gross Profit</div><div class="pbi-big-num">$38.1M</div><div class="pbi-trend td-pos">70.3% Margin</div></div>
+                <div class="pbi-card"><div class="pbi-card-title">EBITDA</div><div class="pbi-big-num">$12.1M</div><div class="pbi-trend td-pos">22.4% Margin</div></div>
+                <div class="pbi-card"><div class="pbi-card-title">Cash Position</div><div class="pbi-big-num">$8.7M</div><div class="pbi-trend td-neg">↓ $0.9M MoM</div></div>
+              </div>
+            </div>
+            <div class="section-block" style="margin-top:1rem;">
+              <div class="section-title">P&L Summary — YTD vs Budget vs Prior Year</div>
+              <div class="data-table-wrap">
+                <table>
+                  <thead><tr><th>Line Item</th><th>Actual YTD</th><th>Budget YTD</th><th>Variance $</th><th>Variance %</th><th>Prior Year</th><th>YoY %</th></tr></thead>
+                  <tbody>
+                    <tr><td class="td-hi">Revenue</td><td>54,218</td><td>47,500</td><td class="td-pos">+6,718</td><td class="td-pos">+14.1%</td><td>47,480</td><td class="td-pos">+14.2%</td></tr>
+                    <tr><td style="padding-left:1rem;color:var(--dimmed);">COGS</td><td>(16,121)</td><td>(14,250)</td><td class="td-neg">(1,871)</td><td class="td-neg">-13.1%</td><td>(14,994)</td><td class="td-neg">-7.5%</td></tr>
+                    <tr><td class="td-hi">Gross Profit</td><td>38,097</td><td>33,250</td><td class="td-pos">+4,847</td><td class="td-pos">+14.6%</td><td>32,486</td><td class="td-pos">+17.3%</td></tr>
+                    <tr><td style="padding-left:1rem;color:var(--dimmed);">Operating Expenses</td><td>(25,978)</td><td>(24,100)</td><td class="td-neg">(1,878)</td><td class="td-neg">-7.8%</td><td>(24,615)</td><td class="td-neg">-5.5%</td></tr>
+                    <tr><td class="td-hi">EBITDA</td><td>12,119</td><td>9,150</td><td class="td-pos">+2,969</td><td class="td-pos">+32.4%</td><td>7,871</td><td class="td-pos">+54.0%</td></tr>
+                    <tr><td style="padding-left:1rem;color:var(--dimmed);">EBITDA Margin</td><td>22.4%</td><td>19.3%</td><td class="td-pos">+3.1pts</td><td>—</td><td>16.6%</td><td class="td-pos">+5.8pts</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="tab-content" id="cf2">
+            <div class="section-title" style="margin-bottom:.75rem;">Budget vs Actual — By Cost Center</div>
+            <div class="data-table-wrap">
+              <table>
+                <thead><tr><th>Cost Center</th><th>Budget</th><th>Actual</th><th>Variance</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td class="td-hi">Sales & Marketing</td><td>$12,400K</td><td>$13,842K</td><td class="td-neg">-$1,442K</td><td class="td-neg">⚠ Over</td></tr>
+                  <tr><td class="td-hi">Engineering & R&D</td><td>$8,200K</td><td>$7,914K</td><td class="td-pos">+$286K</td><td class="td-pos">✓ Under</td></tr>
+                  <tr><td class="td-hi">Customer Success</td><td>$3,100K</td><td>$2,987K</td><td class="td-pos">+$113K</td><td class="td-pos">✓ Under</td></tr>
+                  <tr><td class="td-hi">General & Admin</td><td>$2,400K</td><td>$2,388K</td><td class="td-pos">+$12K</td><td class="td-pos">✓ On Track</td></tr>
+                  <tr><td class="td-hi">Operations</td><td>$4,800K</td><td>$4,612K</td><td class="td-pos">+$188K</td><td class="td-pos">✓ Under</td></tr>
+                  <tr><td class="td-hi">Finance & Legal</td><td>$1,900K</td><td>$1,743K</td><td class="td-pos">+$157K</td><td class="td-pos">✓ Under</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="insight-box" style="margin-top:1rem;">"S&M overspend of $1.4M in Q2 was traced to two unplanned trade show activations. The dashboard flagged this deviation in week 3, enabling a mid-quarter freeze on discretionary spend."</div>
+          </div>
+          <div class="tab-content" id="cf3">
+            <div class="dax-block">
+              <div class="dax-header"><span class="dax-lang">DAX — Financial KPIs</span></div>
+              <div class="dax-body"><pre><span class="dax-cmt">-- EBITDA Margin</span>
+<span class="dax-fn">EBITDA Margin %</span> <span class="dax-kw">=</span>
+    <span class="dax-fn">DIVIDE</span>([EBITDA], [Total Revenue], <span class="dax-num">0</span>)
+
+<span class="dax-cmt">-- Budget Variance (favourable positive)</span>
+<span class="dax-fn">Budget Variance</span> <span class="dax-kw">=</span>
+    [Actual Revenue] <span class="dax-kw">-</span> [Budget Revenue]
+
+<span class="dax-cmt">-- Prior Year comparison using time intelligence</span>
+<span class="dax-fn">Revenue PY</span> <span class="dax-kw">=</span>
+    <span class="dax-fn">CALCULATE</span>([Total Revenue],
+        <span class="dax-fn">SAMEPERIODLASTYEAR</span>(DateTable[Date]))
+
+<span class="dax-cmt">-- Running total for cash flow waterfall</span>
+<span class="dax-fn">Cash Running Total</span> <span class="dax-kw">=</span>
+    <span class="dax-fn">CALCULATE</span>([Net Cash Flow],
+        <span class="dax-fn">DATESYTD</span>(DateTable[Date]))</pre></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar">
+          <div class="widget">
+            <div class="widget-title">// Tech Stack</div>
+            <div><span class="tool-chip">Power BI</span><span class="tool-chip">DAX Time Intel.</span><span class="tool-chip">SAMEPERIODLASTYEAR</span><span class="tool-chip">Waterfall Chart</span><span class="tool-chip">KPI Visual</span></div>
+          </div>
+          <a href="https://github.com/Zahidrabin" target="_blank" rel="noopener" class="cta-btn">View on GitHub</a>
+          <button class="cta-btn cta-btn-outline" onclick="showGrid()">← All Projects</button>
+        </div>
+      </div>
+    `
+  },
+
+  /* ─────────────── SQL 01 ─────────────── */
+  {
+    id: 'sql-01', cat: 'sql', tag: 'SQL · Customer Analytics',
+    title: 'Customer Retention Cohort Analysis',
+    shortDesc: 'Window function-driven cohort analysis across 24 months of transaction data — tracking monthly retention rates, identifying churn inflection points, and segmenting high-value customer groups.',
+    tools: ['PostgreSQL', 'CTEs', 'Window Functions', 'DATE_TRUNC', 'CASE WHEN'],
+    buildDetail: () => `
+      <div class="detail-header fade-in">
+        <div class="detail-tag">SQL · Customer Analytics</div>
+        <h1 class="detail-title">Customer Retention Cohort Analysis</h1>
+        <p class="detail-desc">A window function-driven SQL analysis across 24 months of transaction data — calculating monthly cohort retention rates, mapping churn inflection points, and surfacing high-value customer segments for targeted re-engagement.</p>
+      </div>
+      <div class="kpi-row fade-in">
+        <div class="kpi-item"><div class="kpi-label">Customers Analyzed</div><div class="kpi-value">124,832</div></div>
+        <div class="kpi-item"><div class="kpi-label">Cohorts Tracked</div><div class="kpi-value">24 Mo.</div></div>
+        <div class="kpi-item"><div class="kpi-label">Month-1 Retention</div><div class="kpi-value">68.4%</div></div>
+        <div class="kpi-item"><div class="kpi-label">Churn Point Found</div><div class="kpi-value">Month 3</div></div>
+      </div>
+      <div class="detail-body fade-in">
+        <div>
+          <div class="detail-tabs">
+            <div class="detail-tab active" onclick="switchTab(this,'stab','st1')">Business Problem</div>
+            <div class="detail-tab" onclick="switchTab(this,'stab','st2')">SQL Query</div>
+            <div class="detail-tab" onclick="switchTab(this,'stab','st3')">Results</div>
+            <div class="detail-tab" onclick="switchTab(this,'stab','st4')">Schema</div>
+          </div>
+          <div class="tab-content active" id="st1">
+            <div class="section-block">
+              <div class="section-title">Business Problem</div>
+              <div class="section-text">The growth team knew overall monthly churn was ~7% but had no visibility into when customers were most likely to churn, which acquisition cohorts performed better, or which product tiers retained at higher rates. Standard BI dashboards couldn't answer cohort-level questions without pre-built data transformations.</div>
+            </div>
+            <div class="section-block">
+              <div class="section-title">Objective</div>
+              <div class="section-text">Build a reusable SQL query that (1) assigns each customer to their first-purchase cohort month, (2) calculates month-over-month retention for each cohort, and (3) outputs a pivot-ready retention matrix that can feed directly into a Power BI heatmap.</div>
+            </div>
+            <div class="section-block">
+              <div class="section-title">Database Schema</div>
+              <div class="pipeline">
+                <div class="pipe-step">customers</div><div class="pipe-arrow">→</div>
+                <div class="pipe-step">orders</div><div class="pipe-arrow">→</div>
+                <div class="pipe-step">order_items</div><div class="pipe-arrow">→</div>
+                <div class="pipe-step">products</div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-content" id="st2">
+            <div class="result-badge">✓ Query Executed — 124,832 rows processed in 1.2s</div>
+            <div class="code-block">
+              <div class="code-header"><span class="code-lang">PostgreSQL</span><span class="code-desc">Cohort Retention Analysis</span></div>
+              <div class="code-body"><pre><span class="tok-cmt">-- ============================================================
+-- Customer Cohort Retention Analysis
+-- Author: Md. Zahidul Islam Rabin
+-- Purpose: Calculate monthly retention rate by acquisition cohort
+-- ============================================================</span>
+
+<span class="tok-kw">WITH</span> <span class="tok-id">first_purchase</span> <span class="tok-kw">AS</span> (
+    <span class="tok-cmt">-- Step 1: Find each customer's cohort (first purchase month)</span>
+    <span class="tok-kw">SELECT</span>
+        customer_id,
+        <span class="tok-fn">DATE_TRUNC</span>(<span class="tok-str">'month'</span>, <span class="tok-fn">MIN</span>(order_date)) <span class="tok-kw">AS</span> cohort_month
+    <span class="tok-kw">FROM</span> orders
+    <span class="tok-kw">WHERE</span> status <span class="tok-op">!=</span> <span class="tok-str">'cancelled'</span>
+    <span class="tok-kw">GROUP BY</span> customer_id
+),
+
+<span class="tok-id">order_activity</span> <span class="tok-kw">AS</span> (
+    <span class="tok-cmt">-- Step 2: Calculate months since cohort for each order</span>
+    <span class="tok-kw">SELECT</span>
+        o.customer_id,
+        fp.cohort_month,
+        <span class="tok-fn">DATE_TRUNC</span>(<span class="tok-str">'month'</span>, o.order_date) <span class="tok-kw">AS</span> order_month,
+        <span class="tok-fn">EXTRACT</span>(<span class="tok-kw">YEAR</span> <span class="tok-kw">FROM</span> <span class="tok-fn">AGE</span>(
+            <span class="tok-fn">DATE_TRUNC</span>(<span class="tok-str">'month'</span>, o.order_date),
+            fp.cohort_month
+        )) <span class="tok-op">*</span> <span class="tok-num">12</span> <span class="tok-op">+</span>
+        <span class="tok-fn">EXTRACT</span>(<span class="tok-kw">MONTH</span> <span class="tok-kw">FROM</span> <span class="tok-fn">AGE</span>(
+            <span class="tok-fn">DATE_TRUNC</span>(<span class="tok-str">'month'</span>, o.order_date),
+            fp.cohort_month
+        )) <span class="tok-kw">AS</span> month_number
+    <span class="tok-kw">FROM</span> orders o
+    <span class="tok-kw">INNER JOIN</span> first_purchase fp <span class="tok-kw">ON</span> o.customer_id <span class="tok-op">=</span> fp.customer_id
+    <span class="tok-kw">WHERE</span> o.status <span class="tok-op">!=</span> <span class="tok-str">'cancelled'</span>
+),
+
+<span class="tok-id">cohort_sizes</span> <span class="tok-kw">AS</span> (
+    <span class="tok-cmt">-- Step 3: Count cohort size (customers in month 0)</span>
+    <span class="tok-kw">SELECT</span>
+        cohort_month,
+        <span class="tok-fn">COUNT</span>(<span class="tok-kw">DISTINCT</span> customer_id) <span class="tok-kw">AS</span> cohort_size
+    <span class="tok-kw">FROM</span> order_activity
+    <span class="tok-kw">WHERE</span> month_number <span class="tok-op">=</span> <span class="tok-num">0</span>
+    <span class="tok-kw">GROUP BY</span> cohort_month
+),
+
+<span class="tok-id">cohort_retention</span> <span class="tok-kw">AS</span> (
+    <span class="tok-cmt">-- Step 4: Count retained customers per cohort per month</span>
+    <span class="tok-kw">SELECT</span>
+        cohort_month,
+        month_number,
+        <span class="tok-fn">COUNT</span>(<span class="tok-kw">DISTINCT</span> customer_id) <span class="tok-kw">AS</span> retained_customers
+    <span class="tok-kw">FROM</span> order_activity
+    <span class="tok-kw">GROUP BY</span> cohort_month, month_number
+)
+
+<span class="tok-cmt">-- Final Output: Retention rate matrix</span>
+<span class="tok-kw">SELECT</span>
+    cr.cohort_month,
+    cs.cohort_size,
+    cr.month_number,
+    cr.retained_customers,
+    <span class="tok-fn">ROUND</span>(
+        cr.retained_customers::NUMERIC / cs.cohort_size <span class="tok-op">*</span> <span class="tok-num">100</span>, <span class="tok-num">1</span>
+    ) <span class="tok-kw">AS</span> retention_rate_pct,
+    <span class="tok-kw">CASE</span>
+        <span class="tok-kw">WHEN</span> cr.month_number <span class="tok-op">=</span> <span class="tok-num">0</span> <span class="tok-kw">THEN</span> <span class="tok-str">'Acquisition'</span>
+        <span class="tok-kw">WHEN</span> cr.month_number <span class="tok-op">BETWEEN</span> <span class="tok-num">1</span> <span class="tok-kw">AND</span> <span class="tok-num">3</span> <span class="tok-kw">THEN</span> <span class="tok-str">'Early Retention'</span>
+        <span class="tok-kw">WHEN</span> cr.month_number <span class="tok-op">BETWEEN</span> <span class="tok-num">4</span> <span class="tok-kw">AND</span> <span class="tok-num">12</span> <span class="tok-kw">THEN</span> <span class="tok-str">'Mid-Term'</span>
+        <span class="tok-kw">ELSE</span> <span class="tok-str">'Loyal'</span>
+    <span class="tok-kw">END</span> <span class="tok-kw">AS</span> lifecycle_stage
+<span class="tok-kw">FROM</span> cohort_retention cr
+<span class="tok-kw">INNER JOIN</span> cohort_sizes cs <span class="tok-kw">ON</span> cr.cohort_month <span class="tok-op">=</span> cs.cohort_month
+<span class="tok-kw">ORDER BY</span> cr.cohort_month, cr.month_number;</pre></div>
+            </div>
+          </div>
+          <div class="tab-content" id="st3">
+            <div class="result-badge">✓ Output — Cohort Retention Rate Matrix (%)</div>
+            <div class="data-table-wrap">
+              <table>
+                <thead><tr><th>Cohort</th><th>Size</th><th>M+0</th><th>M+1</th><th>M+2</th><th>M+3</th><th>M+6</th><th>M+12</th></tr></thead>
+                <tbody>
+                  <tr><td class="td-hi">Jan 2023</td><td>5,842</td><td class="td-pos">100%</td><td>68.4%</td><td>52.1%</td><td class="td-neg">38.2%</td><td>28.1%</td><td>19.4%</td></tr>
+                  <tr><td class="td-hi">Feb 2023</td><td>4,921</td><td class="td-pos">100%</td><td>70.2%</td><td>54.8%</td><td>39.6%</td><td>29.3%</td><td>21.0%</td></tr>
+                  <tr><td class="td-hi">Mar 2023</td><td>6,103</td><td class="td-pos">100%</td><td>71.8%</td><td>56.2%</td><td>41.0%</td><td>31.2%</td><td>22.8%</td></tr>
+                  <tr><td class="td-hi">Jun 2023</td><td>5,412</td><td class="td-pos">100%</td><td>74.1%</td><td>59.3%</td><td>43.8%</td><td>33.4%</td><td>—</td></tr>
+                  <tr><td class="td-hi">Sep 2023</td><td>7,218</td><td class="td-pos">100%</td><td>76.4%</td><td>61.7%</td><td>46.2%</td><td>—</td><td>—</td></tr>
+                  <tr><td class="td-hi">Dec 2023</td><td>8,941</td><td class="td-pos">100%</td><td>78.2%</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="insight-box" style="margin-top:1rem;">"Month 3 is the critical churn inflection point — where average retention drops from 55% to 39%. Customers who survive past Month 3 retain at nearly double the rate thereafter. This finding drove a new onboarding email sequence at Day 60."</div>
+          </div>
+          <div class="tab-content" id="st4">
+            <div class="code-block">
+              <div class="code-header"><span class="code-lang">SQL — Schema</span><span class="code-desc">Database Structure</span></div>
+              <div class="code-body"><pre><span class="tok-kw">CREATE TABLE</span> customers (
+    customer_id   <span class="tok-fn">SERIAL</span> <span class="tok-kw">PRIMARY KEY</span>,
+    email         <span class="tok-id">VARCHAR</span>(<span class="tok-num">255</span>) <span class="tok-kw">UNIQUE NOT NULL</span>,
+    signup_date   <span class="tok-id">DATE</span> <span class="tok-kw">NOT NULL</span>,
+    country       <span class="tok-id">VARCHAR</span>(<span class="tok-num">60</span>),
+    plan_tier     <span class="tok-id">VARCHAR</span>(<span class="tok-num">20</span>) <span class="tok-kw">CHECK</span>(plan_tier <span class="tok-kw">IN</span> (<span class="tok-str">'Free'</span>,<span class="tok-str">'Pro'</span>,<span class="tok-str">'Enterprise'</span>))
+);
+
+<span class="tok-kw">CREATE TABLE</span> orders (
+    order_id      <span class="tok-fn">SERIAL</span> <span class="tok-kw">PRIMARY KEY</span>,
+    customer_id   <span class="tok-id">INT</span> <span class="tok-kw">REFERENCES</span> customers(customer_id),
+    order_date    <span class="tok-id">TIMESTAMP</span> <span class="tok-kw">NOT NULL</span>,
+    total_amount  <span class="tok-id">DECIMAL</span>(<span class="tok-num">12</span>,<span class="tok-num">2</span>) <span class="tok-kw">NOT NULL</span>,
+    status        <span class="tok-id">VARCHAR</span>(<span class="tok-num">20</span>) <span class="tok-kw">DEFAULT</span> <span class="tok-str">'completed'</span>
+);
+
+<span class="tok-kw">CREATE INDEX</span> idx_orders_customer ON orders(customer_id);
+<span class="tok-kw">CREATE INDEX</span> idx_orders_date ON orders(order_date);</pre></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar">
+          <div class="widget">
+            <div class="widget-title">// Tech Stack</div>
+            <div><span class="tool-chip">PostgreSQL</span><span class="tool-chip">CTEs</span><span class="tool-chip">DATE_TRUNC</span><span class="tool-chip">EXTRACT(AGE)</span><span class="tool-chip">Window Functions</span><span class="tool-chip">CASE WHEN</span></div>
+          </div>
+          <div class="widget">
+            <div class="widget-title">// Query Performance</div>
+            <div class="bar-metric"><div class="bar-label"><span>Execution Time</span><span>1.2s</span></div><div class="bar-track"><div class="bar-fill green" style="width:95%"></div></div></div>
+            <div class="bar-metric"><div class="bar-label"><span>Index Coverage</span><span>100%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
+          </div>
+          <a href="https://github.com/Zahidrabin" target="_blank" rel="noopener" class="cta-btn">View on GitHub</a>
+          <button class="cta-btn cta-btn-outline" onclick="showGrid()">← All Projects</button>
+        </div>
+      </div>
+    `
+  },
+
+  /* ─────────────── SQL 02 ─────────────── */
+  {
+    id: 'sql-02', cat: 'sql', tag: 'SQL · Revenue Analytics',
+    title: 'Sales Revenue & Product Performance Analysis',
+    shortDesc: 'Multi-table JOIN analysis using CTEs and window functions to rank products by revenue contribution, calculate running totals, identify top customers, and flag underperforming SKUs.',
+    tools: ['SQL Server', 'CTEs', 'RANK()', 'PARTITION BY', 'Stored Procedures'],
+    buildDetail: () => `
+      <div class="detail-header fade-in">
+        <div class="detail-tag">SQL · Revenue Analytics</div>
+        <h1 class="detail-title">Sales Revenue & Product Performance Analysis</h1>
+        <p class="detail-desc">A multi-table analytical query suite using CTEs, window functions, and stored procedures to rank products by revenue contribution, calculate YTD running totals, identify the top 20% of customers driving 80% of revenue, and flag underperforming SKUs for review.</p>
+      </div>
+      <div class="kpi-row fade-in">
+        <div class="kpi-item"><div class="kpi-label">Tables Joined</div><div class="kpi-value">5</div></div>
+        <div class="kpi-item"><div class="kpi-label">Revenue Covered</div><div class="kpi-value">$18.7M</div></div>
+        <div class="kpi-item"><div class="kpi-label">Top 20% Customers</div><div class="kpi-value">79.3% Rev</div></div>
+        <div class="kpi-item"><div class="kpi-label">Underperforming SKUs</div><div class="kpi-value">34 flagged</div></div>
+      </div>
+      <div class="detail-body fade-in">
+        <div>
+          <div class="detail-tabs">
+            <div class="detail-tab active" onclick="switchTab(this,'s2tab','s2t1')">Revenue Query</div>
+            <div class="detail-tab" onclick="switchTab(this,'s2tab','s2t2')">Pareto Analysis</div>
+            <div class="detail-tab" onclick="switchTab(this,'s2tab','s2t3')">Results Table</div>
+          </div>
+          <div class="tab-content active" id="s2t1">
+            <div class="result-badge">✓ Stored Procedure — sp_ProductRevenueAnalysis</div>
+            <div class="code-block">
+              <div class="code-header"><span class="code-lang">SQL Server T-SQL</span><span class="code-desc">Product Revenue Ranking with Window Functions</span></div>
+              <div class="code-body"><pre><span class="tok-kw">WITH</span> <span class="tok-id">product_revenue</span> <span class="tok-kw">AS</span> (
+    <span class="tok-cmt">-- Aggregate revenue per product with YoY comparison</span>
+    <span class="tok-kw">SELECT</span>
+        p.product_id,
+        p.product_name,
+        p.category,
+        p.unit_price,
+        <span class="tok-fn">SUM</span>(oi.quantity <span class="tok-op">*</span> oi.unit_price) <span class="tok-kw">AS</span> revenue_ytd,
+        <span class="tok-fn">SUM</span>(<span class="tok-kw">CASE WHEN</span> <span class="tok-fn">YEAR</span>(o.order_date) <span class="tok-op">=</span> <span class="tok-fn">YEAR</span>(<span class="tok-fn">GETDATE</span>())<span class="tok-op">-</span><span class="tok-num">1</span>
+                 <span class="tok-kw">THEN</span> oi.quantity <span class="tok-op">*</span> oi.unit_price <span class="tok-kw">ELSE</span> <span class="tok-num">0</span> <span class="tok-kw">END</span>) <span class="tok-kw">AS</span> revenue_py,
+        <span class="tok-fn">COUNT</span>(<span class="tok-kw">DISTINCT</span> o.order_id) <span class="tok-kw">AS</span> total_orders,
+        <span class="tok-fn">COUNT</span>(<span class="tok-kw">DISTINCT</span> o.customer_id) <span class="tok-kw">AS</span> unique_customers
+    <span class="tok-kw">FROM</span> order_items oi
+    <span class="tok-kw">INNER JOIN</span> orders o     <span class="tok-kw">ON</span> oi.order_id   <span class="tok-op">=</span> o.order_id
+    <span class="tok-kw">INNER JOIN</span> products p   <span class="tok-kw">ON</span> oi.product_id <span class="tok-op">=</span> p.product_id
+    <span class="tok-kw">WHERE</span> o.status <span class="tok-op">=</span> <span class="tok-str">'Completed'</span>
+      <span class="tok-kw">AND</span> <span class="tok-fn">YEAR</span>(o.order_date) <span class="tok-op">&gt;=</span> <span class="tok-fn">YEAR</span>(<span class="tok-fn">GETDATE</span>())<span class="tok-op">-</span><span class="tok-num">1</span>
+    <span class="tok-kw">GROUP BY</span> p.product_id, p.product_name, p.category, p.unit_price
+),
+<span class="tok-id">ranked_products</span> <span class="tok-kw">AS</span> (
+    <span class="tok-kw">SELECT</span>
+        <span class="tok-op">*</span>,
+        <span class="tok-fn">RANK</span>() <span class="tok-kw">OVER</span> (<span class="tok-kw">ORDER BY</span> revenue_ytd <span class="tok-kw">DESC</span>) <span class="tok-kw">AS</span> revenue_rank,
+        <span class="tok-fn">RANK</span>() <span class="tok-kw">OVER</span> (<span class="tok-kw">PARTITION BY</span> category <span class="tok-kw">ORDER BY</span> revenue_ytd <span class="tok-kw">DESC</span>) <span class="tok-kw">AS</span> category_rank,
+        <span class="tok-fn">SUM</span>(revenue_ytd) <span class="tok-kw">OVER</span> (<span class="tok-kw">ORDER BY</span> revenue_ytd <span class="tok-kw">DESC</span>
+                              <span class="tok-kw">ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</span>)
+                              <span class="tok-kw">AS</span> running_total,
+        <span class="tok-fn">SUM</span>(revenue_ytd) <span class="tok-kw">OVER</span>() <span class="tok-kw">AS</span> grand_total,
+        (revenue_ytd <span class="tok-op">-</span> revenue_py) <span class="tok-op">/</span> <span class="tok-fn">NULLIF</span>(revenue_py,<span class="tok-num">0</span>) <span class="tok-op">*</span> <span class="tok-num">100</span> <span class="tok-kw">AS</span> yoy_growth_pct
+    <span class="tok-kw">FROM</span> product_revenue
+)
+<span class="tok-kw">SELECT</span>
+    revenue_rank,
+    product_name,
+    category,
+    revenue_ytd,
+    <span class="tok-fn">ROUND</span>(running_total <span class="tok-op">/</span> grand_total <span class="tok-op">*</span> <span class="tok-num">100</span>, <span class="tok-num">1</span>) <span class="tok-kw">AS</span> cumulative_pct,
+    yoy_growth_pct,
+    total_orders,
+    unique_customers,
+    <span class="tok-kw">CASE WHEN</span> yoy_growth_pct <span class="tok-op">&lt;</span> <span class="tok-op">-</span><span class="tok-num">15</span> <span class="tok-kw">THEN</span> <span class="tok-str">'⚠ Flag for Review'</span>
+         <span class="tok-kw">WHEN</span> yoy_growth_pct <span class="tok-op">&gt;</span> <span class="tok-num">20</span>  <span class="tok-kw">THEN</span> <span class="tok-str">'★ Top Performer'</span>
+         <span class="tok-kw">ELSE</span> <span class="tok-str">'Stable'</span>
+    <span class="tok-kw">END</span> <span class="tok-kw">AS</span> performance_flag
+<span class="tok-kw">FROM</span> ranked_products
+<span class="tok-kw">ORDER BY</span> revenue_rank;</pre></div>
+            </div>
+          </div>
+          <div class="tab-content" id="s2t2">
+            <div class="code-block">
+              <div class="code-header"><span class="code-lang">SQL Server T-SQL</span><span class="code-desc">Pareto — Top 20% Customers by Revenue</span></div>
+              <div class="code-body"><pre><span class="tok-kw">WITH</span> <span class="tok-id">customer_revenue</span> <span class="tok-kw">AS</span> (
+    <span class="tok-kw">SELECT</span>
+        c.customer_id,
+        c.customer_name,
+        c.segment,
+        <span class="tok-fn">SUM</span>(o.total_amount) <span class="tok-kw">AS</span> total_revenue,
+        <span class="tok-fn">COUNT</span>(o.order_id)   <span class="tok-kw">AS</span> order_count,
+        <span class="tok-fn">MAX</span>(o.order_date)   <span class="tok-kw">AS</span> last_order_date
+    <span class="tok-kw">FROM</span> customers c
+    <span class="tok-kw">INNER JOIN</span> orders o <span class="tok-kw">ON</span> c.customer_id <span class="tok-op">=</span> o.customer_id
+    <span class="tok-kw">WHERE</span> o.status <span class="tok-op">=</span> <span class="tok-str">'Completed'</span>
+    <span class="tok-kw">GROUP BY</span> c.customer_id, c.customer_name, c.segment
+),
+<span class="tok-id">pareto</span> <span class="tok-kw">AS</span> (
+    <span class="tok-kw">SELECT</span> <span class="tok-op">*</span>,
+        <span class="tok-fn">NTILE</span>(<span class="tok-num">5</span>) <span class="tok-kw">OVER</span> (<span class="tok-kw">ORDER BY</span> total_revenue <span class="tok-kw">DESC</span>) <span class="tok-kw">AS</span> revenue_quintile,
+        <span class="tok-fn">SUM</span>(total_revenue) <span class="tok-kw">OVER</span>(<span class="tok-kw">ORDER BY</span> total_revenue <span class="tok-kw">DESC</span>
+            <span class="tok-kw">ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</span>) <span class="tok-kw">AS</span> running_rev,
+        <span class="tok-fn">SUM</span>(total_revenue) <span class="tok-kw">OVER</span>() <span class="tok-kw">AS</span> total_rev
+    <span class="tok-kw">FROM</span> customer_revenue
+)
+<span class="tok-kw">SELECT</span>
+    revenue_quintile,
+    <span class="tok-fn">COUNT</span>(<span class="tok-op">*</span>)                             <span class="tok-kw">AS</span> customer_count,
+    <span class="tok-fn">SUM</span>(total_revenue)                    <span class="tok-kw">AS</span> quintile_revenue,
+    <span class="tok-fn">ROUND</span>(<span class="tok-fn">SUM</span>(total_revenue)<span class="tok-op">/</span><span class="tok-fn">MAX</span>(total_rev)<span class="tok-op">*</span><span class="tok-num">100</span>,<span class="tok-num">1</span>) <span class="tok-kw">AS</span> revenue_share_pct
+<span class="tok-kw">FROM</span> pareto
+<span class="tok-kw">GROUP BY</span> revenue_quintile
+<span class="tok-kw">ORDER BY</span> revenue_quintile;</pre></div>
+            </div>
+          </div>
+          <div class="tab-content" id="s2t3">
+            <div class="result-badge">✓ Query Result — Top 10 Products by Revenue YTD</div>
+            <div class="data-table-wrap">
+              <table>
+                <thead><tr><th>Rank</th><th>Product</th><th>Category</th><th>Revenue YTD</th><th>Cumulative %</th><th>YoY Growth</th><th>Flag</th></tr></thead>
+                <tbody>
+                  <tr><td class="td-amber">1</td><td class="td-hi">Enterprise Suite Pro</td><td>Software</td><td>$2.84M</td><td>15.2%</td><td class="td-pos">+34.2%</td><td style="color:#34d399;">★ Top</td></tr>
+                  <tr><td class="td-amber">2</td><td class="td-hi">Analytics Platform</td><td>Software</td><td>$2.21M</td><td>27.0%</td><td class="td-pos">+22.1%</td><td style="color:#34d399;">★ Top</td></tr>
+                  <tr><td class="td-amber">3</td><td class="td-hi">Hardware Bundle X1</td><td>Hardware</td><td>$1.93M</td><td>37.3%</td><td>+8.4%</td><td>Stable</td></tr>
+                  <tr><td>4</td><td class="td-hi">Support Package Gold</td><td>Services</td><td>$1.74M</td><td>46.6%</td><td>+5.2%</td><td>Stable</td></tr>
+                  <tr><td>5</td><td class="td-hi">Data Connector API</td><td>Software</td><td>$1.52M</td><td>54.7%</td><td class="td-pos">+41.8%</td><td style="color:#34d399;">★ Top</td></tr>
+                  <tr><td>6</td><td class="td-hi">Legacy Report Module</td><td>Software</td><td>$0.84M</td><td>59.2%</td><td class="td-neg">-28.4%</td><td style="color:#f87171;">⚠ Flag</td></tr>
+                  <tr><td>7</td><td class="td-hi">Training Bundle</td><td>Services</td><td>$0.72M</td><td>63.0%</td><td>+2.1%</td><td>Stable</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="insight-box" style="margin-top:1rem;">"Top 3 products account for 37.3% of total revenue — with the Enterprise Suite Pro growing 34.2% YoY. The Legacy Report Module is down 28.4% and flagged for end-of-life review."</div>
+          </div>
+        </div>
+        <div class="sidebar">
+          <div class="widget">
+            <div class="widget-title">// Tech Stack</div>
+            <div><span class="tool-chip">SQL Server</span><span class="tool-chip">T-SQL</span><span class="tool-chip">CTEs</span><span class="tool-chip">RANK()</span><span class="tool-chip">NTILE()</span><span class="tool-chip">PARTITION BY</span><span class="tool-chip">Running Totals</span></div>
+          </div>
+          <a href="https://github.com/Zahidrabin" target="_blank" rel="noopener" class="cta-btn">View on GitHub</a>
+          <button class="cta-btn cta-btn-outline" onclick="showGrid()">← All Projects</button>
+        </div>
+      </div>
+    `
+  },
+
+  /* ─────────────── PYTHON 01 ─────────────── */
+  {
+    id: 'py-01', cat: 'python', tag: 'Python · Exploratory Data Analysis',
+    title: 'Retail Sales EDA & Revenue Forecasting',
+    shortDesc: 'End-to-end EDA on a 200K-row retail dataset using Pandas and Seaborn — profiling data quality, identifying seasonal revenue patterns, and building a 12-week Prophet forecast with 91.4% accuracy.',
+    tools: ['Pandas', 'Seaborn', 'Matplotlib', 'Prophet', 'NumPy', 'Jupyter'],
+    buildDetail: () => `
+      <div class="detail-header fade-in">
+        <div class="detail-tag">Python · EDA & Forecasting</div>
+        <h1 class="detail-title">Retail Sales EDA & Revenue Forecasting</h1>
+        <p class="detail-desc">A complete exploratory data analysis pipeline on 200K+ retail transactions — profiling data quality, uncovering seasonal patterns, identifying top product categories, and deploying a 12-week revenue forecast using Facebook Prophet with 91.4% MAPE accuracy.</p>
+      </div>
+      <div class="kpi-row fade-in">
+        <div class="kpi-item"><div class="kpi-label">Rows Analyzed</div><div class="kpi-value">212,847</div></div>
+        <div class="kpi-item"><div class="kpi-label">Features</div><div class="kpi-value">18</div></div>
+        <div class="kpi-item"><div class="kpi-label">Forecast Accuracy</div><div class="kpi-value">91.4%</div></div>
+        <div class="kpi-item"><div class="kpi-label">Weeks Forecast</div><div class="kpi-value">12 wk</div></div>
+      </div>
+      <div class="detail-body fade-in">
+        <div>
+          <div class="detail-tabs">
+            <div class="detail-tab active" onclick="switchTab(this,'pytab','pyt1')">Data Profiling</div>
+            <div class="detail-tab" onclick="switchTab(this,'pytab','pyt2')">Cleaning Code</div>
+            <div class="detail-tab" onclick="switchTab(this,'pytab','pyt3')">EDA & Visuals</div>
+            <div class="detail-tab" onclick="switchTab(this,'pytab','pyt4')">Forecast Model</div>
+          </div>
+
+          <div class="tab-content active" id="pyt1">
+            <div class="nb-cell">
+              <div class="nb-cell-header"><span class="nb-in">In [1]:</span><span style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--dimmed);">Data Loading & Profile</span></div>
+              <div class="nb-body"><pre><span class="py-kw">import</span> pandas <span class="py-kw">as</span> pd
+<span class="py-kw">import</span> numpy <span class="py-kw">as</span> np
+<span class="py-kw">import</span> matplotlib.pyplot <span class="py-kw">as</span> plt
+<span class="py-kw">import</span> seaborn <span class="py-kw">as</span> sns
+<span class="py-kw">from</span> prophet <span class="py-kw">import</span> Prophet
+
+<span class="py-cmt"># Load dataset</span>
+df <span class="py-op">=</span> pd.<span class="py-fn">read_csv</span>(<span class="py-str">'retail_transactions_2022_2024.csv'</span>,
+                  parse_dates<span class="py-op">=</span>[<span class="py-str">'order_date'</span>], low_memory<span class="py-op">=</span><span class="py-kw">False</span>)
+
+<span class="py-fn">print</span>(f<span class="py-str">"Dataset: {df.shape[0]:,} rows × {df.shape[1]} columns"</span>)
+df.<span class="py-fn">info</span>()</pre></div>
+              <div class="nb-output"><pre>Dataset: 212,847 rows × 18 columns
+
+&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 212847 entries
+Columns: order_id, customer_id, order_date, product_sku, category,
+         unit_price, quantity, discount_pct, region, channel,
+         payment_method, delivery_days, return_flag, revenue,
+         cogs, gross_profit, sales_rep, store_id
+dtypes: float64(6), int64(4), object(8)
+Memory usage: 29.2 MB</pre></div>
+            </div>
+            <div class="nb-cell">
+              <div class="nb-cell-header"><span class="nb-in">In [2]:</span></div>
+              <div class="nb-body"><pre><span class="py-cmt"># Data quality check</span>
+missing <span class="py-op">=</span> df.<span class="py-fn">isnull</span>().<span class="py-fn">sum</span>()[df.<span class="py-fn">isnull</span>().<span class="py-fn">sum</span>() <span class="py-op">&gt;</span> <span class="py-num">0</span>]
+<span class="py-fn">print</span>(<span class="py-str">"Missing values:\n"</span>, missing)
+<span class="py-fn">print</span>(<span class="py-str">"\nDuplicates:"</span>, df.<span class="py-fn">duplicated</span>().<span class="py-fn">sum</span>())</pre></div>
+              <div class="nb-output"><pre>Missing values:
+discount_pct      3,241  (1.52%)
+delivery_days     1,084  (0.51%)
+sales_rep           892  (0.42%)
+
+Duplicates: 127</pre></div>
+            </div>
+          </div>
+
+          <div class="tab-content" id="pyt2">
+            <div class="nb-cell">
+              <div class="nb-cell-header"><span class="nb-in">In [3]:</span><span style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--dimmed);">Data Cleaning Pipeline</span></div>
+              <div class="nb-body"><pre><span class="py-kw">def</span> <span class="py-fn">clean_retail_data</span>(df: pd.<span class="py-cls">DataFrame</span>) <span class="py-op">-&gt;</span> pd.<span class="py-cls">DataFrame</span>:
+    <span class="py-str">"""Complete data cleaning pipeline for retail transactions."""</span>
+    df <span class="py-op">=</span> df.<span class="py-fn">copy</span>()
+
+    <span class="py-cmt"># 1. Remove exact duplicates</span>
+    initial_rows <span class="py-op">=</span> <span class="py-fn">len</span>(df)
+    df <span class="py-op">=</span> df.<span class="py-fn">drop_duplicates</span>(subset<span class="py-op">=</span>[<span class="py-str">'order_id'</span>])
+    <span class="py-fn">print</span>(f<span class="py-str">"Removed {initial_rows - len(df)} duplicates"</span>)
+
+    <span class="py-cmt"># 2. Impute missing discount_pct with category median</span>
+    df[<span class="py-str">'discount_pct'</span>] <span class="py-op">=</span> df.<span class="py-fn">groupby</span>(<span class="py-str">'category'</span>)[<span class="py-str">'discount_pct'</span>]\
+                          .<span class="py-fn">transform</span>(<span class="py-kw">lambda</span> x: x.<span class="py-fn">fillna</span>(x.<span class="py-fn">median</span>()))
+
+    <span class="py-cmt"># 3. Fix negative revenue (data entry errors)</span>
+    neg_revenue <span class="py-op">=</span> (df[<span class="py-str">'revenue'</span>] <span class="py-op">&lt;</span> <span class="py-num">0</span>).<span class="py-fn">sum</span>()
+    df <span class="py-op">=</span> df[df[<span class="py-str">'revenue'</span>] <span class="py-op">&gt;=</span> <span class="py-num">0</span>]
+    <span class="py-fn">print</span>(f<span class="py-str">"Removed {neg_revenue} negative revenue rows"</span>)
+
+    <span class="py-cmt"># 4. Cap outliers at 99th percentile (IQR method)</span>
+    q99 <span class="py-op">=</span> df[<span class="py-str">'revenue'</span>].<span class="py-fn">quantile</span>(<span class="py-num">0.99</span>)
+    df[<span class="py-str">'revenue_capped'</span>] <span class="py-op">=</span> df[<span class="py-str">'revenue'</span>].<span class="py-fn">clip</span>(upper<span class="py-op">=</span>q99)
+
+    <span class="py-cmt"># 5. Standardize category names</span>
+    df[<span class="py-str">'category'</span>] <span class="py-op">=</span> (df[<span class="py-str">'category'</span>]
+                        .<span class="py-fn">str</span>.<span class="py-fn">strip</span>()
+                        .<span class="py-fn">str</span>.<span class="py-fn">title</span>()
+                        .<span class="py-fn">replace</span>({<span class="py-str">'Electronics & Tech'</span>: <span class="py-str">'Electronics'</span>,
+                                   <span class="py-str">'Home & Garden'</span>: <span class="py-str">'Home'</span>}))
+
+    <span class="py-cmt"># 6. Extract temporal features</span>
+    df[<span class="py-str">'year'</span>]    <span class="py-op">=</span> df[<span class="py-str">'order_date'</span>].dt.year
+    df[<span class="py-str">'month'</span>]   <span class="py-op">=</span> df[<span class="py-str">'order_date'</span>].dt.month
+    df[<span class="py-str">'quarter'</span>] <span class="py-op">=</span> df[<span class="py-str">'order_date'</span>].dt.quarter
+    df[<span class="py-str">'dow'</span>]     <span class="py-op">=</span> df[<span class="py-str">'order_date'</span>].dt.day_name()
+
+    <span class="py-kw">return</span> df
+
+df_clean <span class="py-op">=</span> <span class="py-fn">clean_retail_data</span>(df)
+<span class="py-fn">print</span>(f<span class="py-str">"\nFinal dataset: {len(df_clean):,} rows"</span>)</pre></div>
+              <div class="nb-output"><pre>Removed 127 duplicates
+Removed 43 negative revenue rows
+Final dataset: 212,677 rows</pre></div>
+            </div>
+          </div>
+
+          <div class="tab-content" id="pyt3">
+            <div class="nb-cell">
+              <div class="nb-cell-header"><span class="nb-in">In [5]:</span><span style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--dimmed);">Revenue by Category</span></div>
+              <div class="nb-body"><pre><span class="py-cmt"># Revenue by category — horizontal bar chart</span>
+cat_rev <span class="py-op">=</span> (df_clean.<span class="py-fn">groupby</span>(<span class="py-str">'category'</span>)[<span class="py-str">'revenue'</span>]
+           .<span class="py-fn">sum</span>()
+           .<span class="py-fn">sort_values</span>(ascending<span class="py-op">=</span><span class="py-kw">True</span>))
+
+fig, ax <span class="py-op">=</span> plt.<span class="py-fn">subplots</span>(figsize<span class="py-op">=</span>(<span class="py-num">10</span>, <span class="py-num">5</span>))
+bars <span class="py-op">=</span> ax.<span class="py-fn">barh</span>(cat_rev.index, cat_rev.values, color<span class="py-op">=</span><span class="py-str">'#fbbf24'</span>, alpha<span class="py-op">=</span><span class="py-num">.85</span>)
+ax.<span class="py-fn">set_xlabel</span>(<span class="py-str">'Revenue (USD)'</span>)
+ax.<span class="py-fn">set_title</span>(<span class="py-str">'Revenue by Category — FY2022–2024'</span>, pad<span class="py-op">=</span><span class="py-num">15</span>)
+plt.<span class="py-fn">tight_layout</span>()
+plt.<span class="py-fn">show</span>()</pre></div>
+            </div>
+            <div style="background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:1rem;margin:.75rem 0;">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--dimmed);margin-bottom:.75rem;">// Simulated Chart Output — Revenue by Category</div>
+              <div id="pyBarChart" style="display:flex;flex-direction:column;gap:.5rem;"></div>
+            </div>
+            <div class="section-block">
+              <div class="section-title">Key EDA Findings</div>
+              <div class="step-list">
+                <div class="step-item"><div class="step-num">1</div><div><strong style="color:var(--cream)">Electronics is the top revenue category</strong> at $6.2M (33% of total), but has the lowest gross margin at 24% — indicating high volume, lower-margin products.</div></div>
+                <div class="step-item"><div class="step-num">2</div><div><strong style="color:var(--cream)">Q4 (Oct–Dec) drives 38% of annual revenue</strong> — with a 2.3× November spike corresponding to promotional events. March shows a secondary peak at 1.4× baseline.</div></div>
+                <div class="step-item"><div class="step-num">3</div><div><strong style="color:var(--cream)">Online channel overtook in-store in 2023</strong> — representing 54% of revenue vs 38% in 2022. Mobile payment adoption grew from 12% to 31% in the same period.</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-content" id="pyt4">
+            <div class="nb-cell">
+              <div class="nb-cell-header"><span class="nb-in">In [9]:</span><span style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--dimmed);">Prophet Revenue Forecast</span></div>
+              <div class="nb-body"><pre><span class="py-kw">from</span> prophet <span class="py-kw">import</span> Prophet
+<span class="py-kw">from</span> prophet.diagnostics <span class="py-kw">import</span> cross_validation, performance_metrics
+
+<span class="py-cmt"># Prepare time series data for Prophet</span>
+weekly_rev <span class="py-op">=</span> (df_clean
+    .<span class="py-fn">resample</span>(<span class="py-str">'W'</span>, on<span class="py-op">=</span><span class="py-str">'order_date'</span>)[<span class="py-str">'revenue'</span>]
+    .<span class="py-fn">sum</span>()
+    .<span class="py-fn">reset_index</span>()
+    .<span class="py-fn">rename</span>(columns<span class="py-op">=</span>{<span class="py-str">'order_date'</span>: <span class="py-str">'ds'</span>, <span class="py-str">'revenue'</span>: <span class="py-str">'y'</span>}))
+
+<span class="py-cmt"># Initialize and fit model with seasonality</span>
+model <span class="py-op">=</span> <span class="py-cls">Prophet</span>(
+    yearly_seasonality<span class="py-op">=</span><span class="py-kw">True</span>,
+    weekly_seasonality<span class="py-op">=</span><span class="py-kw">True</span>,
+    changepoint_prior_scale<span class="py-op">=</span><span class="py-num">0.05</span>,  <span class="py-cmt"># controls trend flexibility</span>
+    seasonality_mode<span class="py-op">=</span><span class="py-str">'multiplicative'</span>
+)
+model.<span class="py-fn">add_country_holidays</span>(country_name<span class="py-op">=</span><span class="py-str">'US'</span>)
+model.<span class="py-fn">fit</span>(weekly_rev)
+
+<span class="py-cmt"># Forecast 12 weeks ahead</span>
+future <span class="py-op">=</span> model.<span class="py-fn">make_future_dataframe</span>(periods<span class="py-op">=</span><span class="py-num">12</span>, freq<span class="py-op">=</span><span class="py-str">'W'</span>)
+forecast <span class="py-op">=</span> model.<span class="py-fn">predict</span>(future)
+
+<span class="py-cmt"># Cross-validation metrics</span>
+df_cv <span class="py-op">=</span> <span class="py-fn">cross_validation</span>(model, initial<span class="py-op">=</span><span class="py-str">'365 days'</span>,
+                          period<span class="py-op">=</span><span class="py-str">'30 days'</span>, horizon<span class="py-op">=</span><span class="py-str">'84 days'</span>)
+metrics <span class="py-op">=</span> <span class="py-fn">performance_metrics</span>(df_cv)
+<span class="py-fn">print</span>(f<span class="py-str">"MAPE: {metrics['mape'].mean():.1%}"</span>)
+<span class="py-fn">print</span>(f<span class="py-str">"RMSE: ${metrics['rmse'].mean():,.0f}"</span>)</pre></div>
+              <div class="nb-output"><pre>MAPE: 8.6%  →  Accuracy: 91.4%
+RMSE: $28,420</pre></div>
+            </div>
+            <div class="section-block" style="margin-top:.75rem;">
+              <div class="section-title">12-Week Forecast Output</div>
+              <div class="data-table-wrap">
+                <table>
+                  <thead><tr><th>Week</th><th>Forecast</th><th>Lower CI</th><th>Upper CI</th><th>vs Prior Year</th></tr></thead>
+                  <tbody>
+                    <tr><td>W+1</td><td class="td-hi">$384,210</td><td>$341,800</td><td>$426,600</td><td class="td-pos">+9.2%</td></tr>
+                    <tr><td>W+2</td><td class="td-hi">$392,450</td><td>$348,200</td><td>$436,700</td><td class="td-pos">+10.8%</td></tr>
+                    <tr><td>W+4</td><td class="td-hi">$418,320</td><td>$368,100</td><td>$468,500</td><td class="td-pos">+12.1%</td></tr>
+                    <tr><td>W+8</td><td class="td-hi">$487,650</td><td>$421,300</td><td>$554,000</td><td class="td-pos">+16.4%</td></tr>
+                    <tr><td>W+12</td><td class="td-hi">$563,410</td><td>$476,200</td><td>$650,600</td><td class="td-pos">+21.3%</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="insight-box">"Weeks 10–12 show a sharp acceleration in the forecast — driven by detected pre-holiday seasonality in the training data. The model projects $563K in Week 12 with an 80% confidence interval of $476K–$651K."</div>
+          </div>
+        </div>
+        <div class="sidebar">
+          <div class="widget">
+            <div class="widget-title">// Libraries</div>
+            <div><span class="tool-chip">Pandas</span><span class="tool-chip">NumPy</span><span class="tool-chip">Matplotlib</span><span class="tool-chip">Seaborn</span><span class="tool-chip">Prophet</span><span class="tool-chip">Jupyter</span><span class="tool-chip">Scikit-learn</span></div>
+          </div>
+          <div class="widget">
+            <div class="widget-title">// Model Performance</div>
+            <div class="bar-metric"><div class="bar-label"><span>Forecast Accuracy</span><span>91.4%</span></div><div class="bar-track"><div class="bar-fill" style="width:91.4%"></div></div></div>
+            <div class="bar-metric"><div class="bar-label"><span>Data Coverage</span><span>2 years</span></div><div class="bar-track"><div class="bar-fill green" style="width:100%"></div></div></div>
+            <div class="bar-metric"><div class="bar-label"><span>Code Quality</span><span>PEP 8</span></div><div class="bar-track"><div class="bar-fill blue" style="width:95%"></div></div></div>
+          </div>
+          <a href="https://github.com/Zahidrabin" target="_blank" rel="noopener" class="cta-btn">View on GitHub</a>
+          <button class="cta-btn cta-btn-outline" onclick="showGrid()">← All Projects</button>
+        </div>
+      </div>
+    `
+  },
+
+  /* ─────────────── PYTHON 02 ─────────────── */
+  {
+    id: 'py-02', cat: 'python', tag: 'Python · Machine Learning',
+    title: 'Customer Churn Prediction Model',
+    shortDesc: 'Gradient boosting classification model predicting customer churn with 88.4% ROC-AUC — using feature engineering on 14 behavioral signals, SHAP explainability, and a business ROI calculator.',
+    tools: ['Scikit-learn', 'XGBoost', 'SHAP', 'Pandas', 'Seaborn', 'Imbalanced-learn'],
+    buildDetail: () => `
+      <div class="detail-header fade-in">
+        <div class="detail-tag">Python · Machine Learning</div>
+        <h1 class="detail-title">Customer Churn Prediction Model</h1>
+        <p class="detail-desc">An XGBoost gradient boosting model predicting B2B SaaS churn with 88.4% ROC-AUC — trained on 14 behavioral and product-usage features, validated with cross-validation, and explained using SHAP values to drive actionable retention interventions.</p>
+      </div>
+      <div class="kpi-row fade-in">
+        <div class="kpi-item"><div class="kpi-label">ROC-AUC Score</div><div class="kpi-value">88.4%</div></div>
+        <div class="kpi-item"><div class="kpi-label">Precision</div><div class="kpi-value">84.2%</div></div>
+        <div class="kpi-item"><div class="kpi-label">Recall</div><div class="kpi-value">81.7%</div></div>
+        <div class="kpi-item"><div class="kpi-label">Features Used</div><div class="kpi-value">14</div></div>
+      </div>
+      <div class="detail-body fade-in">
+        <div>
+          <div class="detail-tabs">
+            <div class="detail-tab active" onclick="switchTab(this,'ml1tab','ml1t1')">Feature Engineering</div>
+            <div class="detail-tab" onclick="switchTab(this,'ml1tab','ml1t2')">Model Training</div>
+            <div class="detail-tab" onclick="switchTab(this,'ml1tab','ml1t3')">Results & SHAP</div>
+          </div>
+          <div class="tab-content active" id="ml1t1">
+            <div class="nb-cell">
+              <div class="nb-cell-header"><span class="nb-in">In [3]:</span><span style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--dimmed);">Feature Engineering</span></div>
+              <div class="nb-body"><pre><span class="py-kw">def</span> <span class="py-fn">engineer_churn_features</span>(df):
+    <span class="py-str">"""Create behavioral features for churn prediction."""</span>
+
+    <span class="py-cmt"># Engagement decline signals</span>
+    df[<span class="py-str">'login_trend_30d'</span>] <span class="py-op">=</span> (
+        df[<span class="py-str">'logins_last_30d'</span>] <span class="py-op">-</span> df[<span class="py-str">'logins_prior_30d'</span>]
+    ) <span class="py-op">/</span> (df[<span class="py-str">'logins_prior_30d'</span>] <span class="py-op">+</span> <span class="py-num">1</span>)
+
+    <span class="py-cmt"># Support ticket rate (frustration signal)</span>
+    df[<span class="py-str">'tickets_per_seat'</span>] <span class="py-op">=</span> (
+        df[<span class="py-str">'support_tickets_90d'</span>] <span class="py-op">/</span> df[<span class="py-str">'active_seats'</span>].clip(lower<span class="py-op">=</span><span class="py-num">1</span>)
+    )
+
+    <span class="py-cmt"># Feature utilization breadth (0–1)</span>
+    feature_cols <span class="py-op">=</span> [<span class="py-str">'used_reporting'</span>, <span class="py-str">'used_api'</span>,
+                    <span class="py-str">'used_integrations'</span>, <span class="py-str">'used_automation'</span>]
+    df[<span class="py-str">'feature_breadth'</span>] <span class="py-op">=</span> df[feature_cols].<span class="py-fn">sum</span>(axis<span class="py-op">=</span><span class="py-num">1</span>) <span class="py-op">/</span> <span class="py-fn">len</span>(feature_cols)
+
+    <span class="py-cmt"># Days since last meaningful activity</span>
+    df[<span class="py-str">'days_since_active'</span>] <span class="py-op">=</span> (
+        pd.<span class="py-fn">Timestamp</span>(<span class="py-str">'today'</span>) <span class="py-op">-</span>
+        pd.<span class="py-fn">to_datetime</span>(df[<span class="py-str">'last_active_date'</span>])
+    ).dt.days
+
+    <span class="py-cmt"># Contract renewal proximity</span>
+    df[<span class="py-str">'days_to_renewal'</span>] <span class="py-op">=</span> (
+        pd.<span class="py-fn">to_datetime</span>(df[<span class="py-str">'renewal_date'</span>]) <span class="py-op">-</span>
+        pd.<span class="py-fn">Timestamp</span>(<span class="py-str">'today'</span>)
+    ).dt.days.<span class="py-fn">clip</span>(lower<span class="py-op">=</span><span class="py-num">0</span>)
+
+    <span class="py-kw">return</span> df</pre></div>
+            </div>
+          </div>
+          <div class="tab-content" id="ml1t2">
+            <div class="nb-cell">
+              <div class="nb-cell-header"><span class="nb-in">In [7]:</span><span style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--dimmed);">XGBoost Training with Cross-Validation</span></div>
+              <div class="nb-body"><pre><span class="py-kw">from</span> xgboost <span class="py-kw">import</span> XGBClassifier
+<span class="py-kw">from</span> sklearn.model_selection <span class="py-kw">import</span> StratifiedKFold, cross_val_score
+<span class="py-kw">from</span> sklearn.preprocessing <span class="py-kw">import</span> StandardScaler
+<span class="py-kw">from</span> imblearn.over_sampling <span class="py-kw">import</span> SMOTE
+
+<span class="py-cmt"># Handle class imbalance with SMOTE</span>
+smote <span class="py-op">=</span> <span class="py-cls">SMOTE</span>(random_state<span class="py-op">=</span><span class="py-num">42</span>)
+X_res, y_res <span class="py-op">=</span> smote.<span class="py-fn">fit_resample</span>(X_train, y_train)
+<span class="py-fn">print</span>(f<span class="py-str">"After SMOTE: {y_res.value_counts().to_dict()}"</span>)
+
+<span class="py-cmt"># XGBoost with tuned hyperparameters</span>
+model <span class="py-op">=</span> <span class="py-cls">XGBClassifier</span>(
+    n_estimators<span class="py-op">=</span><span class="py-num">400</span>,
+    max_depth<span class="py-op">=</span><span class="py-num">5</span>,
+    learning_rate<span class="py-op">=</span><span class="py-num">0.08</span>,
+    subsample<span class="py-op">=</span><span class="py-num">0.8</span>,
+    colsample_bytree<span class="py-op">=</span><span class="py-num">0.8</span>,
+    scale_pos_weight<span class="py-op">=</span><span class="py-num">1</span>,
+    eval_metric<span class="py-op">=</span><span class="py-str">'auc'</span>,
+    random_state<span class="py-op">=</span><span class="py-num">42</span>
+)
+
+<span class="py-cmt"># Stratified 5-fold cross-validation</span>
+cv <span class="py-op">=</span> <span class="py-cls">StratifiedKFold</span>(n_splits<span class="py-op">=</span><span class="py-num">5</span>, shuffle<span class="py-op">=</span><span class="py-kw">True</span>, random_state<span class="py-op">=</span><span class="py-num">42</span>)
+scores <span class="py-op">=</span> <span class="py-fn">cross_val_score</span>(model, X_res, y_res, cv<span class="py-op">=</span>cv, scoring<span class="py-op">=</span><span class="py-str">'roc_auc'</span>)
+<span class="py-fn">print</span>(f<span class="py-str">"CV ROC-AUC: {scores.mean():.3f} ± {scores.std():.3f}"</span>)</pre></div>
+              <div class="nb-output"><pre>After SMOTE: {0: 7842, 1: 7842}
+CV ROC-AUC: 0.884 ± 0.018</pre></div>
+            </div>
+          </div>
+          <div class="tab-content" id="ml1t3">
+            <div class="section-title" style="margin-bottom:.75rem;">Top Feature Importances (SHAP Values)</div>
+            <div id="shapChart" style="background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:1rem;margin-bottom:1rem;"></div>
+            <div class="data-table-wrap">
+              <table>
+                <thead><tr><th>Metric</th><th>Train</th><th>Validation</th><th>Test</th></tr></thead>
+                <tbody>
+                  <tr><td class="td-hi">ROC-AUC</td><td>0.921</td><td class="td-pos">0.889</td><td class="td-pos">0.884</td></tr>
+                  <tr><td class="td-hi">Precision</td><td>0.906</td><td>0.847</td><td class="td-pos">0.842</td></tr>
+                  <tr><td class="td-hi">Recall</td><td>0.882</td><td>0.821</td><td class="td-pos">0.817</td></tr>
+                  <tr><td class="td-hi">F1 Score</td><td>0.894</td><td>0.834</td><td class="td-pos">0.829</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="insight-box" style="margin-top:1rem;">"SHAP analysis reveals 'days_since_active > 40' and 'login_trend_30d < -0.4' are the two strongest churn predictors — together accounting for 38% of model explainability. Accounts hitting both thresholds churn at 72% within 60 days."</div>
+          </div>
+        </div>
+        <div class="sidebar">
+          <div class="widget">
+            <div class="widget-title">// Libraries</div>
+            <div><span class="tool-chip">XGBoost</span><span class="tool-chip">Scikit-learn</span><span class="tool-chip">SHAP</span><span class="tool-chip">SMOTE</span><span class="tool-chip">Pandas</span><span class="tool-chip">Matplotlib</span></div>
+          </div>
+          <div class="widget">
+            <div class="widget-title">// Model Scores</div>
+            <div class="bar-metric"><div class="bar-label"><span>ROC-AUC</span><span>88.4%</span></div><div class="bar-track"><div class="bar-fill" style="width:88.4%"></div></div></div>
+            <div class="bar-metric"><div class="bar-label"><span>Precision</span><span>84.2%</span></div><div class="bar-track"><div class="bar-fill green" style="width:84.2%"></div></div></div>
+            <div class="bar-metric"><div class="bar-label"><span>Recall</span><span>81.7%</span></div><div class="bar-track"><div class="bar-fill blue" style="width:81.7%"></div></div></div>
+          </div>
+          <a href="https://github.com/Zahidrabin" target="_blank" rel="noopener" class="cta-btn">View on GitHub</a>
+          <button class="cta-btn cta-btn-outline" onclick="showGrid()">← All Projects</button>
+        </div>
+      </div>
+    `
+  }
+];
+
+/* ═══════════════════════════════════════════════════════════════════════
+   RENDER GRID
+═══════════════════════════════════════════════════════════════════════ */
+function renderGrid(cat) {
+  const grid = document.getElementById('project-grid');
+  const filtered = cat === 'all' ? PROJECTS : PROJECTS.filter(p => p.cat === cat);
+  grid.innerHTML = filtered.map(p => `
+    <div class="proj-card" onclick="showDetail('${p.id}')">
+      <div class="proj-tag">${p.tag}</div>
+      <div class="proj-title">${p.title}</div>
+      <div class="proj-desc">${p.shortDesc}</div>
+      <div class="proj-tools">${p.tools.map(t => `<span class="proj-tool">${t}</span>`).join('')}</div>
+      <div class="proj-arrow">→</div>
+    </div>
+  `).join('');
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   CATEGORY TABS
+═══════════════════════════════════════════════════════════════════════ */
+document.querySelectorAll('.cat-tab').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    renderGrid(this.dataset.cat);
+  });
+});
+
+/* ═══════════════════════════════════════════════════════════════════════
+   DETAIL VIEW
+═══════════════════════════════════════════════════════════════════════ */
+function showDetail(id) {
+  const project = PROJECTS.find(p => p.id === id);
+  if (!project) return;
+
+  const dv = document.getElementById('detail-view');
+  const gv = document.getElementById('grid-view');
+
+  dv.innerHTML = `
+    <div style="padding-top:2rem">
+      <button class="back-btn" onclick="showGrid()">← All Projects</button>
+      ${project.buildDetail()}
+    </div>
+  `;
+  dv.classList.add('open');
+  gv.style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Init charts/visualizations after paint
+  requestAnimationFrame(() => {
+    setTimeout(() => initDetailCharts(id), 50);
+    // Animate bars
+    document.querySelectorAll('.bar-fill').forEach(el => {
+      const w = el.style.width;
+      el.style.width = '0';
+      setTimeout(() => { el.style.width = w; }, 100);
+    });
+  });
+
+  // Update URL
+  history.replaceState(null, '', `?id=${id}`);
+}
+
+function showGrid() {
+  document.getElementById('detail-view').classList.remove('open');
+  document.getElementById('detail-view').innerHTML = '';
+  document.getElementById('grid-view').style.display = 'block';
+  history.replaceState(null, '', window.location.pathname);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function switchTab(btn, groupClass, targetId) {
+  // Deactivate all tabs in the same parent group
+  btn.closest('.detail-tabs').querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  // Hide all tab content siblings
+  document.querySelectorAll('.tab-content').forEach(tc => {
+    if (tc.closest('#detail-view')) tc.classList.remove('active');
+  });
+  document.getElementById(targetId).classList.add('active');
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   CHART INITIALIZERS
+═══════════════════════════════════════════════════════════════════════ */
+function initDetailCharts(id) {
+  if (id === 'excel-01') initExcelBarChart();
+  if (id === 'py-01')    initPyBarChart();
+  if (id === 'py-02')    initShapChart();
+}
+
+function initExcelBarChart() {
+  const container = document.getElementById('xlBarChart');
+  const labelsEl  = document.getElementById('xlBarLabels');
+  if (!container) return;
+  const data = [
+    { mo: 'Jan', vals: { NA: 68, EU: 42, APAC: 31, LATAM: 22 } },
+    { mo: 'Feb', vals: { NA: 72, EU: 38, APAC: 33, LATAM: 19 } },
+    { mo: 'Mar', vals: { NA: 81, EU: 51, APAC: 38, LATAM: 28 } },
+  ];
+  const colors = { NA: '#fbbf24', EU: '#60a5fa', APAC: '#34d399', LATAM: '#a78bfa' };
+  const maxVal = 200;
+  container.style.display = 'flex'; container.style.alignItems = 'flex-end'; container.style.gap = '.3rem'; container.style.height = '80px';
+  data.forEach(d => {
+    const grp = document.createElement('div');
+    grp.style.cssText = 'display:flex;align-items:flex-end;gap:2px;flex:1';
+    Object.entries(d.vals).forEach(([region, val]) => {
+      const col = document.createElement('div');
+      const h = (val / maxVal * 80);
+      col.style.cssText = `flex:1;height:${h}px;background:${colors[region]};border-radius:2px 2px 0 0;opacity:.85;position:relative;`;
+      col.title = `${region}: $${val}K`;
+      grp.appendChild(col);
+    });
+    container.appendChild(grp);
+  });
+  if (labelsEl) {
+    labelsEl.innerHTML = data.map(d => `<div style="flex:1;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.48rem;color:var(--dimmed);">${d.mo}</div>`).join('');
+  }
+}
+
+function initPyBarChart() {
+  const el = document.getElementById('pyBarChart');
+  if (!el) return;
+  const data = [
+    { cat: 'Electronics', rev: 6.2, color: '#fbbf24' },
+    { cat: 'Home & Living', rev: 4.8, color: '#60a5fa' },
+    { cat: 'Clothing', rev: 3.9, color: '#34d399' },
+    { cat: 'Sports', rev: 2.4, color: '#a78bfa' },
+    { cat: 'Beauty', rev: 1.8, color: '#f87171' },
+  ];
+  const max = 6.2;
+  el.innerHTML = data.map(d => `
+    <div style="display:flex;align-items:center;gap:.75rem;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted);width:90px;text-align:right;">${d.cat}</div>
+      <div style="flex:1;background:var(--panel2);border-radius:2px;overflow:hidden;">
+        <div style="height:14px;width:${(d.rev/max*100)}%;background:${d.color};border-radius:2px;transition:width 1s ease;"></div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--cream);width:45px;">$${d.rev}M</div>
+    </div>
+  `).join('');
+}
+
+function initShapChart() {
+  const el = document.getElementById('shapChart');
+  if (!el) return;
+  const features = [
+    { name: 'days_since_active', shap: 0.24, color: '#f87171' },
+    { name: 'login_trend_30d', shap: 0.21, color: '#fbbf24' },
+    { name: 'feature_breadth', shap: 0.16, color: '#34d399' },
+    { name: 'tickets_per_seat', shap: 0.14, color: '#60a5fa' },
+    { name: 'days_to_renewal', shap: 0.11, color: '#a78bfa' },
+    { name: 'contract_value', shap: 0.08, color: '#f9e2af' },
+    { name: 'active_seats', shap: 0.06, color: '#89b4fa' },
+  ];
+  el.innerHTML = `
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--dimmed);margin-bottom:.75rem;">// SHAP Feature Importances — Mean |SHAP value|</div>
+    ${features.map(f => `
+      <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted);width:160px;text-align:right;">${f.name}</div>
+        <div style="flex:1;background:var(--panel2);border-radius:2px;overflow:hidden;">
+          <div style="height:12px;width:${f.shap*300}%;background:${f.color};border-radius:2px;opacity:.85;"></div>
+        </div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--cream);width:35px;">${f.shap}</div>
+      </div>
+    `).join('')}
+  `;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════════════════════ */
+renderGrid('all');
+
+// Check for deep-link ?id=
+const urlId = new URLSearchParams(window.location.search).get('id');
+if (urlId && PROJECTS.find(p => p.id === urlId)) {
+  showDetail(urlId);
+}
+</script>
 </body>
 </html>
