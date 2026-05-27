@@ -12,21 +12,19 @@
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    // These color definitions control the editorial dark theme throughout the app.
-    // Changing a hex code here dynamically changes it for all Tailwind classes below.
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            charcoal: '#0b1220', // Main background deep tone
-            surface: '#111b2e',  // Main structural cards
-            panel: '#16233a',    // Secondary highlights / interactive states
-            border: '#23324a',   // Layout dividers and lines
-            amber: '#fbbf24',    // Primary highlight accent text (Gold)
-            amber2: '#f59e0b',   // Secondary hover state accent
-            cream: '#e5eaf2',    // Main body readable font color
-            muted: '#a3b4cc',    // Explanatory paragraph color
-            dimmed: '#6b7a90',   // Decorative or timestamps
+            charcoal: '#0b1220', 
+            surface: '#111b2e',  
+            panel: '#16233a',    
+            border: '#23324a',   
+            amber: '#fbbf24',    
+            amber2: '#f59e0b',   
+            cream: '#e5eaf2',    
+            muted: '#a3b4cc',    
+            dimmed: '#6b7a90',   
           },
           fontFamily: {
             serif: ['"DM Serif Display"', 'Georgia', 'serif'],
@@ -38,43 +36,41 @@
     }
   </script>
 </head>
-<body class="font-body overflow-x-hidden">
+<body class="bg-charcoal text-cream font-body overflow-x-hidden">
 
   <div class="noise-overlay" aria-hidden="true"></div>
 
   <div class="fixed bottom-8 right-8 z-50 flex flex-col gap-4 items-center" id="social-links">
-    <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon">
+    <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon text-muted hover:text-amber transition-colors">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
         <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
       </svg>
     </a>
-    <a href="https://github.com/Zahidrabin" target="_blank" rel="noopener" aria-label="GitHub" class="social-icon">
+    <a href="https://github.com/Zahidrabin" target="_blank" rel="noopener" aria-label="GitHub" class="social-icon text-muted hover:text-amber transition-colors">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
       </svg>
     </a>
-    <div class="social-line"></div>
+    <div class="w-[1px] h-12 bg-border"></div>
   </div>
 
   <section id="hero" class="min-h-screen relative flex items-center px-6 md:px-16 lg:px-24 pt-16 pb-24">
-    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] opacity-30 pointer-events-none" aria-hidden="true"></div>
 
     <div class="relative z-10 w-full max-w-7xl mx-auto">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
 
-        <div class="lg:col-span-4 flex flex-col items-start gap-6 animate-fadein" style="animation-delay:0.1s">
+        <div class="lg:col-span-4 flex flex-col items-start gap-6">
           <div class="flex items-center gap-3">
-            <span class="status-dot"></span>
-            <span class="font-mono text-xs tracking-[0.2em] text-amber uppercase">Aspiring Business Analyst</span>
+            <span class="w-2 h-2 rounded-full bg-amber animate-pulse"></span>
+            <span class="font-mono text-xs tracking-[0.2em] text-amber uppercase">Business Analyst &amp; Insights Strategist</span>
           </div>
 
-          <div class="profile-photo-wrap">
-            <div class="profile-photo">
-              <img src="profile.jpg" alt="Profile Photo" onerror="this.style.display='none';this.parentElement.classList.add('no-photo')" />
-              <div class="profile-initials">ZR</div>
+          <div class="relative w-32 h-32 md:w-40 md:h-40 rounded-full border border-border p-2 bg-surface">
+            <div class="w-full h-full rounded-full bg-panel flex items-center justify-center font-serif text-3xl text-amber font-bold border border-dashed border-amber/30">
+              ZR
             </div>
-            <div class="profile-ring"></div>
           </div>
 
           <div>
@@ -84,99 +80,90 @@
             <p class="font-mono text-xs text-muted mt-3 tracking-widest">ANALYST &amp; DATA STRATEGIST</p>
           </div>
 
-          <div class="stats-strip">
-            <div class="stat-item">
-              <span class="stat-num">3+</span>
-              <span class="stat-label">Years Exp.</span>
+          <div class="flex items-center gap-4 bg-surface border border-border px-4 py-3 rounded-md w-full justify-around shadow-lg">
+            <div class="text-center">
+              <span class="block font-mono text-xl text-amber font-bold">3+</span>
+              <span class="text-[10px] uppercase text-dimmed tracking-wider">Years Exp.</span>
             </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-              <span class="stat-num">18</span>
-              <span class="stat-label">Projects</span>
+            <div class="w-[1px] h-8 bg-border"></div>
+            <div class="text-center">
+              <span class="block font-mono text-xl text-amber font-bold">18</span>
+              <span class="text-[10px] uppercase text-dimmed tracking-wider">Projects</span>
             </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-              <span class="stat-num">3</span>
-              <span class="stat-label">Certs</span>
+            <div class="w-[1px] h-8 bg-border"></div>
+            <div class="text-center">
+              <span class="block font-mono text-xl text-amber font-bold">3</span>
+              <span class="text-[10px] uppercase text-dimmed tracking-wider">Certs</span>
             </div>
           </div>
         </div>
 
-        <div class="lg:col-span-5 flex flex-col gap-8 animate-fadein" style="animation-delay:0.50s">
-          <div class="about-card">
-            <div class="about-tag">
-              <span class="font-mono text-xs text-amber tracking-widest">ABOUT ME</span>
-            </div>
-            <h2 class="font-serif text-2xl md:text-3xl text-cream leading-snug mt-4">
-              Turning raw data into<br /><em>strategic clarity.</em>
+        <div class="lg:col-span-5 flex flex-col gap-8">
+          <div class="bg-surface border border-border p-6 md:p-8 rounded-lg shadow-xl relative overflow-hidden group">
+            <div class="absolute top-0 left-0 w-1 h-full bg-amber"></div>
+            <span class="font-mono text-[10px] text-amber tracking-widest block uppercase mb-2">// ABOUT ME</span>
+            <h2 class="font-serif text-2xl md:text-3xl text-cream leading-snug">
+              Turning raw architecture into<br /><em>strategic clarity.</em>
             </h2>
             <p class="text-muted text-sm leading-relaxed mt-4">
-              I bridge the gap between complex datasets and executive decision-making. With deep expertise in Excel financial modelling, SQL data architecture, Power BI storytelling, and Python-driven automation, I transform ambiguity into actionable insight.
+              I bridge the gap between complex datasets and executive decision-making. With deep expertise in Excel financial modelling, SQL data architecture, Power BI storytelling, and Python-driven automation, I transform operational ambiguity into profitable insight.
             </p>
             <p class="text-muted text-sm leading-relaxed mt-3">
-              My work spans FP&amp;A modelling, customer analytics, supply chain optimization, and market basket analysis — always with a focus on business impact. I believe the best analysis is the kind that changes how a room thinks.
+              My work spans FP&amp;A models, advanced cohort customer analytics, supply chain optimization, and market basket discovery frameworks — always prioritizing tangible organizational scale.
             </p>
 
-            <div class="flex flex-wrap gap-2 mt-5">
-              <span class="skill-chip">Excel / Power Query</span>
-              <span class="skill-chip">SQL / CTEs</span>
-              <span class="skill-chip">Power BI / DAX</span>
-              <span class="skill-chip">Python / Pandas</span>
-              <span class="skill-chip">FP&amp;A Modelling</span>
-              <span class="skill-chip">RFM Analysis</span>
-              <span class="skill-chip">Data Storytelling</span>
+            <div class="flex flex-wrap gap-2 mt-6">
+              <span class="text-xs font-mono bg-panel border border-border text-cream px-3 py-1 rounded">Excel / Power Query</span>
+              <span class="text-xs font-mono bg-panel border border-border text-cream px-3 py-1 rounded">SQL / CTEs</span>
+              <span class="text-xs font-mono bg-panel border border-border text-cream px-3 py-1 rounded">Power BI / DAX</span>
+              <span class="text-xs font-mono bg-panel border border-border text-cream px-3 py-1 rounded">Python / Pandas</span>
+              <span class="text-xs font-mono bg-panel border border-border text-cream px-3 py-1 rounded">FP&amp;A Modelling</span>
+              <span class="text-xs font-mono bg-panel border border-border text-cream px-3 py-1 rounded">RFM Analysis</span>
             </div>
           </div>  
 
-          <button id="toggle-projects-btn" class="cta-btn" aria-expanded="false" aria-controls="projects-section">
-            <span class="cta-btn-inner">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-icon">
+          <button id="toggle-projects-btn" class="w-full bg-amber hover:bg-amber2 text-charcoal font-mono text-sm font-semibold py-4 px-6 rounded transition-all flex items-center justify-between group shadow-lg">
+            <span class="flex items-center gap-2">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
               </svg>
-              <span>Explore Portfolio</span>
+              <span>EXPLORE PERFORMANCE PORTFOLIO</span>
             </span>
-            <span class="cta-arrow">↓</span>
+            <span class="transform group-hover:translate-y-1 transition-transform">↓</span>
           </button>
         </div>
 
-        <div class="lg:col-span-3 flex flex-col gap-4 animate-fadein" style="animation-delay:0.4s">
-          <div class="font-mono text-xs text-amber tracking-widest mb-2">// CREDENTIALS</div>
+        <div class="lg:col-span-3 flex flex-col gap-4">
+          <div class="font-mono text-xs text-amber tracking-widest mb-2">// TRACK CREDENTIALS</div>
 
-          <div class="timeline">
-            <div class="timeline-item">
-              <div class="timeline-dot edu"></div>
-              <div class="timeline-content">
-                <div class="timeline-type">EDUCATION</div>
-                <div class="timeline-title">B.B.A in Accounting &amp; Information Systems</div>
-                <div class="timeline-sub">Dhaka International University · 2023</div>
-              </div>
+          <div class="relative border-l border-border pl-4 ml-2 flex flex-col gap-6">
+            <div class="relative">
+              <div class="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-amber border-2 border-charcoal"></div>
+              <span class="text-[10px] font-mono text-amber tracking-widest block">EDUCATION</span>
+              <h4 class="text-xs font-bold text-cream mt-1">B.B.A in Accounting &amp; Information Systems</h4>
+              <p class="text-[11px] text-dimmed">Dhaka International University · 2023</p>
             </div>
 
-            <div class="timeline-item">
-              <div class="timeline-dot cert"></div>
-              <div class="timeline-content">
-                <div class="timeline-type">CERTIFICATION</div>
-                <div class="timeline-title">Data Analytics Bootcamp</div>
-                <div class="timeline-sub">Data solution 360! · 2024</div>
-              </div>
+            <div class="relative">
+              <div class="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-amber/50 border-2 border-charcoal"></div>
+              <span class="text-[10px] font-mono text-muted tracking-widest block">CERTIFICATION</span>
+              <h4 class="text-xs font-bold text-cream mt-1">Data Analytics Bootcamp</h4>
+              <p class="text-[11px] text-dimmed">Data solution 360! · 2024</p>
             </div>
 
-            <div class="timeline-item">
-              <div class="timeline-dot cert"></div>
-              <div class="timeline-content">
-                <div class="timeline-type">CERTIFICATION</div>
-                <div class="timeline-title">Business Intelligence and Data Analytics</div>
-                <div class="timeline-sub">Arizona State University &amp; Edx</div>
-              </div>
+            <div class="relative">
+              <div class="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-amber/50 border-2 border-charcoal"></div>
+              <span class="text-[10px] font-mono text-muted tracking-widest block">CERTIFICATION</span>
+              <h4 class="text-xs font-bold text-cream mt-1">BI &amp; Analytics MicroMasters</h4>
+              <p class="text-[11px] text-dimmed">Arizona State University &amp; EdX</p>
             </div>
 
-            <div class="timeline-item">
-              <div class="timeline-dot cert"></div>
-              <div class="timeline-content">
-                <div class="timeline-type">CERTIFICATION</div>
-                <div class="timeline-title">AWS Cloud Practitioner</div>
-                <div class="timeline-sub">Foundational · 2023</div>
-              </div>
+            <div class="relative">
+              <div class="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-amber/50 border-2 border-charcoal"></div>
+              <span class="text-[10px] font-mono text-muted tracking-widest block">CERTIFICATION</span>
+              <h4 class="text-xs font-bold text-charcoal bg-amber text-center rounded text-[9px] px-1 w-max inline-block my-1">AWS</h4>
+              <h4 class="text-xs font-bold text-cream">AWS Cloud Practitioner</h4>
+              <p class="text-[11px] text-dimmed">Foundational validation · 2023</p>
             </div>
           </div>
         </div>
@@ -185,264 +172,243 @@
     </div>
   </section>
 
-  <section id="projects-section" class="projects-section" aria-hidden="true">
-    <div class="projects-inner max-w-7xl mx-auto px-6 md:px-16 lg:px-24 py-16">
+  <section id="projects-section" class="bg-surface border-t border-border min-h-screen">
+    <div class="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 py-16">
 
-      <div class="flex items-center justify-between mb-10 flex-wrap gap-4">
+      <div class="flex items-center justify-between mb-10 flex-wrap gap-4 border-b border-border pb-6">
         <div>
-          <div class="font-mono text-xs text-amber tracking-widest mb-2"> PROJECT SHOWCASE</div>
-          <h2 class="font-serif text-4xl md:text-5xl text-cream">Portfolio<em> Work</em></h2>
+          <div class="font-mono text-xs text-amber tracking-widest mb-2">// PRODUCTION REPOSITORY</div>
+          <h2 class="font-serif text-4xl md:text-5xl text-cream">Project <em>Showcase</em></h2>
         </div>
-        <button id="close-projects-btn" class="close-btn" aria-label="Close projects">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
-          Close
-        </button>
       </div>
 
-      <div class="tab-nav" role="tablist" aria-label="Project Categories">
-        <button class="tab-btn active" data-tab="excel" role="tab" aria-selected="true" aria-controls="tab-excel">
-          <span class="tab-icon">⊞</span> Excel
-        </button>
-        <button class="tab-btn" data-tab="sql" role="tab" aria-selected="false" aria-controls="tab-sql">
-          <span class="tab-icon">⬡</span> SQL
-        </button>
-        <button class="tab-btn" data-tab="powerbi" role="tab" aria-selected="false" aria-controls="tab-powerbi">
-          <span class="tab-icon">◈</span> Power BI
-        </button>
-        <button class="tab-btn" data-tab="python" role="tab" aria-selected="false" aria-controls="tab-python">
-          <span class="tab-icon">∿</span> Python
-        </button>
+      <div class="flex gap-2 border-b border-border pb-4 mb-8 overflow-x-auto" id="tab-nav">
+        <button class="px-4 py-2 font-mono text-xs border border-amber text-amber rounded bg-panel transition-all shrink-0 active-tab-btn" data-target="tab-excel">⊞ EXCEL MODELS</button>
+        <button class="px-4 py-2 font-mono text-xs border border-border text-muted rounded hover:border-amber/50 transition-all shrink-0" data-target="tab-sql">⬡ SQL QUERY ENGINES</button>
+        <button class="px-4 py-2 font-mono text-xs border border-border text-muted rounded hover:border-amber/50 transition-all shrink-0" data-target="tab-powerbi">◈ POWER BI INTELLIGENCE</button>
+        <button class="px-4 py-2 font-mono text-xs border border-border text-muted rounded hover:border-amber/50 transition-all shrink-0" data-target="tab-python">∿ PYTHON ALGORITHMS</button>
       </div>
 
-      <div class="tab-panels mt-8">
-
-        <div id="tab-excel" class="tab-panel active" role="tabpanel">
-          <div class="projects-grid">
-            
-            <article class="project-card" tabindex="0">
-              <div class="project-num">01</div>
-              <div class="project-tag">Data Cleaning</div>
-              <h3 class="project-title">E-Commerce Data Standardization</h3>
-              <p class="project-desc">Raw e-commerce dataset standardization using Power Query. Handles inconsistent date formats, duplicate SKUs, currency normalization, and category taxonomy harmonization.</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>Power Query</span><span>M Language</span><span>Excel</span></div>
-                <a href="projects.html?id=excel-01" class="project-link">View →</a>
-              </div>
-            </article>
-
-            <article class="project-card" tabindex="0">
-              <div class="project-num">02</div>
-              <div class="project-tag">Dashboard</div>
-              <h3 class="project-title">Dynamic Sales Dashboard</h3>
-              <p class="project-desc">Interactive executive sales dashboard leveraging Pivot Tables, dynamic named ranges, advanced charting (waterfall, combo), and Slicers for real-time filtering.</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>Pivot Tables</span><span>Slicers</span><span>Charts</span></div>
-                <a href="projects.html?id=excel-02" class="project-link">View →</a>
-              </div>
-            </article>
-
-            <article class="project-card" tabindex="0">
-              <div class="project-num">03</div>
-              <div class="project-tag">FP&amp;A</div>
-              <h3 class="project-title">3-Statement Financial Model</h3>
-              <p class="project-desc">Fully integrated Income Statement, Balance Sheet, and Cash Flow model for a SaaS business. Includes scenario analysis, sensitivity tables, and DCF valuation output.</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>3-Statement</span><span>DCF</span><span>Scenarios</span></div>
-                <a href="projects.html?id=excel-03" class="project-link">View →</a>
-              </div>
-            </article>
-
-            <article class="project-card" tabindex="0">
-              <div class="project-num">04</div>
-              <div class="project-tag">Financial Analysis</div>
-              <h3 class="project-title">Variance &amp; Trend Analysis</h3>
-              <p class="project-desc">Systematic comparison of actual vs. budget performance using bridge charts and YoY/QoQ trend visualization. Identifies key variance drivers.</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>Variance Analysis</span><span>Bridge Charts</span><span>KPIs</span></div>
-                <a href="projects.html?id=excel-04" class="project-link">View →</a>
-              </div>
-            </article>
+      <div id="project-panels">
+        
+        <div id="tab-excel" class="project-panel grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">EXCEL-01 · DATA CLEANING</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">E-Commerce Data Standardization</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">Raw e-commerce dataset standardization using Power Query. Handles inconsistent date formats, duplicate SKUs, currency normalization, and category taxonomy harmonization.</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Power Query</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Excel</span></div>
+              <a href="projects.html?id=excel-01" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
+          </div>
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">EXCEL-02 · DASHBOARD</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">Dynamic Sales Dashboard</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">Interactive executive sales dashboard leveraging Pivot Tables, dynamic named ranges, advanced charting (waterfall, combo), and Slicers for real-time filtering.</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Pivot Tables</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Slicers</span></div>
+              <a href="projects.html?id=excel-02" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
+          </div>
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">EXCEL-03 · FP&amp;A</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">3-Statement Financial Model</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">Fully integrated Income Statement, Balance Sheet, and Cash Flow model for a SaaS business. Includes scenario analysis, sensitivity tables, and DCF valuation output.</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">3-Statement</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">DCF Valuation</span></div>
+              <a href="projects.html?id=excel-03" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
+          </div>
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">EXCEL-04 · VARIANCE ANALYSIS</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">Variance &amp; Trend Analysis</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">Systematic comparison of actual vs. budget performance using bridge charts and YoY/QoQ trend visualization. Identifies key variance drivers.</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Bridge Charts</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">YoY Trends</span></div>
+              <a href="projects.html?id=excel-04" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
           </div>
         </div>
 
-        <div id="tab-sql" class="tab-panel" role="tabpanel" hidden>
-          <div class="projects-grid">
-            
-            <article class="project-card" tabindex="0">
-              <div class="project-num">01</div>
-              <div class="project-tag">Data Cleaning</div>
-              <h3 class="project-title">Data Deduplication &amp; Schema Fix</h3>
-              <p class="project-desc">Production-grade SQL scripts for deduplication using ROW_NUMBER(), NULL imputation strategies, data type casting, and schema standardization.</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>ROW_NUMBER</span><span>COALESCE</span><span>CAST</span></div>
-                <a href="projects.html?id=sql-01" class="project-link">View →</a>
-              </div>
-            </article>
-
-            <article class="project-card" tabindex="0">
-              <div class="project-num">02</div>
-              <div class="project-tag">Cohort Analysis</div>
-              <h3 class="project-title">Customer Retention Cohorts</h3>
-              <p class="project-desc">Monthly cohort retention analysis tracking customer behavior over 12-month windows. Uses date-spine CTEs and DATEDIFF logic.</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>CTEs</span><span>DATE_TRUNC</span><span>Retention</span></div>
-                <a href="projects.html?id=sql-02" class="project-link">View →</a>
-              </div>
-            </article>
-
-            <article class="project-card" tabindex="0">
-              <div class="project-num">03</div>
-              <div class="project-tag">Advanced SQL</div>
-              <h3 class="project-title">Window Functions &amp; CTE Mastery</h3>
-              <p class="project-desc">Showcase of complex analytical queries: recursive CTEs, multi-level window functions (RANK, NTILE, LAG/LEAD), and optimization maps.</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>Window Fns</span><span>Recursive CTE</span><span>Optimization</span></div>
-                <a href="projects.html?id=sql-03" class="project-link">View →</a>
-              </div>
-            </article>
-
-            <article class="project-card" tabindex="0">
-              <div class="project-num">04</div>
-              <div class="project-tag">CLV · RFM</div>
-              <h3 class="project-title">Customer Lifetime Value Prediction</h3>
-              <p class="project-desc">Historical CLV computation using transaction tables. RFM segmentation assigns customers to Recency, Frequency, and Monetary tiers.</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>RFM</span><span>NTILE</span><span>CLV</span></div>
-                <a href="projects.html?id=sql-04" class="project-link">View →</a>
-              </div>
-            </article>
-
-            <article class="project-card" tabindex="0">
-              <div class="project-num">05</div>
-              <div class="project-tag">Supply Chain</div>
-              <h3 class="project-title">Inventory Optimization Queries</h3>
-              <p class="project-desc">SQL models computing Economic Order Quantity (EOQ), reorder point thresholds, and safety stock levels from inventory transaction histories.</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>EOQ</span><span>Safety Stock</span><span>Reorder Point</span></div>
-                <a href="projects.html?id=sql-05" class="project-link">View →</a>
-              </div>
-            </article>
+        <div id="tab-sql" class="project-panel grid grid-cols-1 md:grid-cols-2 gap-6 hidden">
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">SQL-01 · DATA ARCHITECTURE</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">Data Deduplication &amp; Schema Fix</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">Production-grade SQL scripts for deduplication using ROW_NUMBER(), NULL imputation strategies, data type casting, and schema standardization.</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">ROW_NUMBER</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">PostgreSQL</span></div>
+              <a href="projects.html?id=sql-01" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
+          </div>
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">SQL-02 · COHORT ANALYTICS</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">Customer Retention Cohorts</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">Monthly cohort retention analysis tracking customer behavior over 12-month windows. Uses date-spine CTEs and DATEDIFF logic.</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">CTEs</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Retention Matrix</span></div>
+              <a href="projects.html?id=sql-02" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
+          </div>
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">SQL-03 · ADVANCED ARCHITECTURE</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">Window Functions &amp; CTE Mastery</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">Showcase of complex analytical queries: recursive CTEs, multi-level window functions (RANK, NTILE, LAG/LEAD), and optimization maps.</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Window Fns</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Optimization</span></div>
+              <a href="projects.html?id=sql-03" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
+          </div>
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">SQL-04 · USER LTV MAPS</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">Customer Lifetime Value Prediction</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">Historical CLV computation using transaction tables. RFM segmentation assigns customers to Recency, Frequency, and Monetary tiers via structural grids.</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">RFM Segmentation</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">CLV</span></div>
+              <a href="projects.html?id=sql-04" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
+          </div>
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">SQL-05 · SUPPLY CHAIN LOGISTICS</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">Inventory Optimization Queries</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">SQL models computing Economic Order Quantity (EOQ), reorder point thresholds, and safety stock levels from inventory transaction histories.</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">EOQ Modeling</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Logistics</span></div>
+              <a href="projects.html?id=sql-05" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
           </div>
         </div>
 
-        <div id="tab-powerbi" class="tab-panel" role="tabpanel" hidden>
-          <div class="projects-grid">
-            
-            <article class="project-card" tabindex="0">
-              <div class="project-num">01</div>
-              <div class="project-tag">HR Analytics</div>
-              <h3 class="project-title">Dynamic HR Executive Dashboard</h3>
-              <p class="project-desc">Tracks employee turnover rates, time-to-hire, departmental headcount, and engagement scores with interactive visuals.</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>DAX</span><span>Drill-through</span><span>Cond. Format</span></div>
-                <a href="projects?id=pbi-01" class="project-link">View →</a>
-              </div>
-            </article>
-
-            <article class="project-card" tabindex="0">
-              <div class="project-num">02</div>
-              <div class="project-tag">Operations</div>
-              <h3 class="project-title">Live Operations Dashboard</h3>
-              <p class="project-desc">Simulated real-time operations tracker using streaming data configurations. Monitors SLA compliance, throughput, and queue metrics.</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>Streaming Dataset</span><span>Auto-Refresh</span><span>SLA</span></div>
-                <a href="projects.html?id=pbi-02" class="project-link">View →</a>
-              </div>
-            </article>
-
-            <article class="project-card" tabindex="0">
-              <div class="project-num">03</div>
-              <div class="project-tag">Sales</div>
-              <h3 class="project-title">Executive Sales Dashboard</h3>
-              <p class="project-desc">High-level revenue performance with geographic mapping, cross-filter attributes, and bookmark-driven scenario toggling.</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>Maps</span><span>Bookmarks</span><span>Cross-filter</span></div>
-                <a href="projects.html?id=pbi-03" class="project-link">View →</a>
-              </div>
-            </article>
-
-            <article class="project-card" tabindex="0">
-              <div class="project-num">04</div>
-              <div class="project-tag">DAX</div>
-              <h3 class="project-title">Advanced DAX &amp; Time Intelligence</h3>
-              <p class="project-desc">Dedicated showcase of CALCULATE, USERELATIONSHIP, dynamic parameter variables, rolling metrics, and Row-Level Security (RLS).</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>CALCULATE</span><span>Time Intel.</span><span>RLS</span></div>
-                <a href="projects.html?id=pbi-04" class="project-link">View →</a>
-              </div>
-            </article>
+        <div id="tab-powerbi" class="project-panel grid grid-cols-1 md:grid-cols-2 gap-6 hidden">
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">PBI-01 · HR INSIGHTS</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">Dynamic HR Executive Dashboard</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">Tracks employee turnover rates, time-to-hire, departmental headcount, and engagement scores with interactive visuals.</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">DAX measures</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Drill-through</span></div>
+              <a href="projects.html?id=pbi-01" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
+          </div>
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">PBI-02 · LIVE METRICS</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">Live Operations Dashboard</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">Simulated real-time operations tracker using streaming data configurations. Monitors SLA compliance, throughput, and queue metrics.</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Streaming Data</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">SLA Metrics</span></div>
+              <a href="projects.html?id=pbi-02" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
+          </div>
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">PBI-03 · OPERATIONS GRID</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">Executive Sales Dashboard</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">High-level revenue performance with geographic mapping, cross-filter attributes, and bookmark-driven scenario toggling.</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Geographic Maps</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Bookmarks</span></div>
+              <a href="projects.html?id=pbi-03" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
+          </div>
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">PBI-04 · ADVANCED BI STRUCTURES</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">Advanced DAX &amp; Time Intelligence</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">Dedicated showcase of CALCULATE, USERELATIONSHIP, dynamic parameter variables, rolling metrics, and Row-Level Security (RLS).</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">CALCULATE</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">RLS Security</span></div>
+              <a href="projects.html?id=pbi-04" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
           </div>
         </div>
 
-        <div id="tab-python" class="tab-panel" role="tabpanel" hidden>
-          <div class="projects-grid">
-            
-            <article class="project-card" tabindex="0">
-              <div class="project-num">01</div>
-              <div class="project-tag">Automation</div>
-              <h3 class="project-title">Automated Data Cleaning Pipeline</h3>
-              <p class="project-desc">Reusable Pandas/NumPy pipeline for cleaning messy report exports. Handles schema drift, outlier flagging, and structured logging.</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>Pandas</span><span>NumPy</span><span>Pipeline</span></div>
-                <a href="projects.html?id=python-01" class="project-link">View →</a>
-              </div>
-            </article>
-
-            <article class="project-card" tabindex="0">
-              <div class="project-num">02</div>
-              <div class="project-tag">Statistics</div>
-              <h3 class="project-title">Descriptive Statistical Analysis</h3>
-              <p class="project-desc">Jupyter Notebook exploring distribution parameters, central tendency, dispersion metrics, and outlier filters using Seaborn.</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>SciPy</span><span>Seaborn</span><span>Jupyter</span></div>
-                <a href="projects.html?id=python-02" class="project-link">View →</a>
-              </div>
-            </article>
-
-            <article class="project-card" tabindex="0">
-              <div class="project-num">03</div>
-              <div class="project-tag">Business Analysis</div>
-              <h3 class="project-title">Ad-Hoc Churn Analysis</h3>
-              <p class="project-desc">Rapid-response churn tracking script identifying high-risk account profiles with feature importance arrays and priority ranks.</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>Sklearn</span><span>Matplotlib</span><span>Churn</span></div>
-                <a href="projects.html?id=python-03" class="project-link">View →</a>
-              </div>
-            </article>
-
-            <article class="project-card" tabindex="0">
-              <div class="project-num">04</div>
-              <div class="project-tag">Market Basket</div>
-              <h3 class="project-title">E-Commerce Basket Analysis</h3>
-              <p class="project-desc">Apriori algorithm implementation via Mlxtend to mine association rules from transactions to generate cross-sell data structures.</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>Mlxtend</span><span>Apriori</span><span>Association Rules</span></div>
-                <a href="projects.html?id=python-04" class="project-link">View →</a>
-              </div>
-            </article>
-
-            <article class="project-card" tabindex="0">
-              <div class="project-num">05</div>
-              <div class="project-tag">Quant Finance</div>
-              <h3 class="project-title">Portfolio Risk Optimization</h3>
-              <p class="project-desc">Markowitz Efficient Frontier implementation using historical returns. Features Monte Carlo simulation maps and Sharpe maximization.</p>
-              <div class="project-footer">
-                <div class="tech-chips"><span>Markowitz</span><span>Monte Carlo</span><span>Sharpe</span></div>
-                <a href="projects.html?id=python-05" class="project-link">View →</a>
-              </div>
-            </article>
+        <div id="tab-python" class="project-panel grid grid-cols-1 md:grid-cols-2 gap-6 hidden">
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">PYTHON-01 · AUTOMATION PIPELINES</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">Automated Data Cleaning Pipeline</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">Reusable Pandas/NumPy pipeline for cleaning messy report exports. Handles schema drift, outlier flagging, and structured logging mechanisms.</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Pandas</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Pipelines</span></div>
+              <a href="projects.html?id=python-01" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
+          </div>
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">PYTHON-02 · DESCRIPTIVE ANALYTICS</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">Descriptive Statistical Analysis</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">Jupyter Notebook exploring distribution parameters, central tendency, dispersion metrics, and outlier filters using Seaborn libraries.</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">SciPy Stats</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Seaborn</span></div>
+              <a href="projects.html?id=python-02" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
+          </div>
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">PYTHON-03 · RISK SCORING MODEL</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">Ad-Hoc Churn Analysis</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">Rapid-response churn tracking script identifying high-risk account profiles with feature importance arrays and priority ranks.</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Sklearn</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Feature Rank</span></div>
+              <a href="projects.html?id=python-03" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
+          </div>
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">PYTHON-04 · MARKET BASKET</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">E-Commerce Basket Analysis</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">Apriori algorithm implementation via Mlxtend to mine association rules from transactions to generate cross-sell data structures.</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Mlxtend</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Apriori Rules</span></div>
+              <a href="projects.html?id=python-04" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
+          </div>
+          <div class="bg-panel border border-border p-6 rounded relative hover:border-amber/40 transition-all flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber block mb-2">PYTHON-05 · QUANTITATIVE FINANCE</span>
+              <h3 class="font-serif text-xl text-cream mb-2 font-bold">Portfolio Risk Optimization</h3>
+              <p class="text-muted text-xs leading-relaxed mb-4">Markowitz Efficient Frontier implementation using historical returns. Features Monte Carlo simulation maps and Sharpe maximization layouts.</p>
+            </div>
+            <div class="border-t border-border pt-4 flex justify-between items-center mt-4">
+              <div class="flex gap-1"><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Markowitz Frontier</span><span class="text-[10px] font-mono bg-charcoal px-2 py-0.5 rounded text-dimmed">Sharpe Max</span></div>
+              <a href="projects.html?id=python-05" class="font-mono text-xs text-amber hover:underline">Analyze Core →</a>
+            </div>
           </div>
         </div>
 
-      </div></div>
+      </div>
+    </div>
   </section>
 
-  <footer class="border-t border-border py-8 px-6 md:px-16 lg:px-24">
+  <footer class="border-t border-border py-8 px-6 md:px-16 lg:px-24 bg-charcoal">
     <div class="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-4">
       <span class="font-mono text-xs text-muted">
-        © 2026 Md. Zahidul Islam Rabin · Analyst Portfolio
+        © 2026 Md. Zahidul Islam Rabin · Corporate Analyst Portfolio
       </span>
       <span class="font-mono text-xs text-dimmed">
         Built with data-driven precision.
@@ -450,6 +416,35 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // Tab switching script interface
+    const tabs = document.querySelectorAll('#tab-nav button');
+    const panels = document.querySelectorAll('.project-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => {
+          t.classList.remove('text-amber', 'border-amber', 'bg-panel', 'active-tab-btn');
+          t.classList.add('text-muted', 'border-border');
+        });
+        tab.classList.add('text-amber', 'border-amber', 'bg-panel', 'active-tab-btn');
+        tab.classList.remove('text-muted', 'border-border');
+
+        const target = tab.getAttribute('data-target');
+        panels.forEach(p => {
+          if (p.id === target) {
+            p.classList.remove('hidden');
+          } else {
+            p.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Anchor toggle action trigger
+    document.getElementById('toggle-projects-btn').addEventListener('click', () => {
+      document.getElementById('projects-section').scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>
