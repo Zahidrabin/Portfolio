@@ -163,8 +163,10 @@
       </div>
     </div>
   </section>
-
-  <section id="projects-section" class="bg-surface border-t border-border min-h-screen">
+  
+  <section id="projects-section"
+         style="display:none;"
+         class="bg-surface border-t border-border min-h-screen">
     <div class="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 py-16">
 
       <div class="flex items-center justify-between mb-10 flex-wrap gap-4 border-b border-border pb-6">
@@ -443,10 +445,35 @@
     });
 
     // Anchor toggle action trigger
-    document.getElementById('close-projects-btn').addEventListener('click', () => {
-  document.getElementById('hero').scrollIntoView({
-    behavior: 'smooth'
-  });
+    const projectsSection = document.getElementById('projects-section');
+const toggleBtn = document.getElementById('toggle-projects-btn');
+
+toggleBtn.addEventListener('click', () => {
+
+    if (projectsSection.style.display === 'none') {
+
+        projectsSection.style.display = 'block';
+
+        projectsSection.scrollIntoView({
+            behavior: 'smooth'
+        });
+
+        toggleBtn.querySelector('span span').textContent =
+            'CLOSE PORTFOLIO';
+
+    } else {
+
+        projectsSection.style.display = 'none';
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+        toggleBtn.querySelector('span span').textContent =
+            'EXPLORE PORTFOLIO';
+    }
+
 });
   </script>
 </body>
