@@ -443,9 +443,11 @@
     });
 
     // Anchor toggle action trigger
-    document.getElementById('toggle-projects-btn').addEventListener('click', () => {
-      document.getElementById('projects-section').scrollIntoView({ behavior: 'smooth' });
-    });
+    document.getElementById('close-projects-btn').addEventListener('click', () => {
+  document.getElementById('hero').scrollIntoView({
+    behavior: 'smooth'
+  });
+});
   </script>
 </body>
 </html>
