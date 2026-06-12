@@ -564,7 +564,7 @@
           <div class="project-meta-item">
             <span class="meta-label">Dataset Size</span>
             <!-- UPDATE: replace with real row count -->
-            <span class="meta-value">~85,000 rows</span>
+            <span class="meta-value">~50,000 rows</span>
           </div>
           <div class="meta-divider"></div>
           <!-- TECH TAGS — add/remove <span> elements as needed -->
@@ -608,37 +608,101 @@
         </div>
       </div>
 
-      <!-- ── SECTION 2: INITIAL DEMONSTRATION (Excel/PBI → Screenshot) ── -->
-      <!-- PURPOSE: Show the raw state of the data / initial workbook file
-           before transformation. Use a screenshot or embedded image.     -->
-      <div class="section-block">
-        <div class="step-indicator">
-          <span class="step-num">2</span>
-          <span class="step-title">Initial Demonstration · Raw File</span>
-        </div>
-        <h2 class="section-h2">Raw Data — Before Standardization</h2>
-        <!--
-          ╔══════════════════════════════════════════════════════════╗
-          ║ REPLACE THIS BLOCK with a real <img> when ready.         ║
-          ║ Example:                                                  ║
-          ║   <img src="assets/excel-01-raw.png"                     ║
-          ║        alt="Raw e-commerce export — before cleaning"     ║
-          ║        class="w-full rounded border border-border" />    ║
-          ╚══════════════════════════════════════════════════════════╝
-        -->
-        <div class="img-placeholder">
-          <div class="img-placeholder-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="1.5">
-              <rect x="3" y="3" width="18" height="18" rx="2"/>
-              <path d="M3 9h18M9 21V9"/>
-            </svg>
-          </div>
-          <p class="img-placeholder-title">Desktop Screenshot Placeholder</p>
-          <p class="img-placeholder-hint">
-            Replace this block with a screenshot of the raw Excel file — showing messy data, inconsistent headers, and formatting issues as they appeared before cleaning.
-          </p>
-        </div>
+<div class="section-block">
+  <div class="step-indicator">
+    <span class="step-num">2</span>
+    <span class="step-title">Initial Demonstration · Raw File</span>
+  </div>
+  <h2 class="section-h2">Raw Data — Before Standardization</h2>
+  
+  <div class="excel-container" style="width: 100%; border: 1px solid #c0c0c0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: #333; background: #fff; margin-top: 15px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border-radius: 4px;">
+    
+    <div style="background: #f3f3f3; padding: 8px 12px; border-bottom: 1px solid #d9d9d9; display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="color: #107c41; font-weight: bold; border-bottom: 2px solid #107c41; padding-bottom: 2px;">raw-data.csv</span>
+        <span id="row-count-badge" style="font-size: 11px; background: #e1dfdd; padding: 2px 6px; border-radius: 3px; color: #323130;">Loading data...</span>
       </div>
+      <span style="font-size: 11px; color: #666;">Showing first 100 rows for performance optimization</span>
+    </div>
+
+    <div style="overflow: auto; max-height: 400px; width: 100%;">
+      <table id="excel-table" style="border-collapse: collapse; width: 100%; table-layout: fixed; min-width: 800px;">
+        </table>
+    </div>
+    
+    <div style="background: #f3f3f3; padding: 4px 12px; border-top: 1px solid #d9d9d9; font-size: 11px; color: #555; border-radius: 0 0 4px 4px;">
+      <span style="background: #fff; padding: 3px 10px; border: 1px solid #d9d9d9; border-bottom: none; font-weight: bold; color: #107c41; border-top: 2px solid #107c41;">Raw Data Export</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  async function loadExcelData() {
+    try {
+      // 1. Fetch data file from project assets directory
+      // CUSTOMIZABLE: Change path if your CSV uses a different file name
+      const response = await fetch('Assets/global_ecommerce_data.csv');
+      const dataText = await response.text();
+      
+      // 2. Break down plaintext CSV format into arrays (Rows & Columns)
+      const rows = dataText.split('\n').map(row => row.split(','));
+      const table = document.getElementById('excel-table');
+      
+      // Update data volume context
+      document.getElementById('row-count-badge').innerText = `Total Rows: 50,000+`;
+      
+      let htmlContent = '';
+      
+      // 3. Render Excel Alpha columns (A, B, C...) matching data column depth
+      if(rows.length > 0) {
+        htmlContent += `<tr style="background: #f3f3f3; text-align: center; height: 24px;">`;
+        htmlContent += `<th style="width: 50px; border: 1px solid #d9d9d9; background: #e1dfdd;"></th>`; // Blank corner cell
+        for(let i = 0; i < rows[0].length; i++) {
+          const letter = String.fromCharCode(65 + i); // Converts 65 to 'A', 66 to 'B', etc.
+          htmlContent += `<th style="border: 1px solid #d9d9d9; font-weight: normal; color: #666; width: 150px;">${letter}</th>`;
+        }
+        htmlContent += `</tr>`;
+      }
+
+      // 4. Safely load the data preview chunk (100 elements max) to keep web environment lightning fast
+      // CUSTOMIZABLE: Change '101' to adjust row limits shown inside the scroll box
+      const previewLimit = Math.min(rows.length, 101); 
+      
+      for (let r = 0; r < previewLimit; r++) {
+        // Skips blank carriage entries inside the source CSV file
+        if (rows[r].length <= 1 && rows[r][0] === '') continue;
+        
+        htmlContent += `<tr style="height: 22px;">`;
+        
+        // Render Left Numerical Excel Row Sidebar (1, 2, 3...)
+        htmlContent += `<td style="background: #f3f3f3; text-align: center; border: 1px solid #d9d9d9; color: #666; position: sticky; left: 0; font-weight: normal; z-index: 10;">${r + 1}</td>`;
+        
+        // Map individual cell components across columns
+        for (let c = 0; c < rows[r].length; c++) {
+          let cellValue = rows[r][c] ? rows[r][c].replace(/"/g, '') : ''; // Strips out escape quotation marks
+          
+          let cellStyle = "border: 1px solid #d9d9d9; padding: 0 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;";
+          
+          // Separate Header styling matrix from standard data elements
+          if (r === 0) {
+            cellStyle += " background: #eaeaea; font-weight: bold;";
+          }
+          
+          htmlContent += `<td style="${cellStyle}">${cellValue}</td>`;
+        }
+        htmlContent += `</tr>`;
+      }
+      
+      table.innerHTML = htmlContent;
+    } catch (error) {
+      console.error("Error reading your CSV data asset file:", error);
+      document.getElementById('row-count-badge').innerText = "Error loading CSV asset";
+    }
+  }
+
+  // Bind the parse process to the initial page assembly timeline
+  window.addEventListener('DOMContentLoaded', loadExcelData);
+</script>
 
       <!-- ── SECTION 3: INSIGHTS ──────────────────────────────────────── -->
       <!-- PURPOSE: Explain what was found, what was fixed, and what
