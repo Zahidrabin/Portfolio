@@ -838,16 +838,7 @@
       }
     }
 
-    // Run on page load
-    const params    = new URLSearchParams(window.location.search);
-    const projectId = params.get('id');
-
-    if (projectId) {
-      showProject(projectId);
-    } else {
-      // No ?id= param — show not-found guidance
-      document.getElementById('not-found').classList.add('visible');
-    }
+showProject("excel-01");
 
     /* ─────────────────────────────────────────────────────────────────────
        COPY CODE BUTTON
