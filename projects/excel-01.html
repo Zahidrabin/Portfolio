@@ -453,22 +453,37 @@
       </div>
     </header>
 
-    <!-- SECTION 1: INTRODUCTION — just edit the text below -->
-    <div class="section-block accent-bar">
-      <div class="step-indicator">
-        <span class="step-num">1</span>
-        <span class="step-title">Introduction &amp; Background</span>
-      </div>
-      <h2 class="section-h2">Project Overview</h2>
-      <div class="prose-block">
-        <p>
-          This project addressed the challenge of working with a raw multi-source e-commerce export that combined sales records from three regional warehouses into a single feed. The dataset arrived with <strong>inconsistent date formats</strong>, duplicate SKU entries across regions, mixed currency symbols, and an unstructured product category taxonomy.
-        </p>
-        <p>
-          The goal was to produce a single clean, analysis-ready table that downstream dashboards and financial models could reliably consume — without manual intervention every reporting cycle.
-        </p>
-      </div>
-    </div>
+<!-- SECTION 1: INTRODUCTION -->
+<div class="section-block accent-bar">
+  <div class="step-indicator">
+    <span class="step-num">1</span>
+    <span class="step-title">Introduction &amp; Background</span>
+  </div>
+  <h2 class="section-h2">Project Overview</h2>
+  
+  <div class="prose-block">
+    
+    <!-- 1. Opening paragraph -->
+    <p>
+      This project tackled the challenge of cleaning and consolidating a massive dataset — over 9,000 raw, multi-source business records — that combined sales and expense data from multiple feeds into a single export.
+      The raw dataset presented several critical issues:
+    </p>
+    <!-- 2. Bulleted list of data issues -->
+    <ul>
+      <li><strong>Inconsistent date formats that prevented accurate time-series analysis</strong></li> <!-- <strong> makes text bold -->
+      <li><strong>Duplicate entries inflating totals and skewing results</strong></li>
+      <li><strong>Unverified business and expense records that introduced uncertainty into financial reporting</strong></li>
+      <li><strong>Unstructured product and expense categories that made classification and aggregation unreliable</strong></li>
+    </ul>
+    <p>
+      These problems left the business owner frustrated, unable to make confident decisions or determine true profitability across the reporting period.
+    </p>
+    <p>
+      The objective was to engineer a single, clean, analysis-ready table that downstream dashboards and financial models could consume reliably — eliminating the need for manual intervention every reporting cycle.
+    </p>
+    
+  </div>
+</div>
 
     <!--
       SECTION 2: RAW FILE VIEWER
