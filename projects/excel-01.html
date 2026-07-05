@@ -650,7 +650,7 @@
       const sheet       = workbook.Sheets[firstSheet];
 
       // Step 3: convert the sheet into a simple array-of-rows format
-      const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
+      const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '', raw: false });
 
       if (!rows.length) {
         throw new Error('The file was read but contains no data.');
