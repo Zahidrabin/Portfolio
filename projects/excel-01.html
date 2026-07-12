@@ -1,770 +1,530 @@
 <!DOCTYPE html>
-<!--
-  PORTFOLIO PROJECT DETAIL PAGE
-  Md. Zahidul Islam Rabin · Analyst Portfolio
-
-  HOW THIS PAGE WORKS
-  --------------------
-  - Open it like: projects.html?id=excel-01
-  - The script at the bottom reads "?id=" from the URL and shows only the
-    <article data-id="..."> that matches it. Everything else stays hidden.
-
-  EACH PROJECT HAS 4 SECTIONS
-  ----------------------------
-  1. Introduction        -> .section-intro   (just text, edit freely)
-  2. Raw File Viewer      -> loads your RAW Excel file live from GitHub
-  3. Insights             -> bullet list of findings (just text)
-  4. Final File Viewer    -> loads your CLEANED/FINAL Excel file live from GitHub
-
-  HOW TO ADD YOUR EXCEL FILES (IMPORTANT)
-  ----------------------------------------
-  1. Upload your raw and final .xlsx files to your GitHub repo, for example:
-        /assets/excel-01-raw.xlsx
-        /assets/excel-01-final.xlsx
-  2. In each project's HTML below, find the line that says:
-        data-excel-src="assets/excel-01-raw.xlsx"
-     and change the path to match your actual uploaded file name.
-  3. That's it — the page automatically downloads the file and shows it
-     as a real, scrollable table so visitors can confirm it actually works.
-
-  HOW TO ADD A NEW PROJECT
-  --------------------------
-  1. Copy one whole <article class="project-article" data-id="..."> block.
-  2. Give it a new unique data-id, e.g. data-id="excel-02".
-  3. Update the title, meta info, text, and the two data-excel-src paths.
-  4. Add a card on index.html linking to: projects.html?id=excel-02
--->
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Project Detail · Md. Zahidul Islam Rabin</title>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Project Detail · Md. Zahidul Islam Rabin</title>
 
-<!-- Shared site styles -->
-<link href="../styles.css" rel="stylesheet"/>
+  <link href="../styles.css" rel="stylesheet"/>
 
-<!-- Fonts (same as index.html — do not remove) -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
 
-<!-- Tailwind CSS (utility classes used throughout the page) -->
-<script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- SheetJS library — this is what reads .xlsx files in the browser.
-     It is a free, well-known library. No setup needed, just keep this tag. -->
-<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
-<script>
-  // Tailwind colour/font setup — same as index.html. Only edit if you
-  // change your overall site colour scheme.
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          charcoal: '#0b1220',
-          surface:  '#111b2e',
-          panel:    '#16233a',
-          border:   '#23324a',
-          amber:    '#fbbf24',
-          amber2:   '#f59e0b',
-          cream:    '#e5eaf2',
-          muted:    '#a3b4cc',
-          dimmed:   '#6b7a90',
-        },
-        fontFamily: {
-          serif: ['"DM Serif Display"', 'Georgia', 'serif'],
-          mono:  ['"IBM Plex Mono"', 'monospace'],
-          body:  ['"Libre Baskerville"', 'Georgia', 'serif'],
-        },
+  <script>
+    // Tailwind global design theme configurations
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            charcoal: '#0b1220',
+            surface:  '#111b2e',
+            panel:    '#16233a',
+            border:   '#23324a',
+            amber:    '#fbbf24',
+            amber2:   '#f59e0b',
+            cream:    '#e5eaf2',
+            muted:    '#a3b4cc',
+            dimmed:   '#6b7a90',
+          },
+          fontFamily: {
+            serif: ['"DM Serif Display"', 'Georgia', 'serif'],
+            mono:  ['"IBM Plex Mono"', 'monospace'],
+            body:  ['"Libre Baskerville"', 'Georgia', 'serif'],
+          },
+        }
       }
     }
-  }
-</script>
+  </script>
 
-<style>
-  /* ── Small amber section labels ── */
-  .section-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: #fbbf24;
-    display: block;
-    margin-bottom: 0.6rem;
-  }
+  <style>
+    /* =========================================================
+       1. CORE DESIGN & LAYOUT STYLES
+       ========================================================= */
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #fbbf24;
+      display: block;
+      margin-bottom: 0.6rem;
+    }
 
-  /* ── Card wrapper used by every section ── */
-  .section-block {
-    background: #111b2e;
-    border: 1px solid #23324a;
-    border-radius: 4px;
-    padding: 2rem 2.25rem;
-    position: relative;
-    margin-bottom: 1.5rem;
-  }
-  .section-block.accent-bar::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 100%;
-    background: linear-gradient(to bottom, #fbbf24, transparent);
-    border-radius: 4px 0 0 4px;
-  }
+    .section-block {
+      background: #111b2e;
+      border: 1px solid #23324a;
+      border-radius: 4px;
+      padding: 2rem 2.25rem;
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
 
-  /* ── Body text (Intro / Insights paragraphs) ── */
-  .prose-block p {
-    font-family: 'Libre Baskerville', serif;
-    font-size: 0.88rem;
-    color: #a3b4cc;
-    line-height: 1.85;
-    margin-bottom: 0.9rem;
-  }
-  .prose-block p:last-child { margin-bottom: 0; }
-  .prose-block strong { color: #e5eaf2; font-weight: 700; }
+    .section-block.accent-bar::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(to bottom, #fbbf24, transparent);
+      border-radius: 4px 0 0 4px;
+    }
 
-  /* ── Insight bullet list ── */
-  .insight-list {
-    list-style: none;
-    padding: 0; margin: 1rem 0 0;
-    display: flex; flex-direction: column; gap: 0.65rem;
-  }
-  .insight-list li {
-    display: flex; align-items: flex-start; gap: 0.65rem;
-    font-family: 'Libre Baskerville', serif;
-    font-size: 0.83rem;
-    color: #a3b4cc;
-    line-height: 1.65;
-  }
-  .insight-list li::before {
-    content: '→';
-    color: #fbbf24;
-    flex-shrink: 0;
-    margin-top: 1px;
-    font-family: 'IBM Plex Mono', monospace;
-  }
+    .prose-block p {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.88rem;
+      color: #a3b4cc;
+      line-height: 1.85;
+      margin-bottom: 0.9rem;
+    }
+    .prose-block p:last-child { margin-bottom: 0; }
+    .prose-block strong { color: #e5eaf2; font-weight: 700; }
 
-/* ===============================
-   Excel Viewer Container
-================================= */
+    .insight-list {
+      list-style: none;
+      padding: 0; margin: 1rem 0 0;
+      display: flex; flex-direction: column; gap: 0.65rem;
+    }
+    .insight-list li {
+      display: flex; align-items: flex-start; gap: 0.65rem;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.83rem;
+      color: #a3b4cc;
+      line-height: 1.65;
+    }
+    .insight-list li::before {
+      content: '→';
+      color: #fbbf24;
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-family: 'IBM Plex Mono', monospace;
+    }
 
-.excel-viewer{
-    background:#ffffff;
-    border:1px solid #d9d9d9;
-    border-radius:6px;
-    overflow:hidden;
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
-}
+    /* =========================================================
+       2. RAW MULTI-SHEET DATA VIEWER COMPONENT (Section 2)
+       ========================================================= */
+    .excel-viewer {
+      background: #ffffff;
+      border: 1px solid #d9d9d9;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,.08);
+      display: flex;
+      flex-direction: column;
+    }
 
+    .excel-viewer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .75rem;
+      padding: .75rem 1rem;
+      background: #f3f3f3;
+      border-bottom: 1px solid #d9d9d9;
+    }
 
-/* Top Bar */
+    .excel-viewer-filename {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .72rem;
+      color: #444;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
-.excel-viewer-bar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:.75rem;
-    padding:.75rem 1rem;
-    background:#f3f3f3;
-    border-bottom:1px solid #d9d9d9;
-}
+    .excel-viewer-status {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .65rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .25rem .75rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .status-loading { color: #b45309; background: #fef3c7; border: 1px solid #fde68a; }
+    .status-ok      { color: #166534; background: #dcfce7; border: 1px solid #86efac; }
+    .status-error   { color: #991b1b; background: #fee2e2; border: 1px solid #fca5a5; }
+    
+    /* Interactive Navigation Tabs for Worksheet Selection */
+    .excel-tabs {
+      display: flex;
+      background: #fafafa;
+      border-bottom: 1px solid #d9d9d9;
+      overflow-x: auto;
+    }
+    .excel-tab {
+      padding: 8px 16px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      color: #555;
+      background: none;
+      border: none;
+      border-right: 1px solid #d9d9d9;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s ease;
+    }
+    .excel-tab:hover { background: #f0f0f0; }
+    .excel-tab.active {
+      color: #217346;
+      font-weight: bold;
+      background: #ffffff;
+      border-bottom: 2px solid #217346;
+    }
 
+    .excel-viewer-body {
+      background: white;
+    }
+    .excel-table-wrapper {
+      max-height: 420px;
+      overflow: auto;
+    }
+    .excel-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: Calibri, Arial, sans-serif;
+      font-size: 13px;
+      color: #222;
+    }
+    .excel-table th {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: #217346;
+      color: white;
+      font-weight: 600;
+      text-align: left;
+      border: 1px solid #bfbfbf;
+      padding: 8px 10px;
+    }
+    .excel-table td {
+      border: 1px solid #d9d9d9;
+      padding: 7px 10px;
+      white-space: nowrap;
+      background: white;
+    }
+    .excel-table tr:nth-child(even) td { background: #fafafa; }
+    .excel-table tr:hover td { background: #edf4ff; }
+    .excel-viewer-msg { padding: 3rem; text-align: center; color: #777; font-family: 'IBM Plex Mono', monospace; }
 
-/* File Name */
+    /* =========================================================
+       3. CLOUD-EMBED LIVE DASHBOARD CONTAINER (Section 4)
+       ========================================================= */
+    .dashboard-embed-box {
+      width: 100%;
+      height: 600px;
+      background: #ffffff;
+      border: 1px solid #23324a;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,.15);
+    }
+    .dashboard-embed-box iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
 
-.excel-viewer-filename{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:.72rem;
-    color:#444;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-}
+    /* =========================================================
+       4. HEADERS & OTHER PORTFOLIO COMPONENT UI
+       ========================================================= */
+    .breadcrumb { display: flex; align-items: center; gap: .5rem; font-family: 'IBM Plex Mono', monospace; font-size: .7rem; color: #666; }
+    .breadcrumb a { color: #217346; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { color: #999; }
+    
+    .project-header { padding-bottom: 2rem; border-bottom: 1px solid #23324a; margin-bottom: 2.5rem; }
+    .project-category-tag { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.2em; color: #fbbf24; border: 1px solid rgba(251,191,36,0.25); padding: 0.2rem 0.75rem; margin-bottom: 0.85rem; }
+    .project-main-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); color: #e5eaf2; line-height: 1.15; margin-bottom: 1rem; }
+    .project-meta { display: flex; flex-wrap: wrap; gap: 1.25rem; align-items: center; }
+    .project-meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .meta-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; color: #6b7a90; letter-spacing: 0.15em; text-transform: uppercase; }
+    .meta-value { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #a3b4cc; }
+    .meta-divider { width: 1px; height: 2rem; background: #23324a; align-self: center; }
+    .tech-tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; color: #a3b4cc; border: 1px solid #23324a; padding: 0.2rem 0.6rem; background: #0b1220; }
 
+    .step-indicator { display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+    .step-num { width: 22px; height: 22px; border-radius: 50%; border: 1px solid #fbbf24; background: rgba(251,191,36,0.07); display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: #fbbf24; flex-shrink: 0; }
+    .step-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: #fbbf24; letter-spacing: 0.18em; text-transform: uppercase; }
+    .section-h2 { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: #e5eaf2; margin-bottom: 1rem; }
 
-/* Status Badge */
+    #not-found { display: none; min-height: 60vh; align-items: center; justify-content: center; flex-direction: column; gap: 1rem; text-align: center; }
+    #not-found.visible { display: flex; }
 
-.excel-viewer-status{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:.65rem;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    padding:.25rem .75rem;
-    border-radius:999px;
-    white-space:nowrap;
-}
-
-
-/* Status Colors */
-
-.status-loading{
-    color:#b45309;
-    background:#fef3c7;
-    border:1px solid #fde68a;
-}
-
-.status-ok{
-    color:#166534;
-    background:#dcfce7;
-    border:1px solid #86efac;
-}
-
-.status-error{
-    color:#991b1b;
-    background:#fee2e2;
-    border:1px solid #fca5a5;
-}
-  
-/* Viewer Body */
-.excel-viewer-body{
-    max-height:420px;
-    overflow:auto;
-    background:white;
-}
-/* Empty / Loading Message */
-.excel-viewer-msg{
-    padding:3rem;
-    text-align:center;
-    color:#777;
-    font-family:'IBM Plex Mono',monospace;
-}
-/* ===============================
-   Excel Table
-================================= */
-.excel-table{
-    width:100%;
-    border-collapse:collapse;
-    font-family:Calibri,Arial,sans-serif;
-    font-size:13px;
-    color:#222;
-}
-/* Column Headers */
-.excel-table th{
-    position:sticky;
-    top:0;
-    z-index:5;
-    background:#217346;
-    color:white;
-    font-weight:600;
-    text-align:left;
-    border:1px solid #bfbfbf;
-    padding:8px 10px;
-}
-/* Data Cells */
-.excel-table td{
-    border:1px solid #d9d9d9;
-    padding:7px 10px;
-    white-space:nowrap;
-    background:white;
-}
-/* Alternate Rows */
-.excel-table tr:nth-child(even) td{
-    background:#fafafa;
-}
-
-/* Hover Effect */
-.excel-table tr:hover td{
-    background:#edf4ff;
-}
-
-/* ===============================
-   Breadcrumb
-================================= */
-.breadcrumb{
-    display:flex;
-    align-items:center;
-    gap:.5rem;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:.7rem;
-    color:#666;
-}
-/* Links */
-.breadcrumb a{
-    color:#217346;
-    text-decoration:none;
-}
-.breadcrumb a:hover{
-    text-decoration:underline;
-}
-/* Separator */
-.breadcrumb span{
-    color:#999;
-}
-  /* ── Project header ── */
-  .project-header {
-    padding-bottom: 2rem;
-    border-bottom: 1px solid #23324a;
-    margin-bottom: 2.5rem;
-  }
-  .project-category-tag {
-    display: inline-block;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: #fbbf24;
-    border: 1px solid rgba(251,191,36,0.25);
-    padding: 0.2rem 0.75rem;
-    margin-bottom: 0.85rem;
-  }
-  .project-main-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    color: #e5eaf2;
-    line-height: 1.15;
-    margin-bottom: 1rem;
-  }
-  .project-meta { display: flex; flex-wrap: wrap; gap: 1.25rem; align-items: center; }
-  .project-meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
-  .meta-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.58rem;
-    color: #6b7a90;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-  }
-  .meta-value { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #a3b4cc; }
-  .meta-divider { width: 1px; height: 2rem; background: #23324a; align-self: center; }
-  .tech-tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.58rem;
-    color: #a3b4cc;
-    border: 1px solid #23324a;
-    padding: 0.2rem 0.6rem;
-    background: #0b1220;
-  }
-
-  /* ── Numbered step indicator above each heading ── */
-  .step-indicator { display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
-  .step-num {
-    width: 22px; height: 22px;
-    border-radius: 50%;
-    border: 1px solid #fbbf24;
-    background: rgba(251,191,36,0.07);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.6rem;
-    color: #fbbf24;
-    flex-shrink: 0;
-  }
-  .step-title {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    color: #fbbf24;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-  .section-h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.35rem;
-    color: #e5eaf2;
-    margin-bottom: 1rem;
-  }
-
-  /* ── 404 state when ?id= doesn't match anything ── */
-  #not-found {
-    display: none;
-    min-height: 60vh;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-  }
-  #not-found.visible { display: flex; }
-
-  @media (max-width: 768px) {
-    .section-block { padding: 1.5rem 1.25rem; }
-    .excel-table { font-size: 0.65rem; }
-  }
-</style>
+    @media (max-width: 768px) {
+      .section-block { padding: 1.5rem 1.25rem; }
+      .excel-table { font-size: 0.65rem; }
+      .dashboard-embed-box { height: 450px; }
+    }
+  </style>
 </head>
 <body class="bg-charcoal text-cream font-body overflow-x-hidden">
 
-<div aria-hidden="true" class="noise-overlay"></div>
-
-<!-- Top navigation -->
-<nav class="sticky top-0 z-40 bg-charcoal/90 backdrop-blur border-b border-border">
-  <div class="max-w-7xl mx-auto px-6 md:px-16 py-4 flex items-center justify-between gap-4">
-    <a class="flex items-center gap-2 font-mono text-xs text-muted hover:text-amber transition-colors" href="../index.html">
-      <svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14">
-        <path d="M19 12H5M5 12l7-7M5 12l7 7"></path>
-      </svg>
-      <span>Portfolio</span>
-    </a>
-    <div class="breadcrumb" id="breadcrumb">
-      <a href="../index.html">Home</a>
-      <span>/</span>
-      <span id="breadcrumb-category">Projects</span>
-      <span>/</span>
-      <span class="text-cream truncate max-w-[200px]" id="breadcrumb-title">Loading…</span>
+  <nav class="sticky top-0 z-40 bg-charcoal/90 backdrop-blur border-b border-border">
+    <div class="max-w-7xl mx-auto px-6 md:px-16 py-4 flex items-center justify-between gap-4">
+      <a class="flex items-center gap-2 font-mono text-xs text-muted hover:text-amber transition-colors" href="../index.html">
+        <svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14">
+          <path d="M19 12H5M5 12l7-7M5 12l7 7"></path>
+        </svg>
+        <span>Portfolio</span>
+      </a>
+      <div class="breadcrumb" id="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span>/</span>
+        <span id="breadcrumb-category">Projects</span>
+        <span>/</span>
+        <span class="text-cream truncate max-w-[200px]" id="breadcrumb-title">Loading…</span>
+      </div>
+      <span class="font-mono text-xs text-dimmed hidden md:block">ZR · Analyst Portfolio</span>
     </div>
-    <span class="font-mono text-xs text-dimmed hidden md:block">ZR · Analyst Portfolio</span>
-  </div>
-</nav>
+  </nav>
 
-<main class="max-w-5xl mx-auto px-6 md:px-16 py-14 pb-24">
+  <main class="max-w-5xl mx-auto px-6 md:px-16 py-14 pb-24">
 
-  <!-- 404 state -->
-  <div id="not-found">
-    <span class="font-mono text-xs text-amber tracking-widest">// 404 · PROJECT NOT FOUND</span>
-    <h1 class="font-serif text-4xl text-cream">No project matched that ID.</h1>
-    <p class="text-muted text-sm font-body">Check the URL parameter or <a class="text-amber hover:underline" href="../index.html">return to the portfolio</a>.</p>
-  </div>
-
-  <!--
-    ===========================================================
-    PROJECT: excel-01 · E-Commerce Data Standardization
-    ===========================================================
-    WHAT TO EDIT FOR YOUR OWN PROJECT:
-    - project-category-tag / project-main-title / meta values below
-    - The two <p> paragraphs inside "Introduction" section
-    - The data-excel-src path inside the RAW viewer (section 2)
-    - The bullet list inside "Insights" section
-    - The data-excel-src path inside the FINAL viewer (section 4)
-  -->
-  <article class="project-article" data-id="excel-01">
-
-    <!-- PROJECT HEADER -->
-    <header class="project-header">
-      <span class="project-category-tag">⊞ Excel Models · EXCEL-01 · End to end FP&A model</span>
-      <h1 class="project-main-title">Financial Performance Dashboard for a Retail Company</h1>
-      <div class="project-meta">
-        <div class="project-meta-item">
-          <span class="meta-label">Tool</span>
-          <span class="meta-value">Microsoft Excel</span>
-        </div>
-        <div class="meta-divider"></div>
-        <div class="project-meta-item">
-          <span class="meta-label">Method</span>
-          <span class="meta-value">Power Query · M Language</span>
-        </div>
-        <div class="meta-divider"></div>
-        <div class="project-meta-item">
-          <span class="meta-label">Dataset Size</span>
-          <span class="meta-value">~85,000 rows</span>
-        </div>
-        <div class="meta-divider"></div>
-        <div class="flex flex-wrap gap-1">
-          <span class="tech-tag">Power Query</span>
-          <span class="tech-tag">M Language</span>
-          <span class="tech-tag">Data Cleaning</span>
-        </div>
-      </div>
-    </header>
-
-<!-- SECTION 1: INTRODUCTION -->
-<div class="section-block accent-bar">
-  <div class="step-indicator">
-    <span class="step-num">1</span>
-    <span class="step-title">Introduction &amp; Background</span>
-  </div>
-  <h2 class="section-h2">Project Overview</h2>
-  
-  <div class="prose-block">
-    
-    <!-- 1. Opening paragraph -->
-    <p>
-      This project tackled the challenge of cleaning and consolidating a massive dataset — over 9,000 raw, multi-source business records — that combined sales and expense data from multiple feeds into a single export.
-      The raw dataset presented several critical issues:
-    </p>
-    <!-- 2. Bulleted list of data issues -->
-    <ul style="list-style-type: disc; margin-left: 20px;">
-      <li><strong>Inconsistent date formats that prevented accurate time-series analysis</strong></li> <!-- <strong> makes text bold -->
-      <li><strong>Duplicate entries inflating totals and skewing results</strong></li>
-      <li><strong>Unverified business and expense records that introduced uncertainty into financial reporting</strong></li>
-      <li><strong>Unstructured product and expense categories that made classification and aggregation unreliable</strong></li>
-    </ul>
-    <p>
-      These problems left the business owner frustrated, unable to make confident decisions or determine true profitability across the reporting period.
-    </p>
-    <p>
-      The objective was to engineer a single, clean, analysis-ready table that downstream dashboards and financial models could consume reliably — eliminating the need for manual intervention every reporting cycle.
-    </p>
-    
-  </div>
-</div>
-
-    <!--
-      SECTION 2: RAW FILE VIEWER
-      ----------------------------------------------------------------
-      This box automatically downloads your RAW excel file from GitHub
-      and displays it as a real table — no screenshot needed.
-
-      TO USE IT:
-      1. Upload your raw .xlsx file to your GitHub repo's assets folder.
-      2. Change the path in data-excel-src below to match it.
-         Example: data-excel-src="assets/excel-01-raw.xlsx"
-      3. Make sure the file path is correct relative to THIS html file.
-    -->
-    <div class="section-block">
-      <div class="step-indicator">
-        <span class="step-num">2</span>
-        <span class="step-title">Initial Demonstration · Raw File</span>
-      </div>
-      <h2 class="section-h2">Raw Data — Before Standardization</h2>
-
-      <div class="excel-viewer" data-excel-src="../Assets/excel_p1/Business_Data.csv">
-        <div class="excel-viewer-bar">
-          <span class="excel-viewer-filename">Assets/excel_p1/Business_Data.csv</span>
-          <span class="excel-viewer-status status-loading">Loading…</span>
-        </div>
-        <div class="excel-viewer-body">
-          <p class="excel-viewer-msg">Fetching file…</p>
-        </div>
-      </div>
+    <div id="not-found">
+      <span class="font-mono text-xs text-amber tracking-widest">// 404 · PROJECT NOT FOUND</span>
+      <h1 class="font-serif text-4xl text-cream">No project matched that ID.</h1>
+      <p class="text-muted text-sm font-body">Check the URL parameter or <a class="text-amber hover:underline" href="../index.html">return to the portfolio</a>.</p>
     </div>
 
-    <!-- SECTION 3: INSIGHTS — edit the paragraph and bullet list -->
-    <div class="section-block accent-bar">
-      <div class="step-indicator">
-        <span class="step-num">3</span>
-        <span class="step-title">Insights &amp; Analysis</span>
-      </div>
-      <h2 class="section-h2">Key Findings &amp; Data Quality Improvements</h2>
-      <div class="prose-block">
-        <p>
-          The standardization process exposed critical data quality issues that would have introduced significant margin errors in downstream financial models. Power Query's M Language was used to apply conditional transformation logic non-destructively, preserving the original source columns.
-        </p>
-      </div>
-      <ul class="insight-list">
-        <li>Identified <strong>4,217 duplicate SKU entries</strong> caused by case inconsistency in product codes across three warehouse feeds — resolved via a custom lowercase normalization step.</li>
-        <li>Detected <strong>3 conflicting date formats</strong> (DD/MM/YYYY, MM-DD-YY, Unix timestamp) across regional exports; unified to ISO 8601 using M-language date parsing functions.</li>
-        <li>Currency normalization reduced a <strong>12% revenue discrepancy</strong> that had been silently inflating UK region totals due to mixed GBP/EUR symbol handling.</li>
-        <li>Taxonomy re-mapping collapsed <strong>47 raw category labels</strong> down to 8 standardized parent categories, enabling consistent pivot reporting.</li>
-      </ul>
-    </div>
+    <article class="project-article hidden" data-id="excel-01">
 
-    <!--
-      SECTION 4: FINAL FILE VIEWER
-      ----------------------------------------------------------------
-      Same idea as section 2, but for your FINAL cleaned file.
-      Once you upload your finished/visualized Excel file to GitHub,
-      just update data-excel-src below and visitors will be able to
-      see (and confirm) the real final output, live.
-    -->
-    <div class="section-block">
-      <div class="step-indicator">
-        <span class="step-num">4</span>
-        <span class="step-title">Final Demonstration · Cleaned Output</span>
-      </div>
-      <h2 class="section-h2">Standardized Dataset — Analysis-Ready Output</h2>
-
-      <div class="excel-viewer" data-excel-src="assets/excel-01-final.xlsx">
-        <div class="excel-viewer-bar">
-          <span class="excel-viewer-filename">assets/excel-01-final.xlsx</span>
-          <span class="excel-viewer-status status-loading">Loading…</span>
+      <header class="project-header">
+        <span class="project-category-tag">⊞ Excel Models · EXCEL-01 · End to end FP&A model</span>
+        <h1 class="project-main-title">Financial Performance Dashboard for a Retail Company</h1>
+        <div class="project-meta">
+          <div class="project-meta-item"><span class="meta-label">Tool</span><span class="meta-value">Microsoft Excel</span></div>
+          <div class="meta-divider"></div>
+          <div class="project-meta-item"><span class="meta-label">Method</span><span class="meta-value">Power Query · M Language</span></div>
+          <div class="meta-divider"></div>
+          <div class="project-meta-item"><span class="meta-label">Dataset Size</span><span class="meta-value">~85,000 rows</span></div>
+          <div class="meta-divider"></div>
+          <div class="flex flex-wrap gap-1">
+            <span class="tech-tag">Power Query</span>
+            <span class="tech-tag">M Language</span>
+            <span class="tech-tag">Data Cleaning</span>
+          </div>
         </div>
-        <div class="excel-viewer-body">
-          <p class="excel-viewer-msg">Fetching file…</p>
+      </header>
+
+      <div class="section-block accent-bar">
+        <div class="step-indicator"><span class="step-num">1</span><span class="step-title">Introduction &amp; Background</span></div>
+        <h2 class="section-h2">Project Overview</h2>
+        <div class="prose-block">
+          <p>
+            This project tackled the challenge of cleaning and consolidating a massive dataset — over 9,000 raw, multi-source business records — that combined sales and expense data from multiple feeds into a single export.
+          </p>
+          <ul style="list-style-type: disc; margin-left: 20px;" class="text-muted text-sm space-y-1 mb-4">
+            <li><strong>Inconsistent date formats that prevented accurate time-series analysis</strong></li>
+            <li><strong>Duplicate entries inflating totals and skewing results</strong></li>
+            <li><strong>Unverified business and expense records that introduced uncertainty into financial reporting</strong></li>
+            <li><strong>Unstructured product and expense categories that made classification and aggregation unreliable</strong></li>
+          </ul>
+          <p>
+            The objective was to engineer a clean, analysis-ready format that downstream dashboards could safely consume.
+          </p>
         </div>
       </div>
+
+      <div class="section-block">
+        <div class="step-indicator"><span class="step-num">2</span><span class="step-title">Initial Demonstration · Raw File</span></div>
+        <h2 class="section-h2">Raw Workbook Data — Multi-Sheet View</h2>
+
+        <div class="excel-viewer" data-excel-src="../Assets/excel_p1/Business_Data.xlsx">
+          <div class="excel-viewer-bar">
+            <span class="excel-viewer-filename">Assets/excel_p1/Business_Data.xlsx</span>
+            <span class="excel-viewer-status status-loading">Loading…</span>
+          </div>
+          <div class="excel-viewer-body">
+            <p class="excel-viewer-msg">Parsing worksheets…</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-block accent-bar">
+        <div class="step-indicator"><span class="step-num">3</span><span class="step-title">Insights &amp; Analysis</span></div>
+        <h2 class="section-h2">Key Findings &amp; Data Quality Improvements</h2>
+        <div class="prose-block">
+          <p>
+            The standardization process exposed critical data quality issues that would have introduced significant margin errors in downstream financial models.
+          </p>
+        </div>
+        <ul class="insight-list">
+          <li>Identified <strong>4,217 duplicate SKU entries</strong> across three warehouse feeds.</li>
+          <li>Detected <strong>3 conflicting date formats</strong> unified safely to ISO 8601.</li>
+          <li>Currency normalization reduced a <strong>12% revenue discrepancy</strong>.</li>
+          <li>Taxonomy re-mapping collapsed <strong>47 raw labels</strong> down to 8 standardized parent categories.</li>
+        </ul>
+      </div>
+
+      <div class="section-block">
+        <div class="step-indicator"><span class="step-num">4</span><span class="step-title">Final Demonstration · Cleaned Output</span></div>
+        <h2 class="section-h2">Standardized Live Dashboard — Interactive View</h2>
+        <div class="prose-block mb-6">
+          <p>
+            Explore the final data presentation layer below. This live, cloud-connected window provides full interactivity, enabling stakeholders to click slicers and filter dashboard results dynamically.
+          </p>
+        </div>
+
+        <div class="dashboard-embed-box">
+          <iframe 
+            src="https://onedrive.live.com/embed?resid=YOUR_ONEDRIVE_FILE_ID_HERE&authkey=YOUR_AUTH_KEY_HERE&em=2&wdAllowInteractivity=True&wdHideGridlines=True&wdHideHeaders=True"
+            title="Interactive Financial Dashboard View">
+          </iframe>
+        </div>
+      </div>
+
+    </article>
+  </main>
+
+  <footer class="border-t border-border py-8 px-6 md:px-16 bg-charcoal">
+    <div class="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-4">
+      <span class="font-mono text-xs text-muted">© 2026 Md. Zahidul Islam Rabin · Corporate Analyst Portfolio</span>
+      <a class="font-mono text-xs text-amber hover:underline" href="../index.html">← Back to Portfolio</a>
     </div>
+  </footer>
 
-  </article><!-- /excel-01 -->
+  <script>
+    /* =========================================================
+       SCRIPT 1: DYNAMIC PROJECT ROUTER
+       ========================================================= */
+    const CATEGORY_MAP = {
+      'excel':  { label: '⊞ Excel Models',          short: 'Excel'    },
+      'sql':    { label: '⬡ SQL Query Engines',      short: 'SQL'      },
+      'pbi':    { label: '◈ Power BI Intelligence',  short: 'Power BI' },
+      'python': { label: '∿ Python Algorithms',      short: 'Python'   },
+    };
 
-</main>
+    function showProject(id) {
+      const articles = document.querySelectorAll('.project-article');
+      let found = false;
 
-<!-- Footer -->
-<footer class="border-t border-border py-8 px-6 md:px-16 lg:px-24 bg-charcoal">
-  <div class="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-4">
-    <span class="font-mono text-xs text-muted">© 2026 Md. Zahidul Islam Rabin · Corporate Analyst Portfolio</span>
-    <a class="font-mono text-xs text-amber hover:underline" href="../index.html">← Back to Portfolio</a>
-  </div>
-</footer>
+      articles.forEach(article => {
+        if (article.dataset.id === id) {
+          article.classList.remove('hidden');
+          found = true;
 
-<script>
-  /* =========================================================
-     PROJECT ROUTING
-     Reads "?id=" from the URL and shows the matching <article>.
-     You normally never need to touch this part.
-  ========================================================= */
+          const prefix = id.replace(/-\d+$/, '').toLowerCase();
+          const cat = CATEGORY_MAP[prefix] || { short: 'Projects' };
+          document.getElementById('breadcrumb-category').textContent = cat.short;
 
-  // Maps an id prefix (e.g. "excel" from "excel-01") to a display label.
-  // Add a new line here if you create a new project category.
-  const CATEGORY_MAP = {
-    'excel':  { label: '⊞ Excel Models',          short: 'Excel'    },
-    'sql':    { label: '⬡ SQL Query Engines',      short: 'SQL'      },
-    'pbi':    { label: '◈ Power BI Intelligence',  short: 'Power BI' },
-    'python': { label: '∿ Python Algorithms',      short: 'Python'   },
-  };
-
-  function getProjectCategory(id) {
-    const prefix = id.replace(/-\d+$/, '').toLowerCase();
-    return CATEGORY_MAP[prefix] || { label: 'Projects', short: 'Projects' };
-  }
-
-  function showProject(id) {
-    const articles = document.querySelectorAll('.project-article');
-    let found = false;
-
-    articles.forEach(article => {
-      if (article.dataset.id === id) {
-        article.classList.remove('hidden');
-        found = true;
-
-        const cat = getProjectCategory(id);
-        document.getElementById('breadcrumb-category').textContent = cat.short;
-
-        const titleEl = article.querySelector('.project-main-title');
-        if (titleEl) {
-          document.getElementById('breadcrumb-title').textContent = titleEl.textContent;
-          document.title = titleEl.textContent + ' · ZR Portfolio';
+          const titleEl = article.querySelector('.project-main-title');
+          if (titleEl) {
+            document.getElementById('breadcrumb-title').textContent = titleEl.textContent;
+            document.title = titleEl.textContent + ' · ZR Portfolio';
+          }
+        } else {
+          article.classList.add('hidden');
         }
-      } else {
-        article.classList.add('hidden');
-      }
-    });
-
-    const notFound = document.getElementById('not-found');
-    if (found) {
-      notFound.classList.remove('visible');
-    } else {
-      notFound.classList.add('visible');
-      document.getElementById('breadcrumb-title').textContent = '404 Not Found';
-    }
-  }
-
-  /* =========================================================
-     LIVE EXCEL FILE VIEWER
-     This is the new part that reads real .xlsx files.
-
-     HOW IT WORKS (in plain English):
-     1. It finds every box on the page with class "excel-viewer".
-     2. It reads the file path from that box's data-excel-src attribute.
-     3. It downloads the file using fetch().
-     4. It hands the downloaded file to the SheetJS library, which
-        turns it into a JavaScript table.
-     5. It builds an HTML <table> from that data and shows it,
-        along with a status badge: Loading / Loaded / Error.
-
-     YOU DO NOT NEED TO EDIT THIS FUNCTION.
-     You only need to set the correct data-excel-src path on each
-     .excel-viewer box (see comments above each viewer in the HTML).
-  ========================================================= */
-  async function loadExcelViewer(viewerEl) {
-    const filePath  = viewerEl.dataset.excelSrc;
-    const statusEl  = viewerEl.querySelector('.excel-viewer-status');
-    const bodyEl    = viewerEl.querySelector('.excel-viewer-body');
-
-    try {
-      // Step 1: download the raw file bytes from GitHub (or wherever it's hosted)
-      // encodeURI() automatically converts spaces and special characters in the
-      // path (e.g. "Raw Data.xlsx" -> "Raw%20Data.xlsx") so the fetch works
-      // even if your file or folder names contain spaces.
-      const safePath = encodeURI(filePath);
-      const response  = await fetch(safePath);
-      if (!response.ok) {
-        throw new Error('File not found at: ' + filePath);
-      }
-      const fileBuffer = await response.arrayBuffer();
-
-      // Step 2: let SheetJS parse the Excel file into a workbook object
-      const workbook   = XLSX.read(fileBuffer, { type: 'array' });
-      const firstSheet = workbook.SheetNames[0];
-      const sheet       = workbook.Sheets[firstSheet];
-
-      // Step 3: convert the sheet into a simple array-of-rows format
-      const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '', raw: false });
-
-      if (!rows.length) {
-        throw new Error('The file was read but contains no data.');
-      }
-
-      // Step 4: build an HTML table from the rows
-      // (limit to first 200 rows so huge files don't freeze the browser)
-      const MAX_ROWS = 200;
-      const headerRow = rows[0];
-      const dataRows  = rows.slice(1, MAX_ROWS + 1);
-
-      let tableHtml = '<table class="excel-table"><thead><tr>';
-      headerRow.forEach(cell => {
-        tableHtml += '<th>' + escapeHtml(cell) + '</th>';
       });
-      tableHtml += '</tr></thead><tbody>';
 
-      dataRows.forEach(row => {
-        tableHtml += '<tr>';
-        headerRow.forEach((_, colIndex) => {
-          tableHtml += '<td>' + escapeHtml(row[colIndex] ?? '') + '</td>';
+      const notFound = document.getElementById('not-found');
+      notFound.classList.toggle('visible', !found);
+    }
+
+    /* =========================================================
+       SCRIPT 2: WORKBOOK WORKSHEET READER (Section 2)
+       ========================================================= */
+    async function loadExcelViewer(viewerEl) {
+      const filePath = viewerEl.dataset.excelSrc;
+      const statusEl = viewerEl.querySelector('.excel-viewer-status');
+      const bodyEl   = viewerEl.querySelector('.excel-viewer-body');
+
+      try {
+        // Fetch raw binary workbook stream from targeted assets folder path
+        const response = await fetch(encodeURI(filePath));
+        if (!response.ok) throw new Error('Targeted file not found.');
+        const fileBuffer = await response.arrayBuffer();
+
+        // Convert the structural stream data arrays via SheetJS parser engine
+        const workbook = XLSX.read(fileBuffer, { type: 'array' });
+        if (!workbook.SheetNames.length) throw new Error('No valid sheets found inside file.');
+
+        // Initialize view container nodes
+        bodyEl.innerHTML = `
+          <div class="excel-tabs"></div>
+          <div class="excel-table-wrapper"></div>
+        `;
+
+        const tabsContainer = bodyEl.querySelector('.excel-tabs');
+        const tableWrapper  = bodyEl.querySelector('.excel-table-wrapper');
+
+        // Render selected sheet array blocks into safe structural HTML elements
+        function displaySheet(sheetName) {
+          tabsContainer.querySelectorAll('.excel-tab').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.sheet === sheetName);
+          });
+
+          const sheet = workbook.Sheets[sheetName];
+          const rows  = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '', raw: false });
+
+          if (!rows.length) {
+            tableWrapper.innerHTML = '<p class="excel-viewer-msg">This specific sheet is empty.</p>';
+            return;
+          }
+
+          const MAX_DISPLAY_ROWS = 300; // Protect view processing load limits
+          const headerRow = rows[0];
+          const dataRows  = rows.slice(1, MAX_DISPLAY_ROWS + 1);
+
+          let tableHtml = '<table class="excel-table"><thead><tr>';
+          headerRow.forEach(cell => {
+            tableHtml += `<th>${escapeHtml(cell)}</th>`;
+          });
+          tableHtml += '</tr></thead><tbody>';
+
+          dataRows.forEach(row => {
+            tableHtml += '<tr>';
+            headerRow.forEach((_, colIndex) => {
+              tableHtml += `<td>${escapeHtml(row[colIndex] ?? '')}</td>`;
+            });
+            tableHtml += '</tr>';
+          });
+          tableHtml += '</tbody></table>';
+
+          if (rows.length > MAX_DISPLAY_ROWS) {
+            tableHtml += `<p class="text-center text-xs p-2 text-gray-500 bg-gray-50 border-t">Showing first ${MAX_DISPLAY_ROWS} rows for performance stability.</p>`;
+          }
+
+          tableWrapper.innerHTML = tableHtml;
+          statusEl.textContent = `Workbook Loaded · Read-Only`;
+          statusEl.className = 'excel-viewer-status status-ok';
+        }
+
+        // Loop and build tab interfaces dynamically for each worksheet
+        workbook.SheetNames.forEach(sheetName => {
+          const tabButton = document.createElement('button');
+          tabButton.className = 'excel-tab';
+          tabButton.dataset.sheet = sheetName;
+          tabButton.textContent = sheetName;
+          tabButton.onclick = () => displaySheet(sheetName);
+          tabsContainer.appendChild(tabButton);
         });
-        tableHtml += '</tr>';
-      });
-      tableHtml += '</tbody></table>';
 
-      bodyEl.innerHTML = tableHtml;
+        // Initialize fallback view presentation targeting worksheet position 0
+        displaySheet(workbook.SheetNames[0]);
 
-      // Step 5: update the status badge to show success
-      statusEl.textContent = 'Loaded · Sheet: ' + firstSheet;
-      statusEl.className   = 'excel-viewer-status status-ok';
-
-      if (rows.length - 1 > MAX_ROWS) {
-        bodyEl.insertAdjacentHTML(
-          'beforeend',
-          '<p class="excel-viewer-msg">Showing first ' + MAX_ROWS + ' rows of ' + (rows.length - 1) + ' total.</p>'
-        );
+      } catch (err) {
+        statusEl.textContent = 'Error';
+        statusEl.className = 'excel-viewer-status status-error';
+        bodyEl.innerHTML = `<p class="excel-viewer-msg text-xs text-red-700">Could not read workbook file structure. Verification Check: Confirm that your code paths match file names exactly.</p>`;
       }
-
-    } catch (err) {
-      // If anything goes wrong (file missing, wrong path, bad format, etc.)
-      // show a friendly error message instead of breaking the page.
-      statusEl.textContent = 'Error';
-      statusEl.className   = 'excel-viewer-status status-error';
-      bodyEl.innerHTML =
-        '<p class="excel-viewer-msg">Could not load this file.<br>' +
-        escapeHtml(err.message) +
-        '<br><br>Common fixes:<br>' +
-        '1. Check the file is actually uploaded to GitHub at that exact path (case-sensitive).<br>' +
-        '2. Check the path is correct RELATIVE TO THIS HTML FILE — if this page is inside a subfolder, you may need to add "../" before the path.<br>' +
-        '3. Avoid spaces/special characters in folder and file names where possible.</p>';
     }
-  }
 
-  // Small helper to prevent broken HTML if a cell contains special characters
-  function escapeHtml(value) {
-    return String(value)
-      .replaceAll('&', '&amp;')
-      .replaceAll('<', '&lt;')
-      .replaceAll('>', '&gt;');
-  }
+    function escapeHtml(value) {
+      return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+    }
 
-  // Run the viewer loader on every .excel-viewer box found on the page
-  function initAllExcelViewers() {
+    // Startup Execution Setup Loops
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectId = urlParams.get('id') || 'excel-01';
+    
+    showProject(projectId);
     document.querySelectorAll('.excel-viewer').forEach(loadExcelViewer);
-  }
-
-  /* =========================================================
-     COPY BUTTON HELPER (kept in case you add code blocks later)
-  ========================================================= */
-  function copyCode(btn) {
-    const wrap   = btn.closest('.code-wrap');
-    const codeEl = wrap.querySelector('code') || wrap.querySelector('.output-block');
-    if (!codeEl) return;
-
-    navigator.clipboard.writeText(codeEl.innerText).then(() => {
-      const original = btn.textContent;
-      btn.textContent = 'Copied!';
-      btn.style.color = '#fbbf24';
-      setTimeout(() => {
-        btn.textContent = original;
-        btn.style.color = '';
-      }, 1800);
-    }).catch(() => {
-      btn.textContent = 'Failed';
-      setTimeout(() => { btn.textContent = 'Copy'; }, 1800);
-    });
-  }
-
-  /* =========================================================
-     PAGE STARTUP
-     Reads the URL, shows the right project, then loads any
-     Excel viewers inside it.
-  ========================================================= */
-  const urlParams = new URLSearchParams(window.location.search);
-  const projectId = urlParams.get('id') || 'excel-01'; // fallback if no ?id= given
-
-  showProject(projectId);
-  initAllExcelViewers();
-</script>
+  </script>
 </body>
 </html>
