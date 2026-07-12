@@ -334,9 +334,9 @@
         <div class="step-indicator"><span class="step-num">2</span><span class="step-title">Initial Demonstration · Raw File</span></div>
         <h2 class="section-h2">Raw Workbook Data — Multi-Sheet View</h2>
 
-        <div class="excel-viewer" data-excel-src="../Assets/excel_p1/Business_Data.xlsx">
+        <div class="excel-viewer" data-excel-src="../Assets/excel_p1/business_Data.csv">
           <div class="excel-viewer-bar">
-            <span class="excel-viewer-filename">Assets/excel_p1/Business_Data.xlsx</span>
+            <span class="excel-viewer-filename">Assets/excel_p1/business_Data.csv</span>
             <span class="excel-viewer-status status-loading">Loading…</span>
           </div>
           <div class="excel-viewer-body">
@@ -467,7 +467,7 @@
             return;
           }
 
-          const MAX_DISPLAY_ROWS = 300; // Protect view processing load limits
+          const MAX_DISPLAY_ROWS = 200; // Protect view processing load limits
           const headerRow = rows[0];
           const dataRows  = rows.slice(1, MAX_DISPLAY_ROWS + 1);
 
