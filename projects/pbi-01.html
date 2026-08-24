@@ -661,7 +661,7 @@
 
     // Run on page load
     const params    = new URLSearchParams(window.location.search);
-    const projectId = params.get('id');
+    const projectId = urlParams.get('id') || 'pbi-01';
 
     if (projectId) {
       showProject(projectId);
