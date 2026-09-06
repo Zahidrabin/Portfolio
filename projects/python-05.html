@@ -1,28 +1,5 @@
 <!DOCTYPE html>
 
-<!--
-  ╔══════════════════════════════════════════════════════════════════════════╗
-  ║   PORTFOLIO PROJECT DETAIL TEMPLATE                                      ║
-  ║   Md. Zahidul Islam Rabin · Analyst Portfolio                            ║
-  ║   ─────────────────────────────────────────────────────────────────────  ║
-  ║   HOW THIS FILE WORKS:                                                   ║
-  ║   • URL: projects.html?id=excel-01  (or any project ID below)           ║
-  ║   • The JS at the bottom reads the ?id= param and shows the matching    ║
-  ║     <article data-id="..."> block, hiding all others.                    ║
-  ║   • Each project article has FOUR required sections:                     ║
-  ║       1. .section-intro        – Introduction / Background               ║
-  ║       2. .section-demo-initial – Initial file screenshot OR code block  ║
-  ║       3. .section-insights     – Findings / Analysis / Insights          ║
-  ║       4. .section-demo-final   – Live embed / final output OR code block ║
-  ║   ─────────────────────────────────────────────────────────────────────  ║
-  ║   TO ADD A NEW PROJECT:                                                  ║
-  ║   1. Copy any existing <article> block for your category.               ║
-  ║   2. Change data-id="..." to a new unique slug.                          ║
-  ║   3. Add a matching card + link in index.html:                           ║
-  ║      <a href="projects.html?id=YOUR-SLUG">Analyze Core →</a>            ║
-  ║   4. Fill in all four sections inside the article.                       ║
-  ╚══════════════════════════════════════════════════════════════════════════╝
--->
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -484,7 +461,7 @@
 <nav class="sticky top-0 z-40 bg-charcoal/90 backdrop-blur border-b border-border">
 <div class="max-w-7xl mx-auto px-6 md:px-16 py-4 flex items-center justify-between gap-4">
 <!-- Back link -->
-<a class="flex items-center gap-2 font-mono text-xs text-muted hover:text-amber transition-colors" href="../index.html">
+<a class="flex items-center gap-2 font-mono text-xs text-muted hover:text-amber transition-colors" href="javascript:history.back()">
 <svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14">
 <path d="M19 12H5M5 12l7-7M5 12l7 7"></path>
 </svg>
@@ -492,7 +469,7 @@
 </a>
 <!-- Dynamic breadcrumb — filled by JS -->
 <div class="breadcrumb" id="breadcrumb">
-<a href="../index.html">Home</a>
+<a href="javascript:history.back()">Projects</a>
 <span>/</span>
 <span id="breadcrumb-category">Projects</span>
 <span>/</span>
@@ -514,7 +491,7 @@
 <div id="not-found">
 <span class="font-mono text-xs text-amber tracking-widest">// 404 · PROJECT NOT FOUND</span>
 <h1 class="font-serif text-4xl text-cream">No project matched that ID.</h1>
-<p class="text-muted text-sm font-body">Check the URL parameter or <a class="text-amber hover:underline" href="../index.html">return to the portfolio</a>.</p>
+<p class="text-muted text-sm font-body">Check the URL parameter or <a class="text-amber hover:underline" href="javascript:history.back()">return to the portfolio</a>.</p>
 </div>
 <!-- ═══════════════════════════════════════════════════════════════════
     ║  EXCEL PROJECTS
