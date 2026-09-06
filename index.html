@@ -516,6 +516,28 @@ toggleBtn.addEventListener('click', () => {
     }
 
 });
+    // Restore Projects section when returning from a project
+const savedProjectTab = sessionStorage.getItem('activeProjectTab');
+
+if (savedProjectTab) {
+
+  projectsSection.style.display = 'block';
+
+  toggleBtn.querySelector('span span').textContent =
+    'CLOSE PORTFOLIO';
+
+  const savedTab = document.querySelector(
+    `#tab-nav button[data-target="${savedProjectTab}"]`
+  );
+
+  if (savedTab) {
+    savedTab.click();
+  }
+
+  projectsSection.scrollIntoView({
+    behavior: 'smooth'
+  });
+}
   </script>
 </body>
 </html>
