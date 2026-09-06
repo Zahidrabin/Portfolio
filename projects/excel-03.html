@@ -1,28 +1,4 @@
 <!DOCTYPE html>
-
-<!--
-  ╔══════════════════════════════════════════════════════════════════════════╗
-  ║   PORTFOLIO PROJECT DETAIL TEMPLATE                                      ║
-  ║   Md. Zahidul Islam Rabin · Analyst Portfolio                            ║
-  ║   ─────────────────────────────────────────────────────────────────────  ║
-  ║   HOW THIS FILE WORKS:                                                   ║
-  ║   • URL: projects.html?id=excel-01  (or any project ID below)           ║
-  ║   • The JS at the bottom reads the ?id= param and shows the matching    ║
-  ║     <article data-id="..."> block, hiding all others.                    ║
-  ║   • Each project article has FOUR required sections:                     ║
-  ║       1. .section-intro        – Introduction / Background               ║
-  ║       2. .section-demo-initial – Initial file screenshot OR code block  ║
-  ║       3. .section-insights     – Findings / Analysis / Insights          ║
-  ║       4. .section-demo-final   – Live embed / final output OR code block ║
-  ║   ─────────────────────────────────────────────────────────────────────  ║
-  ║   TO ADD A NEW PROJECT:                                                  ║
-  ║   1. Copy any existing <article> block for your category.               ║
-  ║   2. Change data-id="..." to a new unique slug.                          ║
-  ║   3. Add a matching card + link in index.html:                           ║
-  ║      <a href="projects.html?id=YOUR-SLUG">Analyze Core →</a>            ║
-  ║   4. Fill in all four sections inside the article.                       ║
-  ╚══════════════════════════════════════════════════════════════════════════╝
--->
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -484,7 +460,7 @@
 <nav class="sticky top-0 z-40 bg-charcoal/90 backdrop-blur border-b border-border">
 <div class="max-w-7xl mx-auto px-6 md:px-16 py-4 flex items-center justify-between gap-4">
 <!-- Back link -->
-<a class="flex items-center gap-2 font-mono text-xs text-muted hover:text-amber transition-colors" href="../index.html">
+<a class="flex items-center gap-2 font-mono text-xs text-muted hover:text-amber transition-colors" href="javascript:history.back()">
 <svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14">
 <path d="M19 12H5M5 12l7-7M5 12l7 7"></path>
 </svg>
@@ -492,7 +468,7 @@
 </a>
 <!-- Dynamic breadcrumb — filled by JS -->
 <div class="breadcrumb" id="breadcrumb">
-<a href="../index.html">Home</a>
+<a href="javascript:history.back()">Projects</a>
 <span>/</span>
 <span id="breadcrumb-category">Projects</span>
 <span>/</span>
@@ -514,29 +490,11 @@
 <div id="not-found">
 <span class="font-mono text-xs text-amber tracking-widest">// 404 · PROJECT NOT FOUND</span>
 <h1 class="font-serif text-4xl text-cream">No project matched that ID.</h1>
-<p class="text-muted text-sm font-body">Check the URL parameter or <a class="text-amber hover:underline" href="../index.html">return to the portfolio</a>.</p>
+<p class="text-muted text-sm font-body">Check the URL parameter or <a class="text-amber hover:underline" href="javascript:history.back()">return to the portfolio</a>.</p>
 </div>
-<!-- ═══════════════════════════════════════════════════════════════════
-    ║  EXCEL PROJECTS
-    ║  IDs: excel-01, excel-02, excel-03, excel-04
-    ╚══════════════════════════════════════════════════════════════════════ -->
-<!-- ─────────────────────────────────────────────────────────────────
-         EXCEL-01 · E-Commerce Data Standardization
-         ── HOW TO EDIT ──────────────────────────────────────────────────
-         • Project header: update category tag, title, meta values, tech tags.
-         • Section 1 (Intro): Replace <p> placeholder text with real background.
-         • Section 2 (Initial Demo): Swap .img-placeholder with a real <img>.
-         • Section 3 (Insights): Update bullet list items with real findings.
-         • Section 4 (Final Demo): Replace .embed-placeholder with <img>/<iframe>.
-    ───────────────────────────────────────────────────────────────────── -->
-<!-- /excel-01 -->
-<!-- ─────────────────────────────────────────────────────────────────
-         EXCEL-02 · Dynamic Sales Dashboard
-    ───────────────────────────────────────────────────────────────────── -->
-<!-- /excel-02 -->
-<!-- ─────────────────────────────────────────────────────────────────
+
          EXCEL-03 · 3-Statement Financial Model
-    ───────────────────────────────────────────────────────────────────── -->
+  
 <article class="project-article" data-id="excel-03">
 <header class="project-header">
 <span class="project-category-tag">⊞ Excel Models · EXCEL-03 · FP&amp;A</span>
@@ -597,83 +555,7 @@
 </div>
 </div>
 </article><!-- /excel-03 -->
-<!-- ─────────────────────────────────────────────────────────────────
-         EXCEL-04 · Budget vs. Actual Variance Analysis
-    ───────────────────────────────────────────────────────────────────── -->
-<!-- /excel-04 -->
-<!-- ═══════════════════════════════════════════════════════════════════
-    ║  SQL PROJECTS
-    ║  IDs: sql-01, sql-02, sql-03, sql-04, sql-05
-    ╚══════════════════════════════════════════════════════════════════════ -->
-<!-- ─────────────────────────────────────────────────────────────────
-         SQL-01 · Data Deduplication & Schema Fix
-         ── HOW TO EDIT ──────────────────────────────────────────────────
-         • Section 2 (Initial Code): Replace the <code> block content
-           with your real SQL setup/raw query.
-         • Section 4 (Output): Replace the output block with actual
-           query results (rows, counts, column headers).
-    ───────────────────────────────────────────────────────────────────── -->
-<!-- /sql-01 -->
-<!-- ─────────────────────────────────────────────────────────────────
-         SQL-02 · Customer Retention Cohorts
-    ───────────────────────────────────────────────────────────────────── -->
-<!-- /sql-02 -->
-<!-- ─────────────────────────────────────────────────────────────────
-         SQL-03 · Window Functions & CTE Mastery
-    ───────────────────────────────────────────────────────────────────── -->
-<!-- /sql-03 -->
-<!-- ─────────────────────────────────────────────────────────────────
-         SQL-04 · Customer Lifetime Value Prediction
-    ───────────────────────────────────────────────────────────────────── -->
-<!-- /sql-04 -->
-<!-- ─────────────────────────────────────────────────────────────────
-         SQL-05 · Inventory Optimization Queries
-    ───────────────────────────────────────────────────────────────────── -->
-<!-- /sql-05 -->
-<!-- ═══════════════════════════════════════════════════════════════════
-    ║  POWER BI PROJECTS
-    ║  IDs: pbi-01, pbi-02, pbi-03, pbi-04
-    ╚══════════════════════════════════════════════════════════════════════ -->
-<!-- ─────────────────────────────────────────────────────────────────
-         PBI-01 · Dynamic HR Executive Dashboard
-    ───────────────────────────────────────────────────────────────────── -->
-<!-- /pbi-01 -->
-<!-- ─────────────────────────────────────────────────────────────────
-         PBI-02 · Live Operations Dashboard
-    ───────────────────────────────────────────────────────────────────── -->
-<!-- /pbi-02 -->
-<!-- ─────────────────────────────────────────────────────────────────
-         PBI-03 · Executive Sales Dashboard
-    ───────────────────────────────────────────────────────────────────── -->
-<!-- /pbi-03 -->
-<!-- ─────────────────────────────────────────────────────────────────
-         PBI-04 · Advanced DAX & Time Intelligence
-    ───────────────────────────────────────────────────────────────────── -->
-<!-- /pbi-04 -->
-<!-- ═══════════════════════════════════════════════════════════════════
-    ║  PYTHON PROJECTS
-    ║  IDs: python-01, python-02, python-03, python-04, python-05
-    ╚══════════════════════════════════════════════════════════════════════ -->
-<!-- ─────────────────────────────────────────────────────────────────
-         PYTHON-01 · Automated Data Cleaning Pipeline
-    ───────────────────────────────────────────────────────────────────── -->
-<!-- /python-01 -->
-<!-- ─────────────────────────────────────────────────────────────────
-         PYTHON-02 · Descriptive Statistical Analysis
-    ───────────────────────────────────────────────────────────────────── -->
-<!-- /python-02 -->
-<!-- ─────────────────────────────────────────────────────────────────
-         PYTHON-03 · Ad-Hoc Churn Analysis
-    ───────────────────────────────────────────────────────────────────── -->
-<!-- /python-03 -->
-<!-- ─────────────────────────────────────────────────────────────────
-         PYTHON-04 · E-Commerce Basket Analysis
-    ───────────────────────────────────────────────────────────────────── -->
-<!-- /python-04 -->
-<!-- ─────────────────────────────────────────────────────────────────
-         PYTHON-05 · Portfolio Risk Optimization
-    ───────────────────────────────────────────────────────────────────── -->
-<!-- /python-05 -->
+
 </main><!-- /main -->
 <!-- ════════════════════════════════════════════
        FOOTER — matches index.html
@@ -692,12 +574,6 @@
        DO NOT REMOVE — handles routing, breadcrumb, and copy button.
   ════════════════════════════════════════════ -->
 <script>
-    /* ─────────────────────────────────────────────────────────────────────
-       PROJECT ROUTING
-       Reads ?id=<slug> from the URL, shows the matching <article
-       data-id="<slug}"> and hides all others. Also updates the breadcrumb.
-    ───────────────────────────────────────────────────────────────────── */
-
     // ── Category metadata map ────────────────────────────────────────────
     // Maps each project ID prefix to a display label and short category name.
     // ADD new entries here when you add new project categories.
