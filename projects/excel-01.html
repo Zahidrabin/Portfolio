@@ -522,6 +522,15 @@
     // Startup Execution Setup Loops
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('id') || 'excel-01';
+    // Remember the category this project belongs to
+const projectCategory =
+  projectId.startsWith('excel-') ? 'tab-excel' :
+  projectId.startsWith('sql-')   ? 'tab-sql' :
+  projectId.startsWith('pbi-')   ? 'tab-powerbi' :
+  projectId.startsWith('python-') ? 'tab-python' :
+  'tab-excel';
+
+sessionStorage.setItem('activeProjectTab', projectCategory);
     
     showProject(projectId);
     document.querySelectorAll('.excel-viewer').forEach(loadExcelViewer);
