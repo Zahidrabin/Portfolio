@@ -441,25 +441,49 @@
     const tabs = document.querySelectorAll('#tab-nav button');
     const panels = document.querySelectorAll('.project-panel');
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => {
-          t.classList.remove('text-amber', 'border-amber', 'bg-panel', 'active-tab-btn');
-          t.classList.add('text-muted', 'border-border');
-        });
-        tab.classList.add('text-amber', 'border-amber', 'bg-panel', 'active-tab-btn');
-        tab.classList.remove('text-muted', 'border-border');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
 
-        const target = tab.getAttribute('data-target');
-        panels.forEach(p => {
-          if (p.id === target) {
-            p.classList.remove('hidden');
-          } else {
-            p.classList.add('hidden');
-          }
-        });
-      });
+    tabs.forEach(t => {
+      t.classList.remove(
+        'text-amber',
+        'border-amber',
+        'bg-panel',
+        'active-tab-btn'
+      );
+
+      t.classList.add(
+        'text-muted',
+        'border-border'
+      );
     });
+
+    tab.classList.add(
+      'text-amber',
+      'border-amber',
+      'bg-panel',
+      'active-tab-btn'
+    );
+
+    tab.classList.remove(
+      'text-muted',
+      'border-border'
+    );
+
+    const target = tab.getAttribute('data-target');
+
+    panels.forEach(p => {
+      if (p.id === target) {
+        p.classList.remove('hidden');
+      } else {
+        p.classList.add('hidden');
+      }
+    });
+
+    // Remember which project category the visitor selected
+    sessionStorage.setItem('activeProjectTab', target);
+  });
+});
 
     // Anchor toggle action trigger
     const projectsSection = document.getElementById('projects-section');
