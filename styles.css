@@ -15,7 +15,7 @@
   /* Text */
   --cream: #e5eaf2;      /* main text (soft white-blue, NOT pure white) */
   --muted: #a3b4cc;      /* secondary text */
-  --dimmed: #6b7a90;     /* low emphasis */
+  --dimmed: #8b9ab2;     /* low emphasis */
 
   --radius: 2px;
   --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
